@@ -29,4 +29,8 @@ public class Player {
         _coins += i;
     }
 
+    public void decCoins(int cost) {
+        _coins -= cost;
+    }
+
 }

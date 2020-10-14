@@ -24,6 +24,12 @@ public class Slayer {
         _y = y;
     }
 
+    // Getters
+
+    public static int getCost() {
+        return _COST;
+    }
+
     // Methods
     public String toString() {
         return "S[" + _hp + "]";

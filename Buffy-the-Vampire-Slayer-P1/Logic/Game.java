@@ -3,6 +3,7 @@ package Logic;
 import java.util.Random;
 
 import Objects.Player;
+import Objects.Slayer;
 import Objects.Vampire;
 
 public class Game {
@@ -26,6 +27,8 @@ public class Game {
         _cycle = 0;
         _lvl = Level.parse(l);
         _seed = Long.parseLong(seed);
+        _dimX = _lvl.getX();
+        _dimY = _lvl.getY();
         _rand = new Random(_seed);
         _pl = new Player(this, 0);
         Vampire.setNumVamp(_lvl.getNumVamp());
@@ -45,7 +48,6 @@ public class Game {
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             // Spawn new vampire
         }
-        Vampire.getNumVamp();
         _cycle++;
     }
 
@@ -57,6 +59,22 @@ public class Game {
     }
 
     public boolean checkEnd() {
-        return true;
+        if (Vampire.getNumVamp() == 0 && Vampire.getOnBoard() == 0) {
+            return true;
+        }
+        if(/*Vampire has landed*/){
+                return true;
+            }
+        return false;
+    }
+
+    public boolean addSlayer() {
+        if (_pl.getCoins() <= Slayer.getCost()) {
+            // Add Slayer to array
+            _pl.decCoins(Slayer.getCost());
+            return true;
+        }
+
+        return false;
     }
 }
