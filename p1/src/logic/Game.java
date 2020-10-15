@@ -6,6 +6,9 @@ import logic.objects.Player;
 import logic.objects.Slayer;
 import logic.objects.Vampire;
 
+/**
+ * Main logic of the game
+ */
 public class Game {
 
     // Attributes
@@ -28,6 +31,11 @@ public class Game {
     private static String vampOnBoardStr = "Vampires on the board: ";
 
     // Constructor
+    /**
+     * 
+     * @param seed seed for random calculations
+     * @param l    mode of difficulty
+     */
     public Game(Long seed, Level l) {
         _cycle = 0;
         _lvl = l;
@@ -43,19 +51,34 @@ public class Game {
     }
 
     // Getters
+    /**
+     * 
+     * @return number of colums
+     */
     public int getX() {
         return _dimX;
     }
 
+    /**
+     * 
+     * @return number of rows
+     */
     public int getY() {
         return _dimY;
     }
 
+    /**
+     * 
+     * @return message displayed when the game has ended
+     */
     public String getFinalMsg() {
         return _finalMsg;
     }
 
     // Methods
+    /**
+     * All the things that happen from one cycle to another
+     */
     public void update() {
         if (_rand.nextDouble() >= 0.5) {
             _pl.addCoins(10);
@@ -90,6 +113,11 @@ public class Game {
         System.out.println(vampOnBoardStr + Vampire.getOnBoard()); // Display of the number of vampires on the board
     }
 
+    /**
+     * Checks all the posible endings of the game
+     * 
+     * @return true if the game has ended, false if not
+     */
     public boolean checkEnd() {
         if (Vampire.getNumVamp() == 0 && Vampire.getOnBoard() == 0) {
             _finalMsg = "You win!";
@@ -102,6 +130,11 @@ public class Game {
         return false;
     }
 
+    /**
+     * Command exectution to add a slayer to the board
+     * 
+     * @return
+     */
     public boolean addSlayer() {
         if (_pl.getCoins() <= Slayer.getCost()) {
             // Add Slayer to array
@@ -112,6 +145,10 @@ public class Game {
         return false;
     }
 
+    /**
+     * 
+     * @return the number of vampires in this level
+     */
     public int getNumVamps() {
         return _lvl.getNumVamp();
     }
