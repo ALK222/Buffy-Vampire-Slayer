@@ -2,9 +2,10 @@ package logic;
 
 import java.util.Random;
 
-import logic.objects.Player;
-import logic.objects.Slayer;
-import logic.objects.Vampire;
+import objects.GameObjectBoard;
+import objects.Player;
+import objects.Slayer;
+import objects.Vampire;
 
 public class Game {
 
