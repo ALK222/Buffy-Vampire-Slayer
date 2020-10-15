@@ -2,7 +2,7 @@ package launcher;
 
 import java.util.Scanner;
 
-import logic.Controller;
+import control.Controller;
 import logic.Game;
 import logic.Level;
 
