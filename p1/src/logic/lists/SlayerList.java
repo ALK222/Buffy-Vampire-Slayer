@@ -34,4 +34,10 @@ public class SlayerList {
         return _list[n].toString();
     }
 
+    public void attack() {
+        for (int i = 0; i < _counter; i++) {
+            _list[i].attack();
+        }
+    }
+
 }

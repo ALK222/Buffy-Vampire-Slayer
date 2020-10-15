@@ -51,6 +51,10 @@ public class Game {
         return _dimY;
     }
 
+    public String getFinalMsg() {
+        return _finalMsg;
+    }
+
     // Methods
     public void update() {
         if (_rand.nextDouble() >= 0.5) {
@@ -59,8 +63,9 @@ public class Game {
 
         _board.vampMovement();
 
-        // Slayers attack
-        // Vampires attack
+        _board.slayerAttacks();
+
+        _board.vampAttacks();
 
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
@@ -74,6 +79,10 @@ public class Game {
         _cycle++;
     }
 
+    /**
+     * Prints all the info of the game: cycles passed, coins, vampires remaining to
+     * appear and vampires on the board
+     */
     public void printInfo() {
         System.out.println(cycleNum + _cycle); // Display for the number of the current game cycle
         System.out.println(coinStr + _pl.getCoins()); // Display of the current coin counter
@@ -107,18 +116,48 @@ public class Game {
         return _lvl.getNumVamp();
     }
 
+    /**
+     * Returns a string with the character at a given point
+     * 
+     * @param i x coordinate
+     * @param j y coordinate
+     * @return The string representation of a character or a black string if there
+     *         is no character there
+     */
     public String characterAtToString(int i, int j) {
         return _board.toString(i, j);
     }
 
+    /**
+     * Searchs if a Slayer is in a given set of coordinates
+     * 
+     * @param i x coordinate
+     * @param j y coordinate
+     * @return the position of the slayer in that point or -1 if there is no slayer
+     *         in that point
+     */
     public int slayerIn(int i, int j) {
         return _board.slayerIn(i, j);
     }
 
+    /**
+     * Searchs if a vampire is in a given set of coordinates
+     * 
+     * @param i x coordinate
+     * @param j y coordinate
+     * @return the position on the array of the vampire in that point or -1 if there
+     *         is no vampire in that point
+     */
     public int vampIn(int i, int j) {
         return _board.vampIn(i, j);
     }
 
+    /**
+     * Executes an attack on a vampire
+     * 
+     * @param n number of the vampire on the list
+     * @param d damage that the vampire will take
+     */
     public void attackVamp(int n, int d) {
         _board.attackVamp(n, d);
     }
