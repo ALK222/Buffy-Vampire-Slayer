@@ -1,10 +1,11 @@
-package Logic;
+package logic;
 
 import java.util.Random;
 
-import Objects.Player;
-import Objects.Slayer;
-import Objects.Vampire;
+import objects.Player;
+import objects.Slayer;
+import objects.Vampire;
+import objects.VampireList;
 
 public class Game {
 
@@ -16,6 +17,8 @@ public class Game {
     private Level _lvl;
     private Player _pl;
     private Random _rand;
+
+    private VampireList _vampList;
 
     // String tags
     private static String cycleNum = "Number of cycles: ";
@@ -33,6 +36,7 @@ public class Game {
         _pl = new Player(this, 0);
         Vampire.setNumVamp(_lvl.getNumVamp());
         Vampire.setOnBoard(0);
+        _vampList = new VampireList(_lvl.getNumVamp())
     }
 
     // Methods
@@ -46,7 +50,8 @@ public class Game {
         // Vampires attack
 
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
-            // Spawn new vampire
+            Vampire aux = new Vampire(hp, x, y);
+            _vampList.add(aux);
         }
         _cycle++;
     }
@@ -62,9 +67,9 @@ public class Game {
         if (Vampire.getNumVamp() == 0 && Vampire.getOnBoard() == 0) {
             return true;
         }
-        if(/*Vampire has landed*/){
-                return true;
-            }
+        if (_vampList.haveLanded()) {
+            return true;
+        }
         return false;
     }
 

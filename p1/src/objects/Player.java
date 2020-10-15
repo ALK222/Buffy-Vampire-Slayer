@@ -1,6 +1,6 @@
-package Objects;
+package objects;
 
-import Logic.Game;
+import logic.Game;
 
 public class Player {
 
