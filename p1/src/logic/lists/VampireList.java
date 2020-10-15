@@ -5,7 +5,6 @@ import logic.objects.Vampire;
 public class VampireList {
 
     private Vampire[] _list;
-    private int _vampInList;
 
     public VampireList(int size) {
         _list = new Vampire[3];
@@ -46,6 +45,10 @@ public class VampireList {
         for (int i = 0; i < Vampire.getOnBoard(); i++) {
             _list[i].movement();
         }
+    }
+
+    public void attackVamp(int n, int d) {
+        _list[n].damage(d);
     }
 
 }

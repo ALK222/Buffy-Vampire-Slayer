@@ -29,8 +29,8 @@ public class GameObjectBoard {
         _sList.add(aux);
     }
 
-    public boolean vampIn(int x, int y) {
-        return _vList.isIn(x, y) != -1;
+    public int vampIn(int x, int y) {
+        return _vList.isIn(x, y);
     }
 
     public String toString(int i, int j) {
@@ -47,6 +47,14 @@ public class GameObjectBoard {
 
     public void vampMovement() {
         _vList.movement();
+    }
+
+    public int slayerIn(int i, int j) {
+        return _sList.isIn(i, j);
+    }
+
+    public void attackVamp(int n, int d) {
+        _vList.attackVamp(n, d);
     }
 
 }

@@ -16,6 +16,7 @@ public class Slayer {
     private int _hp;
     private int _x;
     private int _y;
+    private static int _DAMAGE = 1;
 
     // Constructor
     public Slayer(Game game, int x, int y) {
@@ -30,11 +31,6 @@ public class Slayer {
         return _COST;
     }
 
-    // Methods
-    public String toString() {
-        return "S[" + _hp + "]";
-    }
-
     public int getX() {
         return _x;
     }
@@ -42,4 +38,22 @@ public class Slayer {
     public int getY() {
         return _y;
     }
+
+    // Methods
+    public String toString() {
+        return "S[" + _hp + "]";
+    }
+
+    public void attack() {
+        boolean found = false;
+        int i = 0;
+        while (!found && i < _game.getX()) {
+            int n = _game.vampIn(i, _y);
+            if (n != 1) {
+                found = true;
+                _game.attackVamp(n, _DAMAGE);
+            }
+        }
+    }
+
 }

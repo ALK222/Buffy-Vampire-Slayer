@@ -1,5 +1,7 @@
 package logic.objects;
 
+import logic.Game;
+
 public class Vampire {
     /**
      * 
@@ -18,14 +20,16 @@ public class Vampire {
     private int _x;
     private int _y;
     private int _cycle;
+    private Game _game;
 
     // Constructor
 
-    public Vampire(int hp, int x, int y) {
+    public Vampire(int hp, int x, int y, Game game) {
         _hp = hp;
         _x = x;
         _y = y;
         _cycle = 0;
+        _game = game;
     }
 
     // Getters
@@ -79,10 +83,17 @@ public class Vampire {
     }
 
     public void movement() {
-        if (_cycle % 2 == 0 && _cycle != 0) {
-            _x -= 1;
+        if (_game.slayerIn(_x - 1, _y) == -1) {
+            if (_cycle % 2 == 0 && _cycle != 0) {
+                _x -= 1;
+            }
+            _cycle++;
         }
-        _cycle++;
+
+    }
+
+    public void damage(int d) {
+        _hp -= d;
     }
 
 }

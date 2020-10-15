@@ -19,6 +19,7 @@ public class Game {
     private Random _rand;
 
     private GameObjectBoard _board;
+    private String _finalMsg;
 
     // String tags
     private static String cycleNum = "Number of cycles: ";
@@ -38,6 +39,7 @@ public class Game {
         Vampire.setNumVamp(_lvl.getNumVamp());
         Vampire.setOnBoard(0);
         _board = new GameObjectBoard(this);
+        _finalMsg = "This should not be seen";
     }
 
     // Getters
@@ -63,10 +65,10 @@ public class Game {
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY - 1);
-            while (_board.vampIn(x, y)) {
+            while (_board.vampIn(x, y) != -1) {
                 x = _rand.nextInt(_dimX);
             }
-            Vampire aux = new Vampire(_VAMPIREHEALTH, x, y);
+            Vampire aux = new Vampire(_VAMPIREHEALTH, x, y, this);
             _board.add(aux);
         }
         _cycle++;
@@ -81,9 +83,11 @@ public class Game {
 
     public boolean checkEnd() {
         if (Vampire.getNumVamp() == 0 && Vampire.getOnBoard() == 0) {
+            _finalMsg = "You win!";
             return true;
         }
         if (_board.haveLanded()) {
+            _finalMsg = "Game over!";
             return true;
         }
         return false;
@@ -105,5 +109,17 @@ public class Game {
 
     public String characterAtToString(int i, int j) {
         return _board.toString(i, j);
+    }
+
+    public int slayerIn(int i, int j) {
+        return _board.slayerIn(i, j);
+    }
+
+    public int vampIn(int i, int j) {
+        return _board.vampIn(i, j);
+    }
+
+    public void attackVamp(int n, int d) {
+        _board.attackVamp(n, d);
     }
 }

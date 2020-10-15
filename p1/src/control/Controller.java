@@ -38,10 +38,10 @@ public class Controller {
             command = _in.nextLine().toLowerCase().split(" ");
             _game.update();
         }
+        System.out.println(_game.getFinalMsg());
     }
 
     public void printGame() {
         System.out.println(_printer);
     }
-
 }
