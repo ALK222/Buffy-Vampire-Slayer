@@ -1,7 +1,6 @@
 package utils;
 
 import logic.Game;
-import utils.MyStringUtils;
 
 public class GamePrinter {
 
@@ -18,7 +17,12 @@ public class GamePrinter {
     }
 
     private void encodeGame(Game game) {
-        // TODO fill your code
+        board = new String[numRows][numCols];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                board[i][j] = game.characterAtToString(i, j);
+            }
+        }
     }
 
     public String toString() {

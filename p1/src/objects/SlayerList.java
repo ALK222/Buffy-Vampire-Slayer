@@ -16,4 +16,20 @@ public class SlayerList {
         _counter++;
     }
 
+    public int isIn(int i, int j) {
+        int n = 0;
+        boolean found = false;
+        while (!found || n < _counter) {
+            if (_list[n].getX() == i && _list[i].getY() == j) {
+                return n;
+            }
+            n++;
+        }
+        return -1;
+    }
+
+    public String toString(int n) {
+        return _list[n].toString();
+    }
+
 }

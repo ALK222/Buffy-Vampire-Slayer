@@ -27,7 +27,19 @@ public class GameObjectBoard {
     }
 
     public boolean vampIn(int x, int y) {
-        return _vList.isIn(x, y);
+        return _vList.isIn(x, y) != -1;
+    }
+
+    public String toString(int i, int j) {
+        int n = _vList.isIn(i, j);
+        if (n != -1) {
+            return _vList.toString(n);
+        }
+        n = _sList.isIn(i, j);
+        if (n != -1) {
+            return _sList.toString(n);
+        }
+        return "";
     }
 
 }

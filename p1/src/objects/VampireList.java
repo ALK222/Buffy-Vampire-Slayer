@@ -23,15 +23,20 @@ public class VampireList {
         _vampInList++;
     }
 
-    public boolean isIn(int x, int y) {
+    public int isIn(int x, int y) {
         int i = 0;
         boolean found = false;
         while (!found || i < _vampInList) {
             if (_list[i].getX() == x && _list[i].getY() == y) {
-                found = true;
+                return i;
             }
+            i++;
         }
-        return found;
+        return -1;
+    }
+
+    public String toString(int n) {
+        return _list[n].toString();
     }
 
 }

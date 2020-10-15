@@ -92,4 +92,8 @@ public class Game {
     public int getNumVamps() {
         return _lvl.getNumVamp();
     }
+
+    public String characterAtToString(int i, int j) {
+        return _board.toString(i, j);
+    }
 }

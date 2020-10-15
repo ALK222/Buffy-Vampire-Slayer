@@ -34,4 +34,12 @@ public class Slayer {
     public String toString() {
         return "S[" + _hp + "]";
     }
+
+    public int getX() {
+        return _x;
+    }
+
+    public int getY() {
+        return _y;
+    }
 }
