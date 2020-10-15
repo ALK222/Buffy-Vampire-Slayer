@@ -11,12 +11,24 @@ public class GamePrinter {
     String[][] board;
     final String space = " ";
 
+    /**
+     * 
+     * @param game instance of the current game
+     * @param cols total number of columns
+     * @param rows total number of rows
+     */
     public GamePrinter(Game game, int cols, int rows) {
         this.game = game;
         this.numRows = rows;
         this.numCols = cols;
     }
 
+    /**
+     * Translates the arrays to an array of strings divided in cells
+     * 
+     * @param game instance of the current game
+     * 
+     */
     private void encodeGame(Game game) {
         board = new String[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
@@ -26,6 +38,9 @@ public class GamePrinter {
         }
     }
 
+    /**
+     * @return the board of the game in the current cycle
+     */
     public String toString() {
         encodeGame(game);
         int cellSize = 7;
