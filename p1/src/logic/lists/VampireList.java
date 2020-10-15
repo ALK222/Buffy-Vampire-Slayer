@@ -89,4 +89,13 @@ public class VampireList {
         _list[n].damage(d);
     }
 
+    /**
+     * Executes the attacks of all vampires
+     */
+    public void attack() {
+        for (int i = 0; i < Vampire.getOnBoard(); i++) {
+            _list[i].attack();
+        }
+    }
+
 }

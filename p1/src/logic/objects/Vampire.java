@@ -140,7 +140,6 @@ public class Vampire {
             }
             _cycle++;
         }
-
     }
 
     /**
@@ -149,6 +148,16 @@ public class Vampire {
      */
     public void damage(int d) {
         _hp -= d;
+    }
+
+    /**
+     * checks if it can attack a slayer
+     */
+    public void attack() {
+        int n = _game.slayerIn(_x - 1, _y);
+        if (n != -1) {
+            _game.attackSlayer(n, _DAMAGE);
+        }
     }
 
 }

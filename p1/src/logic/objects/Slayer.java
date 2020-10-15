@@ -80,4 +80,12 @@ public class Slayer {
         }
     }
 
+    /**
+     * 
+     * @param d damage taken by a slayer
+     */
+    public void damage(int d) {
+        _hp -= d;
+    }
+
 }

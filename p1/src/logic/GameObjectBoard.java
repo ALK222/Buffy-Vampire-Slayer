@@ -120,4 +120,21 @@ public class GameObjectBoard {
         _sList.attack();
     }
 
+    /**
+     * Exectues all the slayers attacks
+     */
+    public void vampAttacks() {
+        _vList.attack();
+    }
+
+    /**
+     * Executes an attack on a slayer
+     * 
+     * @param n number of the slayer on the list
+     * @param d damage that the slayer will take
+     */
+    public void attackSlayer(int n, int d) {
+        _sList.attackSlayer(n, d);
+    }
+
 }

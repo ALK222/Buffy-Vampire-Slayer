@@ -67,4 +67,14 @@ public class SlayerList {
         }
     }
 
+    /**
+     * Inflicts an attack on a slayer
+     * 
+     * @param n position of the slayer on the array
+     * @param d damage that the slayer will take
+     */
+    public void attackSlayer(int n, int d) {
+        _list[n].damage(d);
+    }
+
 }
