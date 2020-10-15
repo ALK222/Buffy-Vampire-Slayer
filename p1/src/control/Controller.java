@@ -5,6 +5,9 @@ import java.util.Scanner;
 import logic.Game;
 import view.GamePrinter;
 
+/**
+ * Controller of the game, checks for commands and checks for the game over
+ */
 public class Controller {
 
     // Atributos
@@ -29,6 +32,9 @@ public class Controller {
     }
 
     // Metodos
+    /**
+     * Cycles of the game
+     */
     public void run() {
         String[] command;
         while (!_game.checkEnd()) {

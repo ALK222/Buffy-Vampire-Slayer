@@ -6,6 +6,10 @@ import control.Controller;
 import logic.Game;
 import logic.Level;
 
+/**
+ * @author Alejandro Barrachina Argudo
+ * @author Jaime Benedí
+ */
 public class BuffyVampireSlayer {
     public static final String version = "1.0";
     public static final String usageMsg = "Usage: Vampire slayer <level> [seed]";
