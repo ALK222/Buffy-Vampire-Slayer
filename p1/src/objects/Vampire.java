@@ -17,6 +17,7 @@ public class Vampire {
     private int _hp;
     private int _x;
     private int _y;
+    private int _cycle;
 
     // Constructor
 
@@ -24,6 +25,7 @@ public class Vampire {
         _hp = hp;
         _x = x;
         _y = y;
+        _cycle = 0;
     }
 
     // Getters
@@ -57,7 +59,7 @@ public class Vampire {
     // Methods
 
     public String toString() {
-        return "V[" + "]";
+        return "V[" + _hp + "]";
     }
 
     public boolean hasArrived() {
@@ -74,6 +76,13 @@ public class Vampire {
 
     public static void decOnBoard(int i) {
         _ONBOARD -= i;
+    }
+
+    public void movement() {
+        if (_cycle % 2 == 0 && _cycle != 0) {
+            _x -= 1;
+        }
+        _cycle++;
     }
 
 }

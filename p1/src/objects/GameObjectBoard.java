@@ -31,15 +31,19 @@ public class GameObjectBoard {
     }
 
     public String toString(int i, int j) {
-        int n = _vList.isIn(i, j);
+        int n = _vList.isIn(j, i);
         if (n != -1) {
             return _vList.toString(n);
         }
-        n = _sList.isIn(i, j);
+        n = _sList.isIn(j, i);
         if (n != -1) {
             return _sList.toString(n);
         }
         return "";
+    }
+
+    public void vampMovement() {
+        _vList.movement();
     }
 
 }

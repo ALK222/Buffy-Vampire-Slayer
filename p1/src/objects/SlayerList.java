@@ -19,7 +19,7 @@ public class SlayerList {
     public int isIn(int i, int j) {
         int n = 0;
         boolean found = false;
-        while (!found || n < _counter) {
+        while (!found && n < _counter) {
             if (_list[n].getX() == i && _list[i].getY() == j) {
                 return n;
             }

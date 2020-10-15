@@ -2,11 +2,14 @@ package logic;
 
 import java.util.Scanner;
 
+import utils.GamePrinter;
+
 public class Controller {
 
     // Atributos
     private Game _game;
     private Scanner _in;
+    private GamePrinter _printer;
 
     public final String prompt = "Command > ";
     public static final String helpMsg = String.format(
@@ -21,6 +24,7 @@ public class Controller {
     public Controller(Game game, Scanner scanner) {
         _game = game;
         _in = scanner;
+        _printer = new GamePrinter(_game, _game.getX(), _game.getY());
     }
 
     // Metodos
@@ -28,7 +32,7 @@ public class Controller {
         String[] command;
         while (!_game.checkEnd()) {
             _game.printInfo();
-            // Draw board
+            printGame();
             System.out.print(prompt);
             command = _in.nextLine().toLowerCase().split(" ");
             _game.update();
@@ -36,7 +40,7 @@ public class Controller {
     }
 
     public void printGame() {
-        System.out.println(_game);
+        System.out.println(_printer);
     }
 
 }
