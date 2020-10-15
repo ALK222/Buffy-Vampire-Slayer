@@ -1,4 +1,6 @@
-package objects;
+package logic.lists;
+
+import logic.objects.Vampire;
 
 public class VampireList {
 
@@ -9,7 +11,7 @@ public class VampireList {
         _list = new Vampire[3];
     }
 
-    protected boolean haveLanded() {
+    public boolean haveLanded() {
         for (int i = 0; i < _vampInList; i++) {
             if (_list[i].hasArrived()) {
                 return true;
@@ -18,7 +20,7 @@ public class VampireList {
         return false;
     }
 
-    protected void add(Vampire aux) {
+    public void add(Vampire aux) {
         _list[_vampInList] = aux;
         _vampInList++;
     }

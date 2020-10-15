@@ -1,4 +1,6 @@
-package objects;
+package logic.lists;
+
+import logic.objects.Slayer;
 
 public class SlayerList {
 
@@ -11,7 +13,7 @@ public class SlayerList {
         _counter = 0;
     }
 
-    protected void add(Slayer aux) {
+    public void add(Slayer aux) {
         _list[_counter] = aux;
         _counter++;
     }

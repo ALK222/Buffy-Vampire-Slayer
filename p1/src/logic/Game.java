@@ -27,6 +27,7 @@ public class Game {
     private static String vampStr = "Remaining vampires: ";
     private static String vampOnBoardStr = "Vampires on the board: ";
 
+    // Constructor
     public Game(Long seed, Level l) {
         _cycle = 0;
         _lvl = l;
@@ -40,19 +41,29 @@ public class Game {
         _board = new GameObjectBoard(this);
     }
 
+    // Getters
+    public int getX() {
+        return _dimX;
+    }
+
+    public int getY() {
+        return _dimY;
+    }
+
     // Methods
     public void update() {
         if (_rand.nextDouble() >= 0.5) {
             _pl.addCoins(10);
         }
-        // Vampires advance
+
+        _board.vampMovement();
 
         // Slayers attack
         // Vampires attack
 
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
-            int x = _rand.nextInt(_dimX);
-            int y = _dimY - 1;
+            int x = _dimX - 1;
+            int y = _rand.nextInt(_dimY - 1);
             while (_board.vampIn(x, y)) {
                 x = _rand.nextInt(_dimX);
             }
@@ -64,7 +75,7 @@ public class Game {
 
     public void printInfo() {
         System.out.println(cycleNum + _cycle); // Display for the number of the current game cycle
-        System.out.print(coinStr + _pl.getCoins()); // Display of the current coin counter
+        System.out.println(coinStr + _pl.getCoins()); // Display of the current coin counter
         System.out.println(vampStr + Vampire.getNumVamp()); // Display of the number of vampires remaining to spawn
         System.out.println(vampOnBoardStr + Vampire.getOnBoard()); // Display of the number of vampires on the board
     }
