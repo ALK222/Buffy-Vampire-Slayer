@@ -2,23 +2,24 @@ package logic;
 
 import java.util.Random;
 
+import objects.GameObjectBoard;
 import objects.Player;
 import objects.Slayer;
 import objects.Vampire;
-import objects.VampireList;
 
 public class Game {
 
     // Attributes
     private int _dimX;
     private int _dimY;
+    private static final int _VAMPIREHEALTH = 5;
     private int _cycle;
     private long _seed;
     private Level _lvl;
     private Player _pl;
     private Random _rand;
 
-    private VampireList _vampList;
+    private GameObjectBoard _board;
 
     // String tags
     private static String cycleNum = "Number of cycles: ";
@@ -36,7 +37,7 @@ public class Game {
         _pl = new Player(this, 0);
         Vampire.setNumVamp(_lvl.getNumVamp());
         Vampire.setOnBoard(0);
-        _vampList = new VampireList(_lvl.getNumVamp())
+        _board = new GameObjectBoard(this);
     }
 
     // Methods
@@ -50,8 +51,13 @@ public class Game {
         // Vampires attack
 
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
-            Vampire aux = new Vampire(, x, y);
-            _vampList.add(aux);
+            int x = _rand.nextInt(_dimX);
+            int y = _dimY - 1;
+            while (_board.vampIn(x, y)) {
+                x = _rand.nextInt(_dimX);
+            }
+            Vampire aux = new Vampire(_VAMPIREHEALTH, x, y);
+            _board.add(aux);
         }
         _cycle++;
     }
@@ -67,7 +73,7 @@ public class Game {
         if (Vampire.getNumVamp() == 0 && Vampire.getOnBoard() == 0) {
             return true;
         }
-        if (_vampList.haveLanded()) {
+        if (_board.haveLanded()) {
             return true;
         }
         return false;
@@ -81,5 +87,9 @@ public class Game {
         }
 
         return false;
+    }
+
+    public int getNumVamps() {
+        return _lvl.getNumVamp();
     }
 }

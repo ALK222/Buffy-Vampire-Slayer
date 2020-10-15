@@ -36,6 +36,14 @@ public class Vampire {
         return _ONBOARD;
     }
 
+    public int getX() {
+        return _x;
+    }
+
+    public int getY() {
+        return _y;
+    }
+
     // Setters
 
     public static void setOnBoard(int i) {
@@ -67,4 +75,5 @@ public class Vampire {
     public static void decOnBoard(int i) {
         _ONBOARD -= i;
     }
+
 }
