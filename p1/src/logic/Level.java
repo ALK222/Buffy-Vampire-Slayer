@@ -1,12 +1,9 @@
 package logic;
 
+/**
+ * Level based numbers
+ */
 public enum Level {
-
-    /*
-     *
-     * Level based numers
-     *
-     */
 
     // Enum definitions
     EASY("easy", 3, 0.1, 8, 4), HARD("hard", 5, 0.2, 7, 3), INSANE("insane", 10, 0.3, 5, 6);
@@ -19,6 +16,14 @@ public enum Level {
     private int _y; // Y size for board
 
     // Constructor
+    /**
+     * 
+     * @param name    name of the mode
+     * @param numVamp number of vampires to appear
+     * @param freq    frequency of vampire spawn
+     * @param x       number of columns
+     * @param y       number of rows
+     */
     Level(String name, int numVamp, double freq, int x, int y) {
         _name = name;
         _numVampiros = numVamp;
@@ -46,6 +51,12 @@ public enum Level {
     }
 
     // Methods
+    /**
+     * Parse a string into a level
+     * 
+     * @param inputString string to parse
+     * @return null if string is not recognized, a level if match
+     */
     public static Level parse(String inputString) {
         for (Level level : Level.values())
             if (level.name().equalsIgnoreCase(inputString))
