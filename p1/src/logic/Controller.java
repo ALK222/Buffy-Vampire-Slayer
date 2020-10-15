@@ -18,13 +18,9 @@ public class Controller {
     public static final String invalidPositionMsg = String.format("Invalid position");
 
     // Constructor
-    public Controller(Game g) {
-        _game = g;
-        _in = new Scanner(System.in);
-    }
-
-    public void printGame() {
-        System.out.println(game);
+    public Controller(Game game, Scanner scanner) {
+        _game = game;
+        _in = scanner;
     }
 
     // Metodos
@@ -37,6 +33,10 @@ public class Controller {
             command = _in.nextLine().toLowerCase().split(" ");
             _game.update();
         }
+    }
+
+    public void printGame() {
+        System.out.println(_game);
     }
 
 }

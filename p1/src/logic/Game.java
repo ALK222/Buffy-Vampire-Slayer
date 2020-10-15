@@ -26,10 +26,10 @@ public class Game {
     private static String vampStr = "Remaining vampires: ";
     private static String vampOnBoardStr = "Vampires on the board: ";
 
-    public Game(String l, String seed) {
+    public Game(Long seed, Level l) {
         _cycle = 0;
-        _lvl = Level.parse(l);
-        _seed = Long.parseLong(seed);
+        _lvl = l;
+        _seed = seed;
         _dimX = _lvl.getX();
         _dimY = _lvl.getY();
         _rand = new Random(_seed);
@@ -50,7 +50,7 @@ public class Game {
         // Vampires attack
 
         if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
-            Vampire aux = new Vampire(hp, x, y);
+            Vampire aux = new Vampire(, x, y);
             _vampList.add(aux);
         }
         _cycle++;
