@@ -133,7 +133,7 @@ public class Game {
     /**
      * Command exectution to add a slayer to the board
      * 
-     * @return
+     * @return true if slayer can be added, false if not
      */
     public boolean addSlayer() {
         if (_pl.getCoins() <= Slayer.getCost()) {
