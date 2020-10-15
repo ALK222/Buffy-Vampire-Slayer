@@ -5,26 +5,48 @@ import logic.lists.VampireList;
 import logic.objects.Slayer;
 import logic.objects.Vampire;
 
+/**
+ * Board of the game, where al the moves and attacks are calculated
+ */
 public class GameObjectBoard {
 
     private VampireList _vList;
     private SlayerList _sList;
     private Game _game;
 
+    /**
+     * 
+     * @param game instance of the current game
+     */
     public GameObjectBoard(Game game) {
         _game = game;
         _vList = new VampireList(_game.getNumVamps());
         _sList = new SlayerList();
     }
 
+    /**
+     * Checks if the vampires had arrived to de final column
+     * 
+     * @return true if they have, false if not
+     */
     public boolean haveLanded() {
         return _vList.haveLanded();
     }
 
+    /**
+     * Adds a vampire to the board
+     * 
+     * @param aux vampire to add
+     */
     public void add(Vampire aux) {
         _vList.add(aux);
     }
 
+    /**
+     * Adds a slayer to the board
+     * 
+     * @param aux slayer to add
+     */
     public void add(Slayer aux) {
         _sList.add(aux);
     }
