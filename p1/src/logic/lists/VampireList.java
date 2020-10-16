@@ -14,7 +14,8 @@ public class VampireList {
      * @param size max number of vampires that can be in the board at a time
      */
     public VampireList(int size) {
-        _list = new Vampire[3];
+        _list = new Vampire[size];
+        Vampire.setOnBoard(0);
     }
 
     /**
@@ -50,8 +51,7 @@ public class VampireList {
      */
     public int isIn(int x, int y) {
         int i = 0;
-        boolean found = false;
-        while (!found && i < Vampire.getOnBoard()) {
+        while (i < Vampire.getOnBoard()) {
             if (_list[i].getX() == x && _list[i].getY() == y) {
                 return i;
             }
@@ -95,6 +95,38 @@ public class VampireList {
     public void attack() {
         for (int i = 0; i < Vampire.getOnBoard(); i++) {
             _list[i].attack();
+        }
+    }
+
+    /**
+     * Resets the vampire list
+     */
+    public void reset() {
+        Vampire.setOnBoard(0);
+    }
+
+    /**
+     * Removes the dead vampires from the game
+     */
+    public void removeDead() {
+        int deleted = 0;
+        for (int i = 0; i < Vampire.getOnBoard(); i++) {
+            if (_list[i].getHp() <= 0) {
+                deleteVampire(i);
+                deleted++;
+            }
+        }
+        Vampire.decOnBoard(deleted);
+    }
+
+    /**
+     * Aux method for removeDead
+     */
+    public void deleteVampire(int i) {
+        if (Vampire.getOnBoard() > 1) {
+            for (int n = i; n < Vampire.getOnBoard() - 1; n++) {
+                _list[n] = _list[n + 1];
+            }
         }
     }
 

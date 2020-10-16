@@ -116,7 +116,6 @@ public class GameObjectBoard {
      * Exectues all the slayers attacks
      */
     public void slayerAttacks() {
-
         _sList.attack();
     }
 
@@ -135,6 +134,30 @@ public class GameObjectBoard {
      */
     public void attackSlayer(int n, int d) {
         _sList.attackSlayer(n, d);
+    }
+
+    /**
+     * Resets the board
+     */
+    public void reset() {
+        _sList.reset();
+        _vList.reset();
+    }
+
+    /**
+     * Remove dead objects from both lists
+     */
+    public void removeDead() {
+        _sList.removeDead();
+        _vList.removeDead();
+    }
+
+    /**
+     * 
+     * @return true if the slayer array is complete, false if not
+     */
+    public boolean slayerComplete() {
+        return _sList.getSize() - 1 >= _sList.getCounter();
     }
 
 }

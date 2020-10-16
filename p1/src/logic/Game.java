@@ -43,11 +43,10 @@ public class Game {
         _dimX = _lvl.getX();
         _dimY = _lvl.getY();
         _rand = new Random(_seed);
-        _pl = new Player(this, 0);
+        _pl = new Player(50); // If 0 coins are given at start, it is very hard to win
         Vampire.setNumVamp(_lvl.getNumVamp());
-        Vampire.setOnBoard(0);
         _board = new GameObjectBoard(this);
-        _finalMsg = "This should not be seen";
+        _finalMsg = "Game Over!";
     }
 
     // Getters
@@ -94,11 +93,12 @@ public class Game {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY - 1);
             while (_board.vampIn(x, y) != -1) {
-                x = _rand.nextInt(_dimX);
+                y = _rand.nextInt(_dimY - 1);
             }
             Vampire aux = new Vampire(_VAMPIREHEALTH, x, y, this);
             _board.add(aux);
         }
+        removeDead();
         _cycle++;
     }
 
@@ -133,16 +133,29 @@ public class Game {
     /**
      * Command exectution to add a slayer to the board
      * 
+     * @param j
+     * @param i
+     * 
      * @return true if slayer can be added, false if not
      */
-    public boolean addSlayer() {
-        if (_pl.getCoins() <= Slayer.getCost()) {
-            // Add Slayer to array
-            _pl.decCoins(Slayer.getCost());
-            return true;
+    public boolean addSlayer(int i, int j) {
+        if (_board.slayerComplete()) {
+            System.out.println("Cant put any more slayers");
+            return false;
         }
-
-        return false;
+        if (_pl.getCoins() >= Slayer.getCost()) {
+            if (_board.slayerIn(i, j) != -1) {
+                System.out.println("Slayer already in that coordinate, choose other");
+                return false;
+            } else {
+                _board.add(new Slayer(this, i, j));
+                _pl.decCoins(Slayer.getCost());
+                return true;
+            }
+        } else {
+            System.out.println("Not enough coins to hire a slayer");
+            return false;
+        }
     }
 
     /**
@@ -207,5 +220,22 @@ public class Game {
      */
     public void attackSlayer(int n, int d) {
         _board.attackSlayer(n, d);
+    }
+
+    /**
+     * Resets the game
+     */
+    public void reset() {
+        _board.reset();
+        _cycle = 0;
+        _pl.setCoins(0);
+        Vampire.setNumVamp(_lvl.getNumVamp());
+    }
+
+    /**
+     * Removes dead objects from the game
+     */
+    public void removeDead() {
+        _board.removeDead();
     }
 }

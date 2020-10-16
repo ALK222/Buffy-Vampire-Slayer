@@ -55,6 +55,14 @@ public class Slayer {
         return _y;
     }
 
+    /**
+     * 
+     * @return the hp of the slayer
+     */
+    public int getHp() {
+        return _hp;
+    }
+
     // Methods
 
     /**
@@ -73,10 +81,11 @@ public class Slayer {
         int i = 0;
         while (!found && i < _game.getX()) {
             int n = _game.vampIn(i, _y);
-            if (n != 1) {
+            if (n != -1) {
                 found = true;
                 _game.attackVamp(n, _DAMAGE);
             }
+            i++;
         }
     }
 

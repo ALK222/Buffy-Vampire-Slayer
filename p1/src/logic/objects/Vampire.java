@@ -10,8 +10,6 @@ public class Vampire {
     // Atributtes
 
     private static final int _DAMAGE = 1; // Damage per attack
-    private static final int _SPEED = 1; // squares per movement
-    private static final int _FREQ = 2; // frequence of movement
     private static int _ONBOARD; // Number of vampires on board
     private static int numVamp; // Number of vampires to spawn
     private int _hp;
@@ -69,6 +67,14 @@ public class Vampire {
      */
     public int getY() {
         return _y;
+    }
+
+    /**
+     * 
+     * @return the hp of the vampire
+     */
+    public int getHp() {
+        return _hp;
     }
 
     // Setters

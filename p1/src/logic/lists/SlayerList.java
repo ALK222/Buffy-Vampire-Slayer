@@ -19,6 +19,24 @@ public class SlayerList {
         _counter = 0;
     }
 
+    // Getters
+
+    /**
+     * 
+     * @return the size of the Slayer array
+     */
+    public int getSize() {
+        return _list.length;
+    }
+
+    /**
+     * 
+     * @return the actual number of slayers in the array
+     */
+    public int getCounter() {
+        return _counter;
+    }
+
     /**
      * Adds a slayer to the board
      * 
@@ -38,9 +56,8 @@ public class SlayerList {
      */
     public int isIn(int i, int j) {
         int n = 0;
-        boolean found = false;
-        while (!found && n < _counter) {
-            if (_list[n].getX() == i && _list[i].getY() == j) {
+        while (n < _counter) {
+            if (_list[n].getX() == i && _list[n].getY() == j) {
                 return n;
             }
             n++;
@@ -75,6 +92,38 @@ public class SlayerList {
      */
     public void attackSlayer(int n, int d) {
         _list[n].damage(d);
+    }
+
+    /**
+     * Resets the slayer list
+     */
+    public void reset() {
+        _counter = 0;
+    }
+
+    /**
+     * Removes the dead slayers from the game
+     */
+    public void removeDead() {
+        int deleted = 0;
+        for (int i = 0; i < _counter; i++) {
+            if (_list[i].getHp() <= 0) {
+                deleteSlayer(i);
+                deleted++;
+            }
+        }
+        _counter -= deleted;
+    }
+
+    /**
+     * Aux method for removeDead
+     */
+    public void deleteSlayer(int i) {
+        if (_counter > 1) {
+            for (int n = i; n < _counter - 1; n++) {
+                _list[n] = _list[n + 1];
+            }
+        }
     }
 
 }

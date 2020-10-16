@@ -1,7 +1,5 @@
 package logic.objects;
 
-import logic.Game;
-
 /**
  * 
  * The hand that controlls everything
@@ -10,16 +8,14 @@ import logic.Game;
 public class Player {
 
     private int _coins;
-    private Game _game;
 
     /**
      * 
      * @param game  instance of the game
      * @param coins starting coins of the player
      */
-    public Player(Game game, int coins) {
+    public Player(int coins) {
         _coins = coins;
-        _game = game;
     }
 
     // Getters
@@ -29,6 +25,16 @@ public class Player {
      */
     public int getCoins() {
         return _coins;
+    }
+
+    // Setters
+    /**
+     * Set the number of coins to i
+     * 
+     * @param i number of coins to be set
+     */
+    public void setCoins(int i) {
+        _coins = i;
     }
 
     // Methods
