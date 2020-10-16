@@ -15,6 +15,7 @@ public class Game {
     private int _dimX;
     private int _dimY;
     private static final int _VAMPIREHEALTH = 5;
+    private static final int _STARTERCOINS = 50;
     private int _cycle;
     private long _seed;
     private Level _lvl;
@@ -43,7 +44,7 @@ public class Game {
         _dimX = _lvl.getX();
         _dimY = _lvl.getY();
         _rand = new Random(_seed);
-        _pl = new Player(50); // If 0 coins are given at start, it is very hard to win
+        _pl = new Player(_STARTERCOINS); // If 0 coins are given at start, it is very hard to win
         Vampire.setNumVamp(_lvl.getNumVamp());
         _board = new GameObjectBoard(this);
         _finalMsg = "Game Over!";
@@ -133,8 +134,8 @@ public class Game {
     /**
      * Command exectution to add a slayer to the board
      * 
-     * @param j
-     * @param i
+     * @param i x coordinate
+     * @param j y coordinate
      * 
      * @return true if slayer can be added, false if not
      */
@@ -144,8 +145,8 @@ public class Game {
             return false;
         }
         if (_pl.getCoins() >= Slayer.getCost()) {
-            if (_board.slayerIn(i, j) != -1) {
-                System.out.println("Slayer already in that coordinate, choose other");
+            if (_board.slayerIn(i, j) != -1 || _board.vampIn(i, j) != -1) {
+                System.out.println("Slayer or vampire already in that coordinate, choose other");
                 return false;
             } else {
                 _board.add(new Slayer(this, i, j));
