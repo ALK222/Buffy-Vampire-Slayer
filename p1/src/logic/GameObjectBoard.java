@@ -157,7 +157,7 @@ public class GameObjectBoard {
      * @return true if the slayer array is complete, false if not
      */
     public boolean slayerComplete() {
-        return _sList.getSize() - 1 >= _sList.getCounter();
+        return _sList.getCounter() >= _sList.getSize() - 1;
     }
 
 }
