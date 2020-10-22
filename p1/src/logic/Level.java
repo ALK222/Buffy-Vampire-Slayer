@@ -11,7 +11,7 @@ public enum Level {
     // Attributes
     @SuppressWarnings("unused")
     private String _name; // Name of the mode
-    private int _numVampiros; // Ammount of vampires per game
+    private int _numVampiros; // Amount of vampires per game
     private double _freq; // Frequency of vampire spawn
     private int _x; // X size for board
     private int _y; // Y size for board

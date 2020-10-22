@@ -53,7 +53,7 @@ public class Game {
     // Getters
     /**
      * 
-     * @return number of colums
+     * @return number of columns
      */
     public int getX() {
         return _dimX;
@@ -115,7 +115,7 @@ public class Game {
     }
 
     /**
-     * Checks all the posible endings of the game
+     * Checks all the possible endings of the game
      * 
      * @return true if the game has ended, false if not
      */
@@ -132,7 +132,7 @@ public class Game {
     }
 
     /**
-     * Command exectution to add a slayer to the board
+     * Command execution to add a slayer to the board
      * 
      * @param i x coordinate
      * @param j y coordinate
@@ -180,7 +180,7 @@ public class Game {
     }
 
     /**
-     * Searchs if a Slayer is in a given set of coordinates
+     * Searches if a Slayer is in a given set of coordinates
      * 
      * @param i x coordinate
      * @param j y coordinate
@@ -192,7 +192,7 @@ public class Game {
     }
 
     /**
-     * Searchs if a vampire is in a given set of coordinates
+     * Searches if a vampire is in a given set of coordinates
      * 
      * @param i x coordinate
      * @param j y coordinate

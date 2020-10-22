@@ -3,11 +3,11 @@ package logic.objects;
 import logic.Game;
 
 /**
- * Enemy of the slayer, your enemmy too
+ * Enemy of the slayer, your enemy too
  */
 public class Vampire {
 
-    // Atributtes
+    // Attributes
 
     private static final int _DAMAGE = 1; // Damage per attack
     private static int _ONBOARD; // Number of vampires on board
@@ -122,7 +122,7 @@ public class Vampire {
 
     /**
      * 
-     * @param i number of vampires that have been aded to the board
+     * @param i number of vampires that have been added to the board
      */
     public static void addOnBoard(int i) {
         _ONBOARD += i;

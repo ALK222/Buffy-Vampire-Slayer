@@ -2,7 +2,7 @@ package logic.objects;
 
 /**
  * 
- * The hand that controlls everything
+ * The hand that controls everything
  * 
  */
 public class Player {

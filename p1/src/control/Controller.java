@@ -10,7 +10,7 @@ import view.GamePrinter;
  */
 public class Controller {
 
-    // Atributos
+    // Attributes
     private Game _game;
     private Scanner _in;
     private GamePrinter _printer;
@@ -33,7 +33,7 @@ public class Controller {
         _exit = false;
     }
 
-    // Metodos
+    // Methods
     /**
      * Cycles of the game
      */
@@ -96,7 +96,7 @@ public class Controller {
                     return false;
                 }
             default:
-                System.out.println("Command not recogniced, please try again");
+                System.out.println("Command not recognized, please try again");
                 return false;
         }
     }

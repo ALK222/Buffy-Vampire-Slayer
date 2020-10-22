@@ -52,7 +52,7 @@ public class GameObjectBoard {
     }
 
     /**
-     * Searchs if a vampire is in a given set of coordinates
+     * Searches if a vampire is in a given set of coordinates
      * 
      * @param i x coordinate
      * @param j y coordinate
@@ -91,7 +91,7 @@ public class GameObjectBoard {
     }
 
     /**
-     * Searchs if a Slayer is in a given set of coordinates
+     * Searches if a Slayer is in a given set of coordinates
      * 
      * @param i x coordinate
      * @param j y coordinate
@@ -113,14 +113,14 @@ public class GameObjectBoard {
     }
 
     /**
-     * Exectues all the slayers attacks
+     * Executes all the slayers attacks
      */
     public void slayerAttacks() {
         _sList.attack();
     }
 
     /**
-     * Exectues all the slayers attacks
+     * Executes all the slayers attacks
      */
     public void vampAttacks() {
         _vList.attack();
