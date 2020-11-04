@@ -44,7 +44,7 @@ public class Game {
         _dimX = _lvl.getX();
         _dimY = _lvl.getY();
         _rand = new Random(_seed);
-        _pl = new Player(_STARTERCOINS); // If 0 coins are given at start, it is very hard to win
+        _pl = new Player(_STARTERCOINS, _rand); // If 0 coins are given at start, it is very hard to win
         Vampire.setNumVamp(_lvl.getNumVamp());
         _board = new GameObjectBoard(this);
         _finalMsg = "Game Over!";
@@ -80,9 +80,7 @@ public class Game {
      * All the things that happen from one cycle to another
      */
     public void update() {
-        if (_rand.nextDouble() >= 0.5) {
-            _pl.addCoins(10);
-        }
+        _pl.chanceCoins();
 
         _board.vampMovement();
 
@@ -90,7 +88,7 @@ public class Game {
 
         _board.vampAttacks();
 
-        if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+        if (_rand.nextInt() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY - 1);
             while (_board.vampIn(x, y) != -1) {
