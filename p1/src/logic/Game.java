@@ -88,9 +88,9 @@ public class Game {
 
         _board.vampAttacks();
 
-        if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
-            int y = _rand.nextInt(_dimY - 1);
+            int y = _rand.nextInt(_dimY);
             while (_board.vampIn(x, y) != -1) {
                 y = _rand.nextInt(_dimY - 1);
             }
