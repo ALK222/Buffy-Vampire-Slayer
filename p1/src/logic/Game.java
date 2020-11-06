@@ -88,7 +88,7 @@ public class Game {
 
         _board.vampAttacks();
 
-        if (_rand.nextInt() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+        if (_rand.nextDouble() <= _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY - 1);
             while (_board.vampIn(x, y) != -1) {
@@ -147,6 +147,10 @@ public class Game {
                 System.out.println("Slayer or vampire already in that coordinate, choose other");
                 return false;
             } else {
+                if (0 > i || i >= (_dimX - 1) || 0 > j || j > (_dimY - 1)) {
+                    System.out.println("Invalid position, try again");
+                    return false;
+                }
                 _board.add(new Slayer(this, i, j));
                 _pl.decCoins(Slayer.getCost());
                 return true;
@@ -227,7 +231,7 @@ public class Game {
     public void reset() {
         _board.reset();
         _cycle = 0;
-        _pl.setCoins(0);
+        _pl.setCoins(_STARTERCOINS);
         Vampire.setNumVamp(_lvl.getNumVamp());
     }
 

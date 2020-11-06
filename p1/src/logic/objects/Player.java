@@ -67,7 +67,7 @@ public class Player {
      * Calculates if player should receive coins
      */
     public void chanceCoins() {
-        if (_rand.nextFloat() >= _FREQCOIN) {
+        if (_rand.nextFloat() > _FREQCOIN) {
             this.addCoins(_COINS_RECEIVED);
         }
     }

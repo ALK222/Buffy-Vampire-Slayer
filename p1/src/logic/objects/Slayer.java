@@ -8,12 +8,12 @@ import logic.Game;
 public class Slayer {
 
     // Attributes
-    private static int _COST = 50;
+    private static final int _COST = 50;
     private Game _game;
     private int _hp;
     private int _x;
     private int _y;
-    private static int _DAMAGE = 1;
+    private static final int _DAMAGE = 1;
 
     // Constructor
     /**

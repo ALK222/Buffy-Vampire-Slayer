@@ -39,13 +39,15 @@ public class Controller {
      */
     public void run() {
         String[] command;
+        _game.printInfo();
+        printGame();
         while (!_game.checkEnd() && !_exit) {
-            _game.printInfo();
-            printGame();
             System.out.print(prompt);
             command = _in.nextLine().toLowerCase().split(" ");
             if (command[0].isEmpty() || selectCommand(command)) {
                 _game.update();
+                _game.printInfo();
+                printGame();
             }
         }
         System.out.println(_game.getFinalMsg());
@@ -66,7 +68,7 @@ public class Controller {
             case 'r':
                 if (c.length == 1) {
                     _game.reset();
-                    return false;
+                    return true;
                 } else {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
@@ -95,6 +97,8 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
+            case 'n':
+                return true;
             default:
                 System.out.println("Command not recognized, please try again");
                 return false;
