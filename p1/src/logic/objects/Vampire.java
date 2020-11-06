@@ -31,7 +31,7 @@ public class Vampire {
         _hp = hp;
         _x = x;
         _y = y;
-        _cycle = 0;
+        _cycle = 1;
         _game = game;
     }
 
@@ -109,7 +109,7 @@ public class Vampire {
      * @return true if the vampire is on the final column, false if not
      */
     public boolean hasArrived() {
-        return _x <= 0;
+        return _x < 0;
     }
 
     /**
@@ -141,7 +141,7 @@ public class Vampire {
      */
     public void movement() {
         if (_game.slayerIn(_x - 1, _y) == -1) {
-            if (_cycle % 2 == 0 && _cycle != 0) {
+            if (_cycle % 2 == 0) {
                 _x -= 1;
             }
             _cycle++;

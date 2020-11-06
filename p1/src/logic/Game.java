@@ -47,7 +47,7 @@ public class Game {
         _pl = new Player(_STARTERCOINS, _rand); // If 0 coins are given at start, it is very hard to win
         Vampire.setNumVamp(_lvl.getNumVamp());
         _board = new GameObjectBoard(this);
-        _finalMsg = "Game Over!";
+        _finalMsg = "Nobody wins...";
     }
 
     // Getters
@@ -85,19 +85,20 @@ public class Game {
         _board.vampMovement();
 
         _board.slayerAttacks();
+        removeDead();
 
         _board.vampAttacks();
+        removeDead();
 
         if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             while (_board.vampIn(x, y) != -1) {
-                y = _rand.nextInt(_dimY - 1);
+                y = _rand.nextInt(_dimY);
             }
             Vampire aux = new Vampire(_VAMPIREHEALTH, x, y, this);
             _board.add(aux);
         }
-        removeDead();
         _cycle++;
     }
 
@@ -123,7 +124,7 @@ public class Game {
             return true;
         }
         if (_board.haveLanded()) {
-            _finalMsg = "Game over!";
+            _finalMsg = "Vampires win!";
             return true;
         }
         return false;
