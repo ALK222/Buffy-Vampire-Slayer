@@ -202,6 +202,13 @@ public class Game {
         return _board.isIn(i, j);
     }
 
+    /**
+     * Attack from one object to another
+     * 
+     * @param o     object to make the attack
+     * @param other object to receive the attack
+     * @return true if the attack was executed, false if not
+     */
     public boolean attack(GameObject o, int other) {
         return _board.attack(o, other);
     }

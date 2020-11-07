@@ -29,20 +29,12 @@ public class GameObjectBoard {
         return _objectsOnBoard;
     }
 
-    public int getIndex(GameObject o) {
-        boolean found = false;
-        int index = 0;
-
-        while (!found && index < _objectsOnBoard) {
-            if (_board[index].equals(o)) {
-                return index;
-            } else {
-                ++index;
-            }
-        }
-        return -1;
-    }
-
+    /**
+     * 
+     * @param i x coordinate
+     * @param j y coordinate
+     * @return the index of the object in place, -1 if no object was found
+     */
     public int isIn(int i, int j) {
         boolean found = false;
         int index = 0;
@@ -57,6 +49,10 @@ public class GameObjectBoard {
         return -1;
     }
 
+    /**
+     * 
+     * @return if the board is complete
+     */
     public boolean isComplete() {
         return _board.length >= _objectsOnBoard;
     }
@@ -87,6 +83,11 @@ public class GameObjectBoard {
         removeDead();
     }
 
+    /**
+     * Checks if the vampires have arraived to the end of the board
+     * 
+     * @return true if a vampire is in x = -1, false if not
+     */
     public boolean haveLanded() {
         boolean found = false;
         int i = 0;
@@ -101,6 +102,7 @@ public class GameObjectBoard {
     }
 
     /**
+     * Founds a object in a coordinate
      * 
      * @param i x coordinate
      * @param j y coordinate
@@ -119,10 +121,20 @@ public class GameObjectBoard {
         return null;
     }
 
+    /**
+     * 
+     * @param i y coordinate
+     * @param j x coordinate
+     * @return the string of an object in that coordinates, a whitespace character
+     *         if no object was in place
+     */
     public String toString(int i, int j) {
         return (objectAt(j, i) == null) ? " " : objectAt(j, i).toString();
     }
 
+    /**
+     * Removes al the dead objects from the array
+     */
     public void removeDead() {
         for (int i = 0; i < _objectsOnBoard; i++) {
             if (_board[i].getHp() <= 0) {
@@ -131,6 +143,11 @@ public class GameObjectBoard {
         }
     }
 
+    /**
+     * Deletes an pbject from the array
+     * 
+     * @param i position of the dead object in the array
+     */
     public void delete(int i) {
         for (int n = i; n < _objectsOnBoard; ++n) {
             _board[i] = _board[i + 1];
@@ -138,10 +155,20 @@ public class GameObjectBoard {
         --_objectsOnBoard;
     }
 
+    /**
+     * Resets the board
+     */
     public void reset() {
         _objectsOnBoard = 0;
     }
 
+    /**
+     * Function to make the attack of an object to other object
+     * 
+     * @param o     object to make the attack
+     * @param other object to receive the attack
+     * @return true if the attack can be executed, false if not
+     */
     public boolean attack(GameObject o, int other) {
         if (_board[other].isVampire() != o.isVampire()) {
             _board[other].damage(o.getDamage());

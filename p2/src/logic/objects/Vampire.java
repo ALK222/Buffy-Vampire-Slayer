@@ -2,6 +2,9 @@ package logic.objects;
 
 import logic.Game;
 
+/**
+ * Vampires, enemies of the game
+ */
 public class Vampire extends GameObject {
 
     // Attributes

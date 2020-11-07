@@ -2,6 +2,9 @@ package logic.objects;
 
 import logic.Game;
 
+/**
+ * Slayer of Vampires. Reap and tear
+ */
 public class Slayer extends GameObject {
 
     // Attributes
@@ -22,6 +25,10 @@ public class Slayer extends GameObject {
 
     // Getters
 
+    /**
+     * 
+     * @return the cost of a slayer
+     */
     public static int getCost() {
         return _COST;
     }

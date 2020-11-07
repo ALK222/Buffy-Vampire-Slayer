@@ -56,8 +56,16 @@ public abstract class GameObject {
         return _hp;
     }
 
+    /**
+     * 
+     * @return true if it's avampire, false if not
+     */
     public abstract boolean isVampire();
 
+    /**
+     * 
+     * @return the damage points of the object
+     */
     public abstract int getDamage();
 
     // Methods
