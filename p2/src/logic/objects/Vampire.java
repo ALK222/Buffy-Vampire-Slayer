@@ -41,6 +41,14 @@ public class Vampire extends GameObject {
         return _ONBOARD;
     }
 
+    public boolean isVampire() {
+        return true;
+    }
+
+    public int getDamage() {
+        return _DAMAGE;
+    }
+
     // Setters
 
     /**
@@ -91,6 +99,9 @@ public class Vampire extends GameObject {
      */
     public void damage(int d) {
         _hp -= d;
+        if (_hp <= 0) {
+            Vampire.decOnBoard(1);
+        }
     }
 
     /**

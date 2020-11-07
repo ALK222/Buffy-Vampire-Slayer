@@ -50,11 +50,15 @@ public abstract class GameObject {
 
     /**
      * 
-     * @return the hp of the slayer
+     * @return the hp of the object
      */
     public int getHp() {
         return _hp;
     }
+
+    public abstract boolean isVampire();
+
+    public abstract int getDamage();
 
     // Methods
 

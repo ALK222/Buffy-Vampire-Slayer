@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Random;
 
+import logic.objects.GameObject;
 import logic.objects.GameObjectBoard;
 import logic.objects.Player;
 import logic.objects.Slayer;
@@ -93,6 +94,8 @@ public class Game {
                 y = _rand.nextInt(_dimY);
             }
             Vampire aux = new Vampire(this, x, y, _VAMPIREHEALTH);
+            Vampire.addOnBoard(1);
+            Vampire.decreaseRem(1);
             _board.add(aux);
         }
         _cycle++;
@@ -193,5 +196,13 @@ public class Game {
      */
     public void removeDead() {
         _board.removeDead();
+    }
+
+    public int isIn(int i, int j) {
+        return _board.isIn(i, j);
+    }
+
+    public boolean attack(GameObject o, int other) {
+        return _board.attack(o, other);
     }
 }

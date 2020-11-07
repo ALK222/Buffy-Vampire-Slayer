@@ -84,6 +84,7 @@ public class GameObjectBoard {
         for (int i = 0; i < _objectsOnBoard; i++) {
             _board[i].computerAction();
         }
+        removeDead();
     }
 
     public boolean haveLanded() {
@@ -139,6 +140,14 @@ public class GameObjectBoard {
 
     public void reset() {
         _objectsOnBoard = 0;
+    }
+
+    public boolean attack(GameObject o, int other) {
+        if (_board[other].isVampire() != o.isVampire()) {
+            _board[other].damage(o.getDamage());
+            return true;
+        }
+        return false;
     }
 
 }

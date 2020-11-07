@@ -26,6 +26,14 @@ public class Slayer extends GameObject {
         return _COST;
     }
 
+    public boolean isVampire() {
+        return false;
+    }
+
+    public int getDamage() {
+        return _DAMAGE;
+    }
+
     // Methods
 
     @Override
@@ -44,16 +52,17 @@ public class Slayer extends GameObject {
      * that piercing bullets are expensive)
      */
     public void attack() {
-        // boolean found = false;
-        // int i = 0;
-        // while (!found && i < _game.getX()) {
-        // int n = _game.vampIn(i, _y);
-        // if (n != -1) {
-        // found = true;
-        // _game.attackVamp(n, _DAMAGE);
-        // }
-        // i++;
-        // }
+        boolean found = false;
+        int i = 0;
+        while (!found && i < _game.getX()) {
+            int n = _game.isIn(i, _y);
+            if (n != -1) {
+                if (_game.attack(this, n)) {
+                    found = true;
+                }
+            }
+            i++;
+        }
 
     }
 
