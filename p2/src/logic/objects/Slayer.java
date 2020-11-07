@@ -20,9 +20,22 @@ public class Slayer extends GameObject {
         super(game, x, y, hp);
     }
 
+    // Getters
+
+    public static int getCost() {
+        return _COST;
+    }
+
+    // Methods
+
     @Override
     public String toString() {
         return "S[" + _hp + "]";
+    }
+
+    @Override
+    public void computerAction() {
+        this.attack();
     }
 
     @Override
@@ -31,16 +44,16 @@ public class Slayer extends GameObject {
      * that piercing bullets are expensive)
      */
     public void attack() {
-        boolean found = false;
-        int i = 0;
-        while (!found && i < _game.getX()) {
-            int n = _game.vampIn(i, _y);
-            if (n != -1) {
-                found = true;
-                _game.attackVamp(n, _DAMAGE);
-            }
-            i++;
-        }
+        // boolean found = false;
+        // int i = 0;
+        // while (!found && i < _game.getX()) {
+        // int n = _game.vampIn(i, _y);
+        // if (n != -1) {
+        // found = true;
+        // _game.attackVamp(n, _DAMAGE);
+        // }
+        // i++;
+        // }
 
     }
 
@@ -49,4 +62,8 @@ public class Slayer extends GameObject {
         _hp -= d;
     }
 
+    @Override
+    public boolean haveLanded() {
+        return false;
+    }
 }

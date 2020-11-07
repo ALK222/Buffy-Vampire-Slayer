@@ -79,4 +79,11 @@ public abstract class GameObject {
      * Computer actions for a GameObject: attack, movement etc
      */
     public abstract void computerAction();
+
+    /**
+     * 
+     * @return true if a vampire has landed, false if not or if the object is a
+     *         slayer
+     */
+    public abstract boolean haveLanded();
 }
