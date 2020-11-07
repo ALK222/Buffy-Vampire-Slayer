@@ -85,7 +85,7 @@ public class Vampire extends GameObject {
      * Movement of the vampires, if a slayer is in front of them they do not move
      */
     public void movement() {
-        if (true) {// _game.slayerIn(_x - 1, _y) == -1) {
+        if (_game.isIn(_x - 1, _y) == -1) {
             if (_cycle % 2 == 0 && _cycle != 0) {
                 _x -= 1;
             }
@@ -108,10 +108,10 @@ public class Vampire extends GameObject {
      * checks if it can attack a slayer
      */
     public void attack() {
-        // int n = _game.slayerIn(_x - 1, _y);
-        // if (n != -1) {
-        // _game.attackSlayer(n, _DAMAGE);
-        // }
+        int n = _game.isIn(_x - 1, _y);
+        if (n != -1) {
+            _game.attack(this, n);
+        }
     }
 
     /**
