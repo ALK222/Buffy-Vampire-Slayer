@@ -24,6 +24,7 @@ public class Game {
     private Level _lvl;
     private Player _pl;
     private Random _rand;
+    private boolean _exit;
 
     private GameObjectBoard _board;
     private String _finalMsg;
@@ -51,6 +52,7 @@ public class Game {
         Vampire.setNumVamp(_lvl.getNumVamp());
         _board = new GameObjectBoard(_dimX, _dimY);
         _finalMsg = "Nobody wins...";
+        _exit = false;
     }
 
     // Getters
@@ -79,6 +81,14 @@ public class Game {
     }
 
     // Methods
+
+    /**
+     * Sets the exit flag to true
+     */
+    public void exit() {
+        _exit = true;
+    }
+
     /**
      * All the things that happen from one cycle to another
      */
@@ -124,6 +134,9 @@ public class Game {
         }
         if (_board.haveLanded()) {
             _finalMsg = "Vampires win!";
+            return true;
+        }
+        if (_exit) {
             return true;
         }
         return false;
