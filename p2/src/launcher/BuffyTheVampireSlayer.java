@@ -6,11 +6,7 @@ import control.Controller;
 import logic.Game;
 import logic.Level;
 
-/**
- * @author Alejandro Barrachina Argudo
- * @author Jaime Benedí Galdeano
- */
-public class BuffyVampireSlayer {
+public class BuffyTheVampireSlayer {
     public static final String version = "2.0";
     public static final String usageMsg = "Usage: Vampire slayer <level> [seed]";
     public static final String welcomeMsg = String.format("Buffy the Vampire Slayer " + version + "%n");

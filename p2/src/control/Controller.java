@@ -38,21 +38,29 @@ public class Controller {
      * Cycles of the game
      */
     public void run() {
-        _game.printInfo();
-        printGame();
+        boolean refreshDisplay = true;
+
         while (!_game.checkEnd()) {
-            System.out.print(prompt);
-            String[] commandWords = _in.nextLine().toLowerCase().split(" ");
-            Command c = CommandGenerator.parseCommand(commandWords);
-            if (c != null) {
-                if (c.execute(_game)) {
-                    _game.update();
-                    _game.printInfo();
-                    printGame();
-                }
+
+            if (refreshDisplay)
+                printGame();
+            refreshDisplay = false;
+
+            System.out.println(prompt);
+            String s = _in.nextLine();
+            String[] parameters = s.toLowerCase().trim().split(" ");
+            Command command = CommandGenerator.parseCommand(parameters);
+            if (command != null) {
+                refreshDisplay = command.execute(_game);
+            } else {
+                System.out.println("[ERROR]: " + unknownCommandMsg);
             }
         }
-        System.out.println(_game.getFinalMsg());
+
+        if (refreshDisplay)
+            printGame();
+        System.out.println("[Game over] " + _game.getFinalMsg());
+
     }
 
     public void printGame() {

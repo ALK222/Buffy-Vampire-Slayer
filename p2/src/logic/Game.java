@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Random;
 
+import logic.interfaces.IPrintable;
 import logic.objects.GameObject;
 import logic.objects.GameObjectBoard;
 import logic.objects.Player;
@@ -11,7 +12,7 @@ import logic.objects.Vampire;
 /**
  * Main logic of the game
  */
-public class Game {
+public class Game implements IPrintable {
 
     // Attributes
     private int _dimX;
@@ -115,11 +116,13 @@ public class Game {
      * Prints all the info of the game: cycles passed, coins, vampires remaining to
      * appear and vampires on the board
      */
-    public void printInfo() {
-        System.out.println(cycleNum + _cycle); // Display for the number of the current game cycle
-        System.out.println(coinStr + _pl.getCoins()); // Display of the current coin counter
-        System.out.println(vampStr + Vampire.getNumVamp()); // Display of the number of vampires remaining to spawn
-        System.out.println(vampOnBoardStr + Vampire.getOnBoard()); // Display of the number of vampires on the board
+    @Override
+    public String getInfo() {
+        String aux = cycleNum + _cycle + "\n"; // Display for the number of the current game cycle
+        aux += coinStr + _pl.getCoins() + "\n"; // Display of the current coin counter
+        aux += vampStr + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
+        aux += vampOnBoardStr + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
+        return aux;
     }
 
     /**
@@ -190,7 +193,8 @@ public class Game {
      * @return The string representation of a character or a black string if there
      *         is no character there
      */
-    public String characterAtToString(int i, int j) {
+    @Override
+    public String getPositionToString(int i, int j) {
         return _board.toString(i, j);
     }
 
@@ -225,4 +229,5 @@ public class Game {
     public boolean attack(GameObject o, int other) {
         return _board.attack(o, other);
     }
+
 }
