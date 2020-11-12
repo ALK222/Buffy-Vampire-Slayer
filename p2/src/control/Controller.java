@@ -46,7 +46,7 @@ public class Controller {
                 printGame();
             refreshDisplay = false;
 
-            System.out.println(prompt);
+            System.out.print(prompt);
             String s = _in.nextLine();
             String[] parameters = s.toLowerCase().trim().split(" ");
             Command command = CommandGenerator.parseCommand(parameters);

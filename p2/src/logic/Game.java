@@ -3,7 +3,6 @@ package logic;
 import java.util.Random;
 
 import logic.interfaces.IPrintable;
-import logic.objects.GameObject;
 import logic.objects.GameObjectBoard;
 import logic.objects.Player;
 import logic.objects.Slayer;
@@ -195,7 +194,7 @@ public class Game implements IPrintable {
      */
     @Override
     public String getPositionToString(int i, int j) {
-        return _board.toString(i, j);
+        return _board.toString(j, i);
     }
 
     /**
@@ -220,14 +219,28 @@ public class Game implements IPrintable {
     }
 
     /**
-     * Attack from one object to another
+     * Checks if a vampire can attack an object in a given position
      * 
-     * @param o     object to make the attack
-     * @param other object to receive the attack
-     * @return true if the attack was executed, false if not
+     * @param x      x coordinate
+     * @param y      y coordinate
+     * @param damage damage done
      */
-    public boolean attack(GameObject o, int other) {
-        return _board.attack(o, other);
+    public void attackSlayer(int x, int y, int damage) {
+        int aux = _board.isIn(x, y);
+        if (aux != -1) {
+            _board.attackSlayer(aux, damage);
+        }
     }
 
+    /**
+     * Checks if a slayer can attack an object in a given position
+     * 
+     * @param x      x coordinate
+     * @param y      y coordinate
+     * @param damage damage done
+     */
+    public boolean attackVamp(int x, int y, int damage) {
+        int index = _board.isIn(x, y);
+        return _board.attackVampire(index, damage);
+    }
 }

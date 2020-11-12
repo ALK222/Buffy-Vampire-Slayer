@@ -69,6 +69,7 @@ public class GameObjectBoard {
     public void add(GameObject o) {
         try {
             _board.add(o);
+            _objectsOnBoard++;
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -114,7 +115,7 @@ public class GameObjectBoard {
         int index = 0;
 
         while (!found && index < _objectsOnBoard) {
-            if (_board.get(i).getX() == i && _board.get(index).getY() == j) {
+            if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
                 return _board.get(index);
             }
             index++;
@@ -130,18 +131,21 @@ public class GameObjectBoard {
      *         if no object was in place
      */
     public String toString(int i, int j) {
-        return (objectAt(j, i) == null) ? " " : objectAt(j, i).toString();
+        return (objectAt(j, i) != null) ? objectAt(j, i).toString() : " ";
     }
 
     /**
      * Removes al the dead objects from the array
      */
     public void removeDead() {
+        int aux = 0;
         for (int i = 0; i < _objectsOnBoard; i++) {
             if (_board.get(i).getHp() <= 0) {
                 delete(i);
+                aux++;
             }
         }
+        _objectsOnBoard -= aux;
     }
 
     /**
@@ -160,19 +164,12 @@ public class GameObjectBoard {
         _objectsOnBoard = 0;
     }
 
-    /**
-     * PENDING TO CHANGE
-     * 
-     * @param o     object to make the attack
-     * @param other object to receive the attack
-     * @return true if the attack can be executed, false if not
-     */
-    public boolean attack(GameObject o, int other) {
-        if (_board.get(other).isVampire() != o.isVampire()) {
-            _board.get(other).damage(o.getDamage());
-            return true;
-        }
-        return false;
+    public void attackSlayer(int index, int damage) {
+        _board.get(index).receiveVampireAttack(damage);
+    }
+
+    public boolean attackVampire(int index, int damage) {
+        return index == -1 ? false : _board.get(index).receiveSlayerAttack(damage);
     }
 
 }
