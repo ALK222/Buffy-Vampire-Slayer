@@ -15,10 +15,10 @@ jobs:
         with:
           java-version: 1.14
       - name: build program
-        run: javac -sourcepath ./src  ./src/launcher/BuffyVampireSlayer.java
+        run: javac -sourcepath ./src  ./src/launcher/BuffyTheVampireSlayer.java
         working-directory: ${{env.working-directory}}
 
       - name: execute program
         if: ${{ success() }}
-        run: java launcher.BuffyVampireSlayer EASY 5 < ../../test_cases/easy_s5_0.txt
+        run: java launcher.BuffyTheVampireSlayer EASY 5 < ../../test_cases/easy_s5_0.txt
         working-directory: ./p2/src
