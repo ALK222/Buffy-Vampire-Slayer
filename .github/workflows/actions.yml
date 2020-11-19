@@ -1,0 +1,24 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./p2
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.14
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.14
+      - name: build program
+        run: javac -sourcepath ./src  ./src/launcher/BuffyVampireSlayer.java
+        working-directory: ${{env.working-directory}}
+
+      - name: execute program
+        if: ${{ success() }}
+        run: java launcher.BuffyVampireSlayer EASY 5 < ../../test_cases/easy_s5_0.txt
+        working-directory: ./p2/src
