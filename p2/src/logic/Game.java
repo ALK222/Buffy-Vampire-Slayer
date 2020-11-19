@@ -2,7 +2,7 @@ package logic;
 
 import java.util.Random;
 
-import logic.objects.GameObject;
+import logic.interfaces.IPrintable;
 import logic.objects.GameObjectBoard;
 import logic.objects.Player;
 import logic.objects.Slayer;
@@ -11,7 +11,7 @@ import logic.objects.Vampire;
 /**
  * Main logic of the game
  */
-public class Game {
+public class Game implements IPrintable {
 
     // Attributes
     private int _dimX;
@@ -24,6 +24,7 @@ public class Game {
     private Level _lvl;
     private Player _pl;
     private Random _rand;
+    private boolean _exit;
 
     private GameObjectBoard _board;
     private String _finalMsg;
@@ -51,6 +52,7 @@ public class Game {
         Vampire.setNumVamp(_lvl.getNumVamp());
         _board = new GameObjectBoard(_dimX, _dimY);
         _finalMsg = "Nobody wins...";
+        _exit = false;
     }
 
     // Getters
@@ -79,6 +81,14 @@ public class Game {
     }
 
     // Methods
+
+    /**
+     * Sets the exit flag to true
+     */
+    public void exit() {
+        _exit = true;
+    }
+
     /**
      * All the things that happen from one cycle to another
      */
@@ -105,11 +115,13 @@ public class Game {
      * Prints all the info of the game: cycles passed, coins, vampires remaining to
      * appear and vampires on the board
      */
-    public void printInfo() {
-        System.out.println(cycleNum + _cycle); // Display for the number of the current game cycle
-        System.out.println(coinStr + _pl.getCoins()); // Display of the current coin counter
-        System.out.println(vampStr + Vampire.getNumVamp()); // Display of the number of vampires remaining to spawn
-        System.out.println(vampOnBoardStr + Vampire.getOnBoard()); // Display of the number of vampires on the board
+    @Override
+    public String getInfo() {
+        String aux = cycleNum + _cycle + "\n"; // Display for the number of the current game cycle
+        aux += coinStr + _pl.getCoins() + "\n"; // Display of the current coin counter
+        aux += vampStr + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
+        aux += vampOnBoardStr + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
+        return aux;
     }
 
     /**
@@ -124,6 +136,9 @@ public class Game {
         }
         if (_board.haveLanded()) {
             _finalMsg = "Vampires win!";
+            return true;
+        }
+        if (_exit) {
             return true;
         }
         return false;
@@ -177,8 +192,9 @@ public class Game {
      * @return The string representation of a character or a black string if there
      *         is no character there
      */
-    public String characterAtToString(int i, int j) {
-        return _board.toString(i, j);
+    @Override
+    public String getPositionToString(int i, int j) {
+        return _board.toString(j, i);
     }
 
     /**
@@ -203,13 +219,28 @@ public class Game {
     }
 
     /**
-     * Attack from one object to another
+     * Checks if a vampire can attack an object in a given position
      * 
-     * @param o     object to make the attack
-     * @param other object to receive the attack
-     * @return true if the attack was executed, false if not
+     * @param x      x coordinate
+     * @param y      y coordinate
+     * @param damage damage done
      */
-    public boolean attack(GameObject o, int other) {
-        return _board.attack(o, other);
+    public void attackSlayer(int x, int y, int damage) {
+        int aux = _board.isIn(x, y);
+        if (aux != -1) {
+            _board.attackSlayer(aux, damage);
+        }
+    }
+
+    /**
+     * Checks if a slayer can attack an object in a given position
+     * 
+     * @param x      x coordinate
+     * @param y      y coordinate
+     * @param damage damage done
+     */
+    public boolean attackVamp(int x, int y, int damage) {
+        int index = _board.isIn(x, y);
+        return _board.attackVampire(index, damage);
     }
 }

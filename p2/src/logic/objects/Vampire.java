@@ -100,21 +100,19 @@ public class Vampire extends GameObject {
      * 
      * @param d damage taken by a vampire
      */
-    public void damage(int d) {
-        _hp -= d;
+    public boolean receiveSlayerAttack(int damage) {
+        _hp -= damage;
         if (_hp <= 0) {
             Vampire.decOnBoard(1);
         }
+        return true;
     }
 
     /**
      * checks if it can attack a slayer
      */
     public void attack() {
-        int n = _game.isIn(_x - 1, _y);
-        if (n != -1) {
-            _game.attack(this, n);
-        }
+        _game.attackSlayer(_x - 1, _y, _DAMAGE);
     }
 
     /**

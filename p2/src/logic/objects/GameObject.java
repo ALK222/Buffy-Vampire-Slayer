@@ -1,11 +1,12 @@
 package logic.objects;
 
 import logic.Game;
+import logic.interfaces.IAttack;
 
 /**
  * Abstract class from where all de game objects extend
  */
-public abstract class GameObject {
+public abstract class GameObject implements IAttack {
 
     // Attributes
 
@@ -79,13 +80,6 @@ public abstract class GameObject {
      * Attack process of a GameObject
      */
     public abstract void attack();
-
-    /**
-     * Damage taken by a GameObject
-     * 
-     * @param d value of the damage taken
-     */
-    public abstract void damage(int d);
 
     /**
      * Computer actions for a GameObject: attack, movement etc

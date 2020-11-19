@@ -1,12 +1,14 @@
 package logic.objects;
 
+import java.util.ArrayList;
+
 /**
  * "Board" of the game
  */
 public class GameObjectBoard {
 
     // Attributes
-    private GameObject[] _board;
+    private ArrayList<GameObject> _board;
     private int _objectsOnBoard;
 
     /**
@@ -16,7 +18,7 @@ public class GameObjectBoard {
      * @param heigth heigth of the board
      */
     public GameObjectBoard(int width, int heigth) {
-        _board = new GameObject[width * heigth];
+        _board = new ArrayList<GameObject>(width * heigth);
         _objectsOnBoard = 0;
     }
 
@@ -40,7 +42,7 @@ public class GameObjectBoard {
         int index = 0;
 
         while (!found && index < _objectsOnBoard) {
-            if (_board[index].getX() == i && _board[index].getY() == j) {
+            if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
                 return index;
             } else {
                 ++index;
@@ -54,7 +56,7 @@ public class GameObjectBoard {
      * @return if the board is complete
      */
     public boolean isComplete() {
-        return _board.length >= _objectsOnBoard;
+        return _board.size() >= _objectsOnBoard;
     }
 
     // Methods
@@ -65,11 +67,11 @@ public class GameObjectBoard {
      * @param o object added to the board
      */
     public void add(GameObject o) {
-        if (isComplete()) {
-            _board[_objectsOnBoard] = o;
-            ++_objectsOnBoard;
-        } else {
-            System.out.println("Board complete, cannot add anything else");
+        try {
+            _board.add(o);
+            _objectsOnBoard++;
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -78,7 +80,7 @@ public class GameObjectBoard {
      */
     public void computerAction() {
         for (int i = 0; i < _objectsOnBoard; i++) {
-            _board[i].computerAction();
+            _board.get(i).computerAction();
         }
         removeDead();
     }
@@ -93,7 +95,7 @@ public class GameObjectBoard {
         int i = 0;
 
         while (!found && i < _objectsOnBoard) {
-            if (_board[i].haveLanded()) {
+            if (_board.get(i).haveLanded()) {
                 found = true;
             }
             i++;
@@ -113,8 +115,8 @@ public class GameObjectBoard {
         int index = 0;
 
         while (!found && index < _objectsOnBoard) {
-            if (_board[index].getX() == i && _board[index].getY() == j) {
-                return _board[index];
+            if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
+                return _board.get(index);
             }
             index++;
         }
@@ -129,18 +131,21 @@ public class GameObjectBoard {
      *         if no object was in place
      */
     public String toString(int i, int j) {
-        return (objectAt(j, i) == null) ? " " : objectAt(j, i).toString();
+        return (objectAt(j, i) != null) ? objectAt(j, i).toString() : " ";
     }
 
     /**
      * Removes al the dead objects from the array
      */
     public void removeDead() {
+        int aux = 0;
         for (int i = 0; i < _objectsOnBoard; i++) {
-            if (_board[i].getHp() <= 0) {
+            if (_board.get(i).getHp() <= 0) {
                 delete(i);
+                aux++;
             }
         }
+        _objectsOnBoard -= aux;
     }
 
     /**
@@ -149,10 +154,7 @@ public class GameObjectBoard {
      * @param i position of the dead object in the array
      */
     public void delete(int i) {
-        for (int n = i; n < _objectsOnBoard; ++n) {
-            _board[i] = _board[i + 1];
-        }
-        --_objectsOnBoard;
+        _board.remove(i);
     }
 
     /**
@@ -162,19 +164,12 @@ public class GameObjectBoard {
         _objectsOnBoard = 0;
     }
 
-    /**
-     * Function to make the attack of an object to other object
-     * 
-     * @param o     object to make the attack
-     * @param other object to receive the attack
-     * @return true if the attack can be executed, false if not
-     */
-    public boolean attack(GameObject o, int other) {
-        if (_board[other].isVampire() != o.isVampire()) {
-            _board[other].damage(o.getDamage());
-            return true;
-        }
-        return false;
+    public void attackSlayer(int index, int damage) {
+        _board.get(index).receiveVampireAttack(damage);
+    }
+
+    public boolean attackVampire(int index, int damage) {
+        return index == -1 ? false : _board.get(index).receiveSlayerAttack(damage);
     }
 
 }

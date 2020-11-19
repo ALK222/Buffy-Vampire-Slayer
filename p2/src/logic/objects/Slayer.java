@@ -62,24 +62,20 @@ public class Slayer extends GameObject {
         boolean found = false;
         int i = 0;
         while (!found && i < _game.getX()) {
-            int n = _game.isIn(i, _y);
-            if (n != -1) {
-                if (_game.attack(this, n)) {
-                    found = true;
-                }
-            }
-            i++;
+            found = _game.attackVamp(i, _y, _DAMAGE);
+            ++i;
         }
 
     }
 
     @Override
-    public void damage(int d) {
-        _hp -= d;
+    public boolean haveLanded() {
+        return false;
     }
 
     @Override
-    public boolean haveLanded() {
-        return false;
+    public boolean receiveVampireAttack(int damage) {
+        _hp -= damage;
+        return true;
     }
 }
