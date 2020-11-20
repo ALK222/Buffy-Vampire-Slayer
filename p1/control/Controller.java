@@ -65,7 +65,7 @@ public class Controller {
      */
     public boolean selectCommand(String[] c) {
         switch (c[1]) {
-            case 'r': 
+            case "r": 
             case "reset":
                 if (c.length == 1) {
                     _game.reset();
@@ -76,7 +76,7 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'e':
+            case "e":
             case "exit":
                 if (c.length == 1) {
                     _exit = true;
@@ -85,7 +85,7 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'a':
+            case "a":
             case "add":
                 if (c.length == 3) {
                     boolean f = _game.addSlayer(Integer.parseInt(c[1]), Integer.parseInt(c[2]));
@@ -94,7 +94,7 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'h':
+            case "h":
             case "help":
                 if (c.length == 1) {
                     System.out.println(helpMsg);
@@ -103,7 +103,7 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'n':
+            case "n":
             case "none":
                 return true;
             default:
