@@ -44,7 +44,7 @@ public class Controller {
         while (!_game.checkEnd() && !_exit) {
             System.out.print(prompt);
             command = _in.nextLine().toLowerCase().split(" ");
-            if (command.isEmpty() || selectCommand(command)) {
+            if (command[0].isEmpty() || selectCommand(command)) {
                 _game.update();
                 _game.printInfo();
                 printGame();
