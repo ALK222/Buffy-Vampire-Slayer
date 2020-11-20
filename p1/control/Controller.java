@@ -64,7 +64,7 @@ public class Controller {
      * @return true if the command updates the game, false if not
      */
     public boolean selectCommand(String[] c) {
-        switch (c) {
+        switch (c[1]) {
             case 'r': 
             case "reset":
                 if (c.length == 1) {
