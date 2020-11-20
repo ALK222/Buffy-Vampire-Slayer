@@ -65,7 +65,8 @@ public class Controller {
      */
     public boolean selectCommand(String[] c) {
         switch (c) {
-            case 'r' || "reset":
+            case 'r': 
+            case "reset":
                 if (c.length == 1) {
                     _game.reset();
                     _game.printInfo();
@@ -75,7 +76,8 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'e' || "exit":
+            case 'e':
+            case "exit":
                 if (c.length == 1) {
                     _exit = true;
                     return false;
@@ -83,7 +85,8 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'a' || "add":
+            case 'a':
+            case "add":
                 if (c.length == 3) {
                     boolean f = _game.addSlayer(Integer.parseInt(c[1]), Integer.parseInt(c[2]));
                     return f;
@@ -91,7 +94,8 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'h' || "help":
+            case 'h':
+            case "help":
                 if (c.length == 1) {
                     System.out.println(helpMsg);
                     return false;
@@ -99,7 +103,8 @@ public class Controller {
                     System.out.println("Incorrect number of parameters, please try again");
                     return false;
                 }
-            case 'n' || "none":
+            case 'n':
+            case "none":
                 return true;
             default:
                 System.out.println("Command not recognized, please try again");
