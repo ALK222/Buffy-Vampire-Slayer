@@ -21,7 +21,7 @@ public class GameObjectBoard {
     public GameObjectBoard(Game game) {
         _game = game;
         _vList = new VampireList(_game.getNumVamps());
-        _sList = new SlayerList();
+        _sList = new SlayerList(_game.getX(), game.getY());
     }
 
     /**

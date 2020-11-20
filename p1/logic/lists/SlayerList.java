@@ -14,8 +14,8 @@ public class SlayerList {
     /**
      * constructor of the list
      */
-    public SlayerList() {
-        _list = new Slayer[10];
+    public SlayerList(int x, int y) {
+        _list = new Slayer[x * y];
         _counter = 0;
     }
 
