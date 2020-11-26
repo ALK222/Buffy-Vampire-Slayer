@@ -23,7 +23,7 @@ public class Vampire extends GameObject {
      */
     public Vampire(Game game, int x, int y, int hp) {
         super(game, x, y, hp);
-        _cycle = 0;
+        _cycle = 1;
     }
 
     // Getters
@@ -89,7 +89,7 @@ public class Vampire extends GameObject {
      */
     public void movement() {
         if (_game.isIn(_x - 1, _y) == -1) {
-            if (_cycle % 2 == 0 && _cycle != 0) {
+            if (_cycle % 2 == 0) {
                 _x -= 1;
             }
             _cycle++;

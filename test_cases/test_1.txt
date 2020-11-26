@@ -1,0 +1,9 @@
+h
+add 9 0
+add 0 9
+a 0 0
+
+update
+u
+r
+e

@@ -1,6 +1,7 @@
 package logic.objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * "Board" of the game
@@ -9,7 +10,7 @@ public class GameObjectBoard {
 
     // Attributes
     private ArrayList<GameObject> _board;
-    private int _objectsOnBoard;
+    private final int _maxElements;
 
     /**
      * Constructor for the GameObjectBoard class
@@ -19,7 +20,7 @@ public class GameObjectBoard {
      */
     public GameObjectBoard(int width, int heigth) {
         _board = new ArrayList<GameObject>(width * heigth);
-        _objectsOnBoard = 0;
+        _maxElements = width * heigth;
     }
 
     // Getters
@@ -28,7 +29,7 @@ public class GameObjectBoard {
      * @return the total number of objects on board
      */
     public int getObjectsOnBoard() {
-        return _objectsOnBoard;
+        return _board.size();
     }
 
     /**
@@ -41,7 +42,7 @@ public class GameObjectBoard {
         boolean found = false;
         int index = 0;
 
-        while (!found && index < _objectsOnBoard) {
+        while (!found && index < _board.size()) {
             if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
                 return index;
             } else {
@@ -56,7 +57,7 @@ public class GameObjectBoard {
      * @return if the board is complete
      */
     public boolean isComplete() {
-        return _board.size() >= _objectsOnBoard;
+        return _board.size() <= _maxElements;
     }
 
     // Methods
@@ -69,7 +70,6 @@ public class GameObjectBoard {
     public void add(GameObject o) {
         try {
             _board.add(o);
-            _objectsOnBoard++;
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -79,7 +79,7 @@ public class GameObjectBoard {
      * Executes the computer action of every object on board
      */
     public void computerAction() {
-        for (int i = 0; i < _objectsOnBoard; i++) {
+        for (int i = 0; i < _board.size(); i++) {
             _board.get(i).computerAction();
         }
         removeDead();
@@ -94,7 +94,7 @@ public class GameObjectBoard {
         boolean found = false;
         int i = 0;
 
-        while (!found && i < _objectsOnBoard) {
+        while (!found && i < _board.size()) {
             if (_board.get(i).haveLanded()) {
                 found = true;
             }
@@ -114,7 +114,7 @@ public class GameObjectBoard {
         boolean found = false;
         int index = 0;
 
-        while (!found && index < _objectsOnBoard) {
+        while (!found && index < _board.size()) {
             if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
                 return _board.get(index);
             }
@@ -138,14 +138,13 @@ public class GameObjectBoard {
      * Removes al the dead objects from the array
      */
     public void removeDead() {
-        int aux = 0;
-        for (int i = 0; i < _objectsOnBoard; i++) {
+        List<GameObject> auxlist = new ArrayList<GameObject>(_board.size());
+        for (int i = 0; i < _board.size(); i++) {
             if (_board.get(i).getHp() <= 0) {
-                delete(i);
-                aux++;
+                auxlist.add(_board.get(i));
             }
         }
-        _objectsOnBoard -= aux;
+        _board.removeAll(auxlist);
     }
 
     /**
@@ -161,7 +160,7 @@ public class GameObjectBoard {
      * Resets the board
      */
     public void reset() {
-        _objectsOnBoard = 0;
+        _board.clear();
     }
 
     public void attackSlayer(int index, int damage) {
