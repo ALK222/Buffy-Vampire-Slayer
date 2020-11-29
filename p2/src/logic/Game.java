@@ -205,6 +205,7 @@ public class Game implements IPrintable {
         _cycle = 0;
         _pl.setCoins(_STARTERCOINS);
         Vampire.setNumVamp(_lvl.getNumVamp());
+        Vampire.setOnBoard(0);
     }
 
     /**
@@ -214,6 +215,13 @@ public class Game implements IPrintable {
         _board.removeDead();
     }
 
+    /**
+     * Returns if an object is in the position given
+     * 
+     * @param i x coordiinate
+     * @param j y coordinate
+     * @return the index in the arraylist of the object or -1 if no object was found
+     */
     public int isIn(int i, int j) {
         return _board.isIn(i, j);
     }

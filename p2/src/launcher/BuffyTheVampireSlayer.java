@@ -6,6 +6,12 @@ import control.Controller;
 import logic.Game;
 import logic.Level;
 
+/**
+ * Buffy the Vampire Slayer game (totally not Plant vs Zombies)
+ * 
+ * @author Alejandro Barrachina Argudo
+ * @author Jaime Benedi Galdeano
+ */
 public class BuffyTheVampireSlayer {
     public static final String version = "2.0";
     public static final String usageMsg = "Usage: Vampire slayer <level> [seed]";

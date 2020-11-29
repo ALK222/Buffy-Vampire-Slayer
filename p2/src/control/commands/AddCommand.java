@@ -9,8 +9,8 @@ public class AddCommand extends Command {
 
     private static final String _name = "Add";
     private static final String _shortcut = "A";
-    private static final String _details = "Adds a slayer to the field";
-    private static final String _help = "[A]dd <x> <y>: adds a slayer to the given coordinates";
+    private static final String _details = "[A]dd <x> <y>";
+    private static final String _help = "adds a slayer to the given coordinates";
 
     private int _x;
     private int _y;
@@ -51,6 +51,14 @@ public class AddCommand extends Command {
             System.out.println(Command.incorrectNumberOfArgsMsg);
             return null;
         }
-        return new AddCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]));
+        try {
+            int x = Integer.parseInt(commandWords[1]);
+            int y = Integer.parseInt(commandWords[2]);
+
+            return new AddCommand(x, y);
+        } catch (NumberFormatException nfe) {
+            System.out.println("The arguments must be numers");
+        }
+        return null;
     }
 }
