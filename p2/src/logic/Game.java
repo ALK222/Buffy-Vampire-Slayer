@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Random;
 
+import logic.interfaces.IAttack;
 import logic.interfaces.IPrintable;
 import logic.objects.GameObjectBoard;
 import logic.objects.Player;
@@ -227,28 +228,13 @@ public class Game implements IPrintable {
     }
 
     /**
-     * Checks if a vampire can attack an object in a given position
+     * Returns a copy of an object to be attacked
      * 
-     * @param x      x coordinate
-     * @param y      y coordinate
-     * @param damage damage done
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return the object at the given coordinates
      */
-    public void attackSlayer(int x, int y, int damage) {
-        int aux = _board.isIn(x, y);
-        if (aux != -1) {
-            _board.attackSlayer(aux, damage);
-        }
-    }
-
-    /**
-     * Checks if a slayer can attack an object in a given position
-     * 
-     * @param x      x coordinate
-     * @param y      y coordinate
-     * @param damage damage done
-     */
-    public boolean attackVamp(int x, int y, int damage) {
-        int index = _board.isIn(x, y);
-        return _board.attackVampire(index, damage);
+    public IAttack getAttackableIn(int x, int y) {
+        return _board.objectAt(x, y);
     }
 }

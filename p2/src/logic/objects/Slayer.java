@@ -1,6 +1,7 @@
 package logic.objects;
 
 import logic.Game;
+import logic.interfaces.IAttack;
 
 /**
  * Slayer of Vampires. Reap and tear
@@ -62,7 +63,10 @@ public class Slayer extends GameObject {
         boolean found = false;
         int i = 0;
         while (!found && i < _game.getX()) {
-            found = _game.attackVamp(i, _y, _DAMAGE);
+            IAttack aux = _game.getAttackableIn(i, _y);
+            if (aux != null) {
+                found = aux.receiveSlayerAttack(_DAMAGE);
+            }
             ++i;
         }
 

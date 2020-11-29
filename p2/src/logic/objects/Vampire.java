@@ -1,6 +1,7 @@
 package logic.objects;
 
 import logic.Game;
+import logic.interfaces.IAttack;
 
 /**
  * Vampires, enemies of the game
@@ -112,7 +113,10 @@ public class Vampire extends GameObject {
      * checks if it can attack a slayer
      */
     public void attack() {
-        _game.attackSlayer(_x - 1, _y, _DAMAGE);
+        IAttack aux = _game.getAttackableIn(_x - 1, _y);
+        if (aux != null) {
+            aux.receiveVampireAttack(_DAMAGE);
+        }
     }
 
     /**

@@ -110,7 +110,7 @@ public class GameObjectBoard {
      * @param j y coordinate
      * @return the object at that position, null in location is empty
      */
-    private GameObject objectAt(int i, int j) {
+    public GameObject objectAt(int i, int j) {
         boolean found = false;
         int index = 0;
 
@@ -161,26 +161,6 @@ public class GameObjectBoard {
      */
     public void reset() {
         _board.clear();
-    }
-
-    /**
-     * Attacks a slayer with the given index
-     * 
-     * @param index  index of the slayer in the arraylist
-     * @param damage damage taken by the slayer
-     */
-    public void attackSlayer(int index, int damage) {
-        _board.get(index).receiveVampireAttack(damage);
-    }
-
-    /**
-     * Attacks a vampire with the given index
-     * 
-     * @param index  index of the vampire in the arraylist
-     * @param damage damage taken by the vampire
-     */
-    public boolean attackVampire(int index, int damage) {
-        return index == -1 ? false : _board.get(index).receiveSlayerAttack(damage);
     }
 
 }
