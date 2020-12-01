@@ -134,6 +134,10 @@ public class Game implements IPrintable {
     }
 
     public boolean addVampire(int x, int y, VampType type) {
+        if (!isOnBoard(x, y, true)) {
+            System.out.println("Invalid position, please try again");
+            return false;
+        }
         if (_board.isIn(x, y) != -1) {
             System.out.println("Cell occupied");
             return false;
@@ -214,7 +218,7 @@ public class Game implements IPrintable {
                 System.out.println("Slayer or vampire already in that coordinate, choose other");
                 return false;
             } else {
-                if (0 > i || i >= (_dimX - 1) || 0 > j || j > (_dimY - 1)) {
+                if (!isOnBoard(i, j, false)) {
                     System.out.println("Invalid position, try again");
                     return false;
                 }
@@ -222,9 +226,25 @@ public class Game implements IPrintable {
                 _pl.decCoins(Slayer.getCost());
                 return true;
             }
-        } else {
+        } else
+
+        {
             System.out.println("Not enough coins to hire a slayer");
             return false;
+        }
+    }
+
+    public boolean isOnBoard(int i, int j, boolean amplied) {
+        int bondX = _dimX;
+        int bondY = _dimY;
+        if (!amplied) { // if used to check the boundaries for a vampire, the board is amplied
+            bondX--;
+            bondY--;
+        }
+        if (0 > i || i >= (bondX) || 0 > j || j > (bondY)) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -317,5 +337,10 @@ public class Game implements IPrintable {
         } else {
             return false;
         }
+    }
+
+    public void addCoins(int c) {
+        _pl.addCoins(c);
+        System.out.println(c + " coins added");
     }
 }
