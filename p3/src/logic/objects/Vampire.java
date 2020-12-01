@@ -9,7 +9,7 @@ import logic.interfaces.IAttack;
 public class Vampire extends GameObject {
 
     // Attributes
-    private static final int _DAMAGE = 1; // Damage per attack
+    private int _damage = 1; // Damage per attack
     private static int _ONBOARD; // Number of vampires on board
     private static int numVamp; // Number of vampires to spawn
     private int _cycle;
@@ -50,7 +50,7 @@ public class Vampire extends GameObject {
     }
 
     public int getDamage() {
-        return _DAMAGE;
+        return _damage;
     }
 
     // Setters
@@ -101,6 +101,7 @@ public class Vampire extends GameObject {
      * 
      * @param d damage taken by a vampire
      */
+    @Override
     public boolean receiveSlayerAttack(int damage) {
         _hp -= damage;
         if (_hp <= 0) {
@@ -116,10 +117,11 @@ public class Vampire extends GameObject {
     /**
      * checks if it can attack a slayer
      */
+    @Override
     public void attack() {
         IAttack aux = _game.getAttackableIn(_x - 1, _y);
         if (aux != null) {
-            aux.receiveVampireAttack(_DAMAGE);
+            aux.receiveVampireAttack(_damage);
         }
     }
 
@@ -147,8 +149,14 @@ public class Vampire extends GameObject {
         _ONBOARD -= i;
     }
 
+    @Override
     public boolean haveLanded() {
         return _x < 0;
+    }
+
+    public boolean increasePower() {
+        _damage++;
+        return true;
     }
 
 }

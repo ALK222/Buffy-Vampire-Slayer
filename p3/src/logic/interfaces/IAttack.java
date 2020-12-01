@@ -54,4 +54,13 @@ public interface IAttack {
     default boolean receiveLightAttack() {
         return false;
     };
+
+    /**
+     * Checks if an object can increase its power
+     * 
+     * @return true if the power was increased, false if not
+     */
+    default boolean increasePower() {
+        return false;
+    };
 }

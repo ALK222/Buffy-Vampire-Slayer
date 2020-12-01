@@ -7,8 +7,8 @@ import logic.Game;
  */
 public class UpdateCommand extends Command {
 
-    private static String _name = "Update";
-    private static String _shortcut = "U";
+    private static String _name = "None";
+    private static String _shortcut = "N";
     private static String _details = "[N]one | []";
     private static String _help = "Updates the game";
 

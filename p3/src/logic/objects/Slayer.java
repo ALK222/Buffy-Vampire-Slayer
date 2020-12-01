@@ -82,4 +82,10 @@ public class Slayer extends GameObject {
         _hp -= damage;
         return true;
     }
+
+    @Override
+    public boolean receiveDraculaAttack() {
+        _hp = 0;
+        return true;
+    }
 }

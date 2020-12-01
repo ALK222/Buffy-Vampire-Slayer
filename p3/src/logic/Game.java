@@ -5,6 +5,7 @@ import java.util.Random;
 import logic.interfaces.IAttack;
 import logic.interfaces.IPrintable;
 import logic.objects.Dracula;
+import logic.objects.ExplosiveV;
 import logic.objects.GameObject;
 import logic.objects.GameObjectBoard;
 import logic.objects.Player;
@@ -104,17 +105,17 @@ public class Game implements IPrintable {
         if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
-            while (addVampire(x, y, VampType.NORMAL)) {
+            while (!addVampire(x, y, VampType.NORMAL)) {
                 y = _rand.nextInt(_dimY);
             }
 
         }
 
         // Dracula Spawn
-        if (_rand.nextDouble() < _lvl.getFreq() && !Dracula.isOnBoard()) {
+        if (_rand.nextDouble() < _lvl.getFreq() && !Dracula.isOnBoard() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
-            while (addVampire(x, y, VampType.NORMAL)) {
+            while (!addVampire(x, y, VampType.DRACULA)) {
                 y = _rand.nextInt(_dimY);
             }
 
@@ -124,7 +125,7 @@ public class Game implements IPrintable {
         if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
-            while (addVampire(x, y, VampType.EXPLOSIVE)) {
+            while (!addVampire(x, y, VampType.EXPLOSIVE)) {
                 y = _rand.nextInt(_dimY);
             }
 
@@ -140,14 +141,16 @@ public class Game implements IPrintable {
             GameObject aux = null;
             switch (type) {
                 case DRACULA:
+                    System.out.println("Dracula is alive");
                     aux = new Dracula(this, x, y, _VAMPIREHEALTH);
                     Dracula.setOnBoard(true);
                     break;
                 case EXPLOSIVE:
-                    // TODO
+                    aux = new ExplosiveV(this, x, y, _VAMPIREHEALTH);
                     break;
                 case NORMAL:
                     aux = new Vampire(this, x, y, _VAMPIREHEALTH);
+                    break;
                 default:
                     System.out.println("Vampire class not found");
                     return false;
@@ -179,7 +182,7 @@ public class Game implements IPrintable {
      * @return true if the game has ended, false if not
      */
     public boolean checkEnd() {
-        if (Vampire.getNumVamp() == 0 && Vampire.getOnBoard() == 0) {
+        if (Vampire.getNumVamp() <= 0 && Vampire.getOnBoard() <= 0) {
             _finalMsg = "You win!";
             return true;
         }
@@ -284,5 +287,16 @@ public class Game implements IPrintable {
      */
     public IAttack getAttackableIn(int x, int y) {
         return _board.objectAt(x, y);
+    }
+
+    public void increasePower(int x, int y) {
+        for (int i = x - 1; i < x + 1; i++) {
+            for (int j = y - 1; j < x + 1; j++) {
+                GameObject aux = _board.objectAt(i, j);
+                if (aux != null) {
+                    aux.increasePower();
+                }
+            }
+        }
     }
 }

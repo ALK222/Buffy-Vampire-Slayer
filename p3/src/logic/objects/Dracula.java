@@ -43,6 +43,7 @@ public class Dracula extends Vampire {
     @Override
     public void onDead() {
         onBoard = false;
+        Vampire.decOnBoard(1);
     }
 
 }
