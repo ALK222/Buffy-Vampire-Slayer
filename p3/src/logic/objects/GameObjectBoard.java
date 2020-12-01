@@ -163,4 +163,16 @@ public class GameObjectBoard {
         _board.clear();
     }
 
+    public void garlicPush() {
+        for (int i = 0; i < _board.size(); i++) {
+            _board.get(i).receiveGarlicPush();
+        }
+    }
+
+    public void lightFlash() {
+        for (int i = 0; i < _board.size(); i++) {
+            _board.get(i).receiveLightAttack();
+        }
+    }
+
 }

@@ -10,7 +10,7 @@ public class AddCommand extends Command {
     private static final String _name = "Add";
     private static final String _shortcut = "A";
     private static final String _details = "[A]dd <x> <y>";
-    private static final String _help = "adds a slayer to the given coordinates";
+    private static final String _help = "adds a slayer to the given coordinates for only 50 coins";
 
     private int _x;
     private int _y;

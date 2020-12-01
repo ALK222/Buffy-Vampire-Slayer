@@ -6,7 +6,7 @@ public class CommandGenerator {
      * List of all commands in the game
      */
     private static Command[] availableCommands = { new AddCommand(), new HelpCommand(), new ResetCommand(),
-            new ExitCommand(), new UpdateCommand() };
+            new ExitCommand(), new UpdateCommand(), new GarlicPushCommand(), new LightFlashCommand() };
 
     public static String commandHelp() {
         // shows al commands

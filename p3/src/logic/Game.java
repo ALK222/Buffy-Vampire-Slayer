@@ -299,4 +299,23 @@ public class Game implements IPrintable {
             }
         }
     }
+
+    public boolean garlicPush() {
+        if (_pl.getCoins() >= 10) {
+            _board.garlicPush();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean lightFlash() {
+        if (_pl.getCoins() >= 50) {
+            _board.lightFlash();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

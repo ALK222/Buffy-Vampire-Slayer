@@ -154,9 +154,23 @@ public class Vampire extends GameObject {
         return _x < 0;
     }
 
+    @Override
     public boolean increasePower() {
         _damage++;
         return true;
     }
 
+    @Override
+    public boolean receiveGarlicPush() {
+        _x++;
+        return true;
+    }
+
+    @Override
+    public boolean receiveLightAttack() {
+        _hp = 0;
+        _game.removeDead();
+        onDead();
+        return true;
+    }
 }
