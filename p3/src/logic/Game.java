@@ -344,7 +344,7 @@ public class Game implements IPrintable {
             for (int j = y - 1; j < x + 1; j++) {
                 GameObject aux = _board.objectAt(i, j);
                 if (aux != null) {
-                    aux.increasePower();
+                    aux.receiveExplosiveAttack();
                 }
             }
         }

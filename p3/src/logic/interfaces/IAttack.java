@@ -63,7 +63,7 @@ public interface IAttack {
      * 
      * @return true if the power was increased, false if not
      */
-    default boolean increasePower() {
+    default boolean receiveExplosiveAttack() {
         return false;
     };
 }
