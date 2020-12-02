@@ -91,6 +91,7 @@ public class Vampire extends GameObject {
     @Override
     public boolean receiveGarlicPush() {
         _x++;
+        _cycle = 1;
         return true;
     }
 
