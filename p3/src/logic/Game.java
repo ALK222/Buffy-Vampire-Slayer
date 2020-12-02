@@ -26,6 +26,8 @@ public class Game implements IPrintable {
     private static final int _SLAYERHEALTH = 3;
     private static final int _STARTERCOINS = 50;
     private static final int _BANKHP = 1;
+    private static final int _GARLICCOST = 10;
+    private static final int _LIGHTCOST = 50;
     private int _cycle;
     private Level _lvl;
     private long _seed;
@@ -97,12 +99,21 @@ public class Game implements IPrintable {
 
     // Methods
 
+    /**
+     * Adds a bloodbank to the board
+     * 
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param z cost
+     * @return true if can be added, false if not
+     */
     public boolean addBloodBank(int x, int y, int z) {
         if (!isOnBoard(x, y, false)) {
             System.out.println("Invalid position, pleasy try again");
             return false;
         }
         if (z <= _pl.getCoins()) {
+            _pl.decCoins(z);
             _board.add(new BloodBank(this, x, y, _BANKHP, z));
             return true;
         } else {
@@ -131,6 +142,10 @@ public class Game implements IPrintable {
             GameObject aux = null;
             switch (type) {
                 case DRACULA:
+                    if (Dracula.isOnBoard()) {
+                        System.out.println("Dracula already on board");
+                        return false;
+                    }
                     System.out.println("Dracula is alive");
                     aux = new Dracula(this, x, y, _VAMPIREHEALTH);
                     Dracula.setOnBoard(true);
@@ -226,7 +241,8 @@ public class Game implements IPrintable {
      * @return if can be executed, false if not
      */
     public boolean garlicPush() {
-        if (_pl.getCoins() >= 10) {
+        if (_pl.getCoins() >= _GARLICCOST) {
+            _pl.decCoins(_GARLICCOST);
             _board.garlicPush();
             return true;
         } else {
@@ -241,7 +257,8 @@ public class Game implements IPrintable {
      * @return if can be executed, false if not
      */
     public boolean lightFlash() {
-        if (_pl.getCoins() >= 50) {
+        if (_pl.getCoins() >= _LIGHTCOST) {
+            _pl.decCoins(_LIGHTCOST);
             _board.lightFlash();
             removeDead();
             return true;

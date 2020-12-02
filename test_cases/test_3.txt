@@ -1,0 +1,21 @@
+c
+coins
+add 5 0
+v 6 0 dracula
+v 6 0 d
+v 5 0 d
+add 0 0
+
+
+
+none
+b 0 3 2000
+n
+
+
+
+
+g
+l
+r
+e

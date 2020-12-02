@@ -3,11 +3,11 @@ package control.commands;
 import logic.Game;
 
 /**
- * Debug command to add 100 coins to the player
+ * Debug command to add 1000 coins to the player
  */
 public class SuperCoinsCommand extends Command {
 
-    private static int _COINS = 100;
+    private static final int _COINS = 1000;
     private static String _name = "Coins";
     private static String _shortcut = "C";
     private static String _details = "[C]oins";

@@ -20,5 +20,5 @@ jobs:
 
       - name: execute program
         if: ${{ success() }} # Only starts if the previous steps worked
-        run: java launcher.BuffyVampireSlayer EASY 5 < ../../test_cases/easy_s5_0.txt # Path to the .class of main, arguments for the game and the input file
+        run: java launcher.BuffyVampireSlayer EASY 5 < ../../test_cases/test_1.txt # Path to the .class of main, arguments for the game and the input file
         working-directory: ./p1/src
