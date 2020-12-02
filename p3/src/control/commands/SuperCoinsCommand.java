@@ -2,6 +2,9 @@ package control.commands;
 
 import logic.Game;
 
+/**
+ * Debug command to add 100 coins to the player
+ */
 public class SuperCoinsCommand extends Command {
 
     private static int _COINS = 100;

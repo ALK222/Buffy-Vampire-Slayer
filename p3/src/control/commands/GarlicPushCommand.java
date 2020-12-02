@@ -2,6 +2,9 @@ package control.commands;
 
 import logic.Game;
 
+/**
+ * Command to execute a GarlicPush attack
+ */
 public class GarlicPushCommand extends Command {
 
     private static String _name = "Garlic";

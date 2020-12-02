@@ -8,12 +8,14 @@ import logic.interfaces.IAttack;
  */
 public class Vampire extends GameObject {
 
-    // Attributes
+    // ATTRIBUTES
+
     private int _damage = 1; // Damage per attack
     private static int _ONBOARD; // Number of vampires on board
     private static int numVamp; // Number of vampires to spawn
     private int _cycle;
 
+    // CONSTRUCTOR
     /**
      * Constructor for the Vampire class
      * 
@@ -27,7 +29,7 @@ public class Vampire extends GameObject {
         _cycle = 1;
     }
 
-    // Getters
+    // GETTERS
 
     /**
      * 
@@ -53,9 +55,10 @@ public class Vampire extends GameObject {
         return _damage;
     }
 
-    // Setters
+    // SETTERS
 
     /**
+     * Sets the number of vampires on the board
      * 
      * @param i sets the current number of vampires in the board
      */
@@ -64,6 +67,7 @@ public class Vampire extends GameObject {
     }
 
     /**
+     * Sets the number of vampires to appear
      * 
      * @param nv set the number of vampires to appear
      */
@@ -71,7 +75,44 @@ public class Vampire extends GameObject {
         numVamp = nv;
     }
 
-    // Methods
+    // METHODS
+
+    @Override
+    public boolean haveLanded() {
+        return _x < 0;
+    }
+
+    @Override
+    public boolean increasePower() {
+        _damage++;
+        return true;
+    }
+
+    @Override
+    public boolean receiveGarlicPush() {
+        _x++;
+        return true;
+    }
+
+    @Override
+    public boolean receiveLightAttack() {
+        _hp = 0;
+        onDead();
+        return true;
+    }
+
+    /**
+     * 
+     * @param d damage taken by a vampire
+     */
+    @Override
+    public boolean receiveSlayerAttack(int damage) {
+        _hp -= damage;
+        if (_hp <= 0) {
+            onDead();
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
@@ -95,19 +136,6 @@ public class Vampire extends GameObject {
             }
             _cycle++;
         }
-    }
-
-    /**
-     * 
-     * @param d damage taken by a vampire
-     */
-    @Override
-    public boolean receiveSlayerAttack(int damage) {
-        _hp -= damage;
-        if (_hp <= 0) {
-            onDead();
-        }
-        return true;
     }
 
     public void onDead() {
@@ -149,28 +177,4 @@ public class Vampire extends GameObject {
         _ONBOARD -= i;
     }
 
-    @Override
-    public boolean haveLanded() {
-        return _x < 0;
-    }
-
-    @Override
-    public boolean increasePower() {
-        _damage++;
-        return true;
-    }
-
-    @Override
-    public boolean receiveGarlicPush() {
-        _x++;
-        return true;
-    }
-
-    @Override
-    public boolean receiveLightAttack() {
-        _hp = 0;
-        _game.removeDead();
-        onDead();
-        return true;
-    }
 }

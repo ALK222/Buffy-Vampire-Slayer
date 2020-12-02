@@ -3,7 +3,7 @@ package control.commands;
 import logic.Game;
 
 /**
- * Reset command
+ * Command to reset the game to its initial state
  */
 public class ResetCommand extends Command {
 

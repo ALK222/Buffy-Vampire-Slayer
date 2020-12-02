@@ -3,6 +3,9 @@ package control.commands;
 import logic.Game;
 import logic.VampType;
 
+/**
+ * Debug command to add vampires to the game
+ */
 public class AddVampireCommand extends Command {
 
     private static final String _name = "Vampire";

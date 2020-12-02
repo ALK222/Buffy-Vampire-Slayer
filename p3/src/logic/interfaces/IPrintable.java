@@ -1,5 +1,8 @@
 package logic.interfaces;
 
+/**
+ * Interface for printing the game
+ */
 public interface IPrintable {
     /**
      * String of the object in the given coordinates

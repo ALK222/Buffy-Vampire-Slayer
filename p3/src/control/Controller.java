@@ -17,8 +17,7 @@ public class Controller {
     private Scanner _in;
     private GamePrinter _printer;
 
-    public final String prompt = "Command > ";
-
+    public static final String prompt = "Command > ";
     public static final String unknownCommandMsg = String.format("Unknown command");
     public static final String invalidCommandMsg = String.format("Invalid command");
     public static final String invalidPositionMsg = String.format("Invalid position");

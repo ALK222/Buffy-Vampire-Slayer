@@ -27,7 +27,7 @@ public class UpdateCommand extends Command {
 
     @Override
     public Command parse(String[] commandWords) {
-        if (commandWords[0].equals("")) {
+        if (commandWords[0].equals("")) { // if the command line is empty, update
             return this;
         }
         return parseNoParamsCommand(commandWords);

@@ -2,6 +2,9 @@ package control.commands;
 
 import logic.Game;
 
+/**
+ * Command to execute a LightFlash Command
+ */
 public class LightFlashCommand extends Command {
     private static String _name = "Light";
     private static String _shortcut = "L";

@@ -13,7 +13,7 @@ import logic.Level;
  * @author Jaime Benedi Galdeano
  */
 public class BuffyTheVampireSlayer {
-    public static final String version = "2.0";
+    public static final String version = "2.1";
     public static final String usageMsg = "Usage: Vampire slayer <level> [seed]";
     public static final String welcomeMsg = String.format("Buffy the Vampire Slayer " + version + "%n");
     public static final String levelInfoMsg = "Level must be one of: " + Level.all(", ");

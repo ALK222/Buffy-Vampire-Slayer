@@ -1,5 +1,8 @@
 package logic.interfaces;
 
+/**
+ * Interface for executing attacks and checking if attacks land
+ */
 public interface IAttack {
     /**
      * Attack of an object

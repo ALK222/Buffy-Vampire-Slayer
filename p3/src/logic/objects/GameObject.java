@@ -8,7 +8,7 @@ import logic.interfaces.IAttack;
  */
 public abstract class GameObject implements IAttack {
 
-    // Attributes
+    // ATTRIBURTES
 
     protected int _hp;
     protected int _x;
@@ -16,6 +16,7 @@ public abstract class GameObject implements IAttack {
 
     protected Game _game;
 
+    // CONSTRUCTOR
     /**
      * Constructor for the GameObject class
      * 
@@ -31,7 +32,7 @@ public abstract class GameObject implements IAttack {
         _hp = hp;
     }
 
-    // Getters
+    // GETTERS
 
     /**
      * 
@@ -59,17 +60,19 @@ public abstract class GameObject implements IAttack {
 
     /**
      * 
-     * @return true if it's avampire, false if not
-     */
-    public abstract boolean isVampire();
-
-    /**
-     * 
      * @return the damage points of the object
      */
     public abstract int getDamage();
 
     // Methods
+
+    /**
+     * Checks if the vampires have landed at the end of the board.
+     * 
+     * @return true if a vampire has landed, false if not or if the object is a
+     *         slayer
+     */
+    public abstract boolean haveLanded();
 
     /**
      * Symbol and HP of a GameObject
@@ -85,11 +88,4 @@ public abstract class GameObject implements IAttack {
      * Computer actions for a GameObject: attack, movement etc
      */
     public abstract void computerAction();
-
-    /**
-     * 
-     * @return true if a vampire has landed, false if not or if the object is a
-     *         slayer
-     */
-    public abstract boolean haveLanded();
 }

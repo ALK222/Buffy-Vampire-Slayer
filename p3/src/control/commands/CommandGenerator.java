@@ -1,13 +1,16 @@
 package control.commands;
 
+/**
+ * Command builder
+ */
 public class CommandGenerator {
 
     /**
      * List of all commands in the game
      */
-    private static Command[] availableCommands = { new AddCommand(), new HelpCommand(), new ResetCommand(),
-            new ExitCommand(), new UpdateCommand(), new GarlicPushCommand(), new LightFlashCommand(),
-            new SuperCoinsCommand(), new AddVampireCommand() };
+    private static Command[] availableCommands = { new AddCommand(), new AddVampireCommand(), new BloodBankCommand(),
+            new ExitCommand(), new GarlicPushCommand(), new HelpCommand(), new LightFlashCommand(), new ResetCommand(),
+            new SuperCoinsCommand(), new UpdateCommand() };
 
     public static String commandHelp() {
         // shows al commands

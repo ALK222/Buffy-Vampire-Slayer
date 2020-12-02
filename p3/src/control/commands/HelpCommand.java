@@ -3,7 +3,7 @@ package control.commands;
 import logic.Game;
 
 /**
- * Help command
+ * Command to show the list of commands and their use
  */
 public class HelpCommand extends Command {
 

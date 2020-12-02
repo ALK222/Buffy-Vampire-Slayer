@@ -1,7 +1,12 @@
 package logic;
 
 /**
+ * <p>
  * Level based numbers
+ * 
+ * <p>
+ * All the frequencies, total number of vampires and the size of the board based
+ * on the level
  */
 public enum Level {
 

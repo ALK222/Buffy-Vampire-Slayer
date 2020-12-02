@@ -3,17 +3,22 @@ package logic.objects;
 import java.util.Random;
 
 /**
- * 
+ * <p>
  * The hand that controls everything
  * 
+ * <p>
+ * Manager of coins, not much else
  */
 public class Player {
+
+    // ATTRIBUTES
 
     private int _coins;
     private Random _rand;
     private static final double _FREQCOIN = 0.50;
     private static final int _COINS_RECEIVED = 10;
 
+    // CONSTRUCTOR
     /**
      * 
      * @param game  instance of the game
@@ -24,7 +29,7 @@ public class Player {
         _coins = coins;
     }
 
-    // Getters
+    // GETTERS
     /**
      * 
      * @return the number of coins that the player has
@@ -33,7 +38,7 @@ public class Player {
         return _coins;
     }
 
-    // Setters
+    // SETTERS
     /**
      * Set the number of coins to i
      * 
@@ -43,15 +48,15 @@ public class Player {
         _coins = i;
     }
 
-    // Methods
+    // METHODS
 
     /**
      * Adds coins to the player
      * 
-     * @param i number of coins added to the player
+     * @param d number of coins added to the player
      */
-    public void addCoins(int i) {
-        _coins += i;
+    public void addCoins(int d) {
+        _coins += d;
     }
 
     /**

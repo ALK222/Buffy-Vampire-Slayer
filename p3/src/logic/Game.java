@@ -4,6 +4,7 @@ import java.util.Random;
 
 import logic.interfaces.IAttack;
 import logic.interfaces.IPrintable;
+import logic.objects.BloodBank;
 import logic.objects.Dracula;
 import logic.objects.ExplosiveV;
 import logic.objects.GameObject;
@@ -17,18 +18,19 @@ import logic.objects.Vampire;
  */
 public class Game implements IPrintable {
 
-    // Attributes
+    // ATTRIBUTES
+    private boolean _exit;
     private int _dimX;
     private int _dimY;
     private static final int _VAMPIREHEALTH = 5;
     private static final int _SLAYERHEALTH = 3;
     private static final int _STARTERCOINS = 50;
+    private static final int _BANKHP = 1;
     private int _cycle;
-    private long _seed;
     private Level _lvl;
+    private long _seed;
     private Player _pl;
     private Random _rand;
-    private boolean _exit;
 
     private GameObjectBoard _board;
     private String _finalMsg;
@@ -39,8 +41,9 @@ public class Game implements IPrintable {
     private static String vampStr = "Remaining vampires: ";
     private static String vampOnBoardStr = "Vampires on the board: ";
 
-    // Constructor
+    // CONSTRUCTOR
     /**
+     * Game Constructor
      * 
      * @param seed seed for random calculations
      * @param l    mode of difficulty
@@ -84,55 +87,38 @@ public class Game implements IPrintable {
         return _finalMsg;
     }
 
+    /**
+     * 
+     * @return the number of vampires in this level
+     */
+    public int getNumVamps() {
+        return _lvl.getNumVamp();
+    }
+
     // Methods
 
-    /**
-     * Sets the exit flag to true
-     */
-    public void exit() {
-        _exit = true;
+    public boolean addBloodBank(int x, int y, int z) {
+        if (!isOnBoard(x, y, false)) {
+            System.out.println("Invalid position, pleasy try again");
+            return false;
+        }
+        if (z <= _pl.getCoins()) {
+            _board.add(new BloodBank(this, x, y, _BANKHP, z));
+            return true;
+        } else {
+            System.out.println("Not enough coins");
+            return false;
+        }
     }
 
     /**
-     * All the things that happen from one cycle to another
+     * Adds a vampire of the given type to the given coordinate
+     * 
+     * @param x    x coordinate
+     * @param y    y coordinate
+     * @param type tyoe of the vampire: <Normal>, <Explosive>, <Dracula>
+     * @return true if added, false if not
      */
-    public void update() {
-        _pl.chanceCoins();
-
-        _board.computerAction();
-
-        // Normal Vampire spawn
-        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
-            int x = _dimX - 1;
-            int y = _rand.nextInt(_dimY);
-            while (!addVampire(x, y, VampType.NORMAL)) {
-                y = _rand.nextInt(_dimY);
-            }
-
-        }
-
-        // Dracula Spawn
-        if (_rand.nextDouble() < _lvl.getFreq() && !Dracula.isOnBoard() && Vampire.getNumVamp() > 0) {
-            int x = _dimX - 1;
-            int y = _rand.nextInt(_dimY);
-            while (!addVampire(x, y, VampType.DRACULA)) {
-                y = _rand.nextInt(_dimY);
-            }
-
-        }
-
-        // Explosive spawn
-        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
-            int x = _dimX - 1;
-            int y = _rand.nextInt(_dimY);
-            while (!addVampire(x, y, VampType.EXPLOSIVE)) {
-                y = _rand.nextInt(_dimY);
-            }
-
-        }
-        _cycle++;
-    }
-
     public boolean addVampire(int x, int y, VampType type) {
         if (!isOnBoard(x, y, true)) {
             System.out.println("Invalid position, please try again");
@@ -164,20 +150,6 @@ public class Game implements IPrintable {
             _board.add(aux);
             return true;
         }
-
-    }
-
-    /**
-     * Prints all the info of the game: cycles passed, coins, vampires remaining to
-     * appear and vampires on the board
-     */
-    @Override
-    public String getInfo() {
-        String aux = cycleNum + _cycle + "\n"; // Display for the number of the current game cycle
-        aux += coinStr + _pl.getCoins() + "\n"; // Display of the current coin counter
-        aux += vampStr + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
-        aux += vampOnBoardStr + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
-        return aux;
     }
 
     /**
@@ -249,11 +221,68 @@ public class Game implements IPrintable {
     }
 
     /**
+     * Executes a garlic push on the board
      * 
-     * @return the number of vampires in this level
+     * @return if can be executed, false if not
      */
-    public int getNumVamps() {
-        return _lvl.getNumVamp();
+    public boolean garlicPush() {
+        if (_pl.getCoins() >= 10) {
+            _board.garlicPush();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * Executes a light flash on the board
+     * 
+     * @return if can be executed, false if not
+     */
+    public boolean lightFlash() {
+        if (_pl.getCoins() >= 50) {
+            _board.lightFlash();
+            removeDead();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a copy of an object to be attacked
+     * 
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return the object at the given coordinates
+     */
+    public IAttack getAttackableIn(int x, int y) {
+        return _board.objectAt(x, y);
+    }
+
+    /**
+     * Returns if an object is in the position given
+     * 
+     * @param i x coordiinate
+     * @param j y coordinate
+     * @return the index in the arraylist of the object or -1 if no object was found
+     */
+    public int isIn(int i, int j) {
+        return _board.isIn(i, j);
+    }
+
+    /**
+     * Prints all the info of the game: cycles passed, coins, vampires remaining to
+     * appear and vampires on the board
+     */
+    @Override
+    public String getInfo() {
+        String aux = cycleNum + _cycle + "\n"; // Display for the number of the current game cycle
+        aux += coinStr + _pl.getCoins() + "\n"; // Display of the current coin counter
+        aux += vampStr + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
+        aux += vampOnBoardStr + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
+        return aux;
     }
 
     /**
@@ -288,27 +317,11 @@ public class Game implements IPrintable {
     }
 
     /**
-     * Returns if an object is in the position given
+     * Method to increase the damage of vampires arround the given coordinates
      * 
-     * @param i x coordiinate
-     * @param j y coordinate
-     * @return the index in the arraylist of the object or -1 if no object was found
+     * @param x x coordinate for the center of the "circle"
+     * @param y y coordinate for the center of the "circle"
      */
-    public int isIn(int i, int j) {
-        return _board.isIn(i, j);
-    }
-
-    /**
-     * Returns a copy of an object to be attacked
-     * 
-     * @param x x coordinate
-     * @param y y coordinate
-     * @return the object at the given coordinates
-     */
-    public IAttack getAttackableIn(int x, int y) {
-        return _board.objectAt(x, y);
-    }
-
     public void increasePower(int x, int y) {
         for (int i = x - 1; i < x + 1; i++) {
             for (int j = y - 1; j < x + 1; j++) {
@@ -320,27 +333,81 @@ public class Game implements IPrintable {
         }
     }
 
-    public boolean garlicPush() {
-        if (_pl.getCoins() >= 10) {
-            _board.garlicPush();
-            return true;
-        } else {
-            return false;
-        }
-
+    /**
+     * Adds coins to the player
+     * 
+     * @param d coins added
+     */
+    public void addCoins(int d) {
+        _pl.addCoins(d);
+        System.out.println(d + " coins added");
     }
 
-    public boolean lightFlash() {
-        if (_pl.getCoins() >= 50) {
-            _board.lightFlash();
-            return true;
-        } else {
-            return false;
+    /**
+     * Sets the exit flag to true
+     */
+    public void exit() {
+        _exit = true;
+    }
+
+    /**
+     * All the things that happen from one cycle to another
+     */
+    public void update() {
+        _pl.chanceCoins();
+
+        _board.computerAction();
+
+        // Normal Vampire spawn
+        normalSpawn();
+
+        // Dracula Spawn
+        draculaSpawn();
+
+        // Explosive spawn
+        explosiveSpawn();
+        _cycle++;
+    }
+
+    /**
+     * Spawn method for normal vampires
+     */
+    public void normalSpawn() {
+        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+            int x = _dimX - 1;
+            int y = _rand.nextInt(_dimY);
+            while (!addVampire(x, y, VampType.NORMAL)) {
+                y = _rand.nextInt(_dimY);
+            }
+
         }
     }
 
-    public void addCoins(int c) {
-        _pl.addCoins(c);
-        System.out.println(c + " coins added");
+    /**
+     * Spawn method for Dracula
+     */
+    public void draculaSpawn() {
+        if (_rand.nextDouble() < _lvl.getFreq() && !Dracula.isOnBoard() && Vampire.getNumVamp() > 0) {
+            int x = _dimX - 1;
+            int y = _rand.nextInt(_dimY);
+            while (!addVampire(x, y, VampType.DRACULA)) {
+                y = _rand.nextInt(_dimY);
+            }
+
+        }
+    }
+
+    /**
+     * Spawn method for Explosive Vampires
+     */
+    public void explosiveSpawn() {
+        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+            int x = _dimX - 1;
+            int y = _rand.nextInt(_dimY);
+            while (!addVampire(x, y, VampType.EXPLOSIVE)) {
+                y = _rand.nextInt(_dimY);
+            }
+
+        }
     }
 }

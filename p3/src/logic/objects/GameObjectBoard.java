@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * "Board" of the game
+ * <p>
+ * "Board" of the game.
+ * 
+ * <p>
+ * This class acts as an intermediary between the game and the objects, or one
+ * object and another
  */
 public class GameObjectBoard {
 
-    // Attributes
+    // ATTRIBUTES
+
     private ArrayList<GameObject> _board;
     private final int _maxElements;
 
+    // CONSTRUCTOR
     /**
      * Constructor for the GameObjectBoard class
      * 
@@ -23,7 +30,7 @@ public class GameObjectBoard {
         _maxElements = width * heigth;
     }
 
-    // Getters
+    // GETTERS
     /**
      * 
      * @return the total number of objects on board
@@ -34,56 +41,13 @@ public class GameObjectBoard {
 
     /**
      * 
-     * @param i x coordinate
-     * @param j y coordinate
-     * @return the index of the object in place, -1 if no object was found
-     */
-    public int isIn(int i, int j) {
-        boolean found = false;
-        int index = 0;
-
-        while (!found && index < _board.size()) {
-            if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
-                return index;
-            } else {
-                ++index;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * 
      * @return if the board is complete
      */
     public boolean isComplete() {
         return _board.size() <= _maxElements;
     }
 
-    // Methods
-
-    /**
-     * Adds object to the board
-     * 
-     * @param o object added to the board
-     */
-    public void add(GameObject o) {
-        try {
-            _board.add(o);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    /**
-     * Executes the computer action of every object on board
-     */
-    public void computerAction() {
-        for (int i = 0; i < _board.size(); i++) {
-            _board.get(i).computerAction();
-        }
-        removeDead();
-    }
+    // METHODS
 
     /**
      * Checks if the vampires have arraived to the end of the board
@@ -125,6 +89,26 @@ public class GameObjectBoard {
 
     /**
      * 
+     * @param i x coordinate
+     * @param j y coordinate
+     * @return the index of the object in place, -1 if no object was found
+     */
+    public int isIn(int i, int j) {
+        boolean found = false;
+        int index = 0;
+
+        while (!found && index < _board.size()) {
+            if (_board.get(index).getX() == i && _board.get(index).getY() == j) {
+                return index;
+            } else {
+                ++index;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 
      * @param i y coordinate
      * @param j x coordinate
      * @return the string of an object in that coordinates, a whitespace character
@@ -132,6 +116,29 @@ public class GameObjectBoard {
      */
     public String toString(int i, int j) {
         return (objectAt(j, i) != null) ? objectAt(j, i).toString() : " ";
+    }
+
+    /**
+     * Adds object to the board
+     * 
+     * @param o object added to the board
+     */
+    public void add(GameObject o) {
+        try {
+            _board.add(o);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * Executes the computer action of every object on board
+     */
+    public void computerAction() {
+        for (int i = 0; i < _board.size(); i++) {
+            _board.get(i).computerAction();
+        }
+        removeDead();
     }
 
     /**
@@ -163,12 +170,18 @@ public class GameObjectBoard {
         _board.clear();
     }
 
+    /**
+     * Executes a GarlicPush on the board
+     */
     public void garlicPush() {
         for (int i = 0; i < _board.size(); i++) {
             _board.get(i).receiveGarlicPush();
         }
     }
 
+    /**
+     * Exectues a LightFlash on the board
+     */
     public void lightFlash() {
         for (int i = 0; i < _board.size(); i++) {
             _board.get(i).receiveLightAttack();

@@ -4,13 +4,16 @@ import logic.Game;
 import logic.interfaces.IAttack;
 
 /**
- * Slayer of Vampires. Reap and tear
+ * Slayer of Vampires. Rip and tear
  */
 public class Slayer extends GameObject {
 
-    // Attributes
+    // ATTRIBUTES
+
     private static final int _COST = 50;
     private static final int _DAMAGE = 1;
+
+    // CONSTRUCTOR
 
     /**
      * Constructor of the Slayer
@@ -24,7 +27,7 @@ public class Slayer extends GameObject {
         super(game, x, y, hp);
     }
 
-    // Getters
+    // GETTERS
 
     /**
      * 
@@ -42,7 +45,24 @@ public class Slayer extends GameObject {
         return _DAMAGE;
     }
 
-    // Methods
+    // METHODS
+
+    @Override
+    public boolean haveLanded() {
+        return false;
+    }
+
+    @Override
+    public boolean receiveVampireAttack(int damage) {
+        _hp -= damage;
+        return true;
+    }
+
+    @Override
+    public boolean receiveDraculaAttack() {
+        _hp = 0;
+        return true;
+    }
 
     @Override
     public String toString() {
@@ -72,20 +92,4 @@ public class Slayer extends GameObject {
 
     }
 
-    @Override
-    public boolean haveLanded() {
-        return false;
-    }
-
-    @Override
-    public boolean receiveVampireAttack(int damage) {
-        _hp -= damage;
-        return true;
-    }
-
-    @Override
-    public boolean receiveDraculaAttack() {
-        _hp = 0;
-        return true;
-    }
 }

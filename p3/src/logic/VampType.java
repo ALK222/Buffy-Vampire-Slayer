@@ -1,15 +1,32 @@
 package logic;
 
+/**
+ * Enum to decide the type of vampire to spawn
+ */
 public enum VampType {
 
+    // ENUM CONSTRUCTORS
     NORMAL("N"), DRACULA("D"), EXPLOSIVE("E");
 
+    // ATTRIBUTES
     private String _name;
 
+    // CONSTRUCTOR
+
+    /**
+     * VampType constructor
+     * 
+     * @param name name of the vampire type
+     */
     VampType(String name) {
         this._name = name;
     }
 
+    /**
+     * Resturns the name of the vampType
+     * 
+     * @return the symbol of the vampire type
+     */
     public String getName() {
         return _name;
     }
