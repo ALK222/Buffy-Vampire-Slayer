@@ -10,6 +10,7 @@ public enum VampType {
 
     // ATTRIBUTES
     private String _name;
+    private static final String CLASSNOTFOUND = "Vampire class not found";
 
     // CONSTRUCTOR
 
@@ -29,6 +30,14 @@ public enum VampType {
      */
     public String getName() {
         return _name;
+    }
+
+    /**
+     * 
+     * @return an error message when the class of vampire is not found
+     */
+    public static String getNotFoundMsg() {
+        return CLASSNOTFOUND;
     }
 
     public String toString() {

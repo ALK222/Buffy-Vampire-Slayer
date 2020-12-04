@@ -15,6 +15,8 @@ public class Dracula extends Vampire {
     // ATTRIBUTES
 
     private static boolean onBoard = false;
+    private static final String REVIVEDMSG = "Dracula is alive";
+    private static final String ALREADYMSG = "DRavula already on board";
 
     // CONSTRUCTOR
     /**
@@ -37,6 +39,22 @@ public class Dracula extends Vampire {
      */
     public static boolean isOnBoard() {
         return onBoard;
+    }
+
+    /**
+     * 
+     * @return the message that appears when dracula is added to the board
+     */
+    public static String getRevivedMsg() {
+        return REVIVEDMSG;
+    }
+
+    /**
+     * @return the message that appears when you try to add dracula on the board but
+     *         it already is on it
+     */
+    public static String getAlreadyMsg() {
+        return ALREADYMSG;
     }
 
     // SETTERS

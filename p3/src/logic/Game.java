@@ -38,10 +38,16 @@ public class Game implements IPrintable {
     private String _finalMsg;
 
     // String tags
-    private static String cycleNum = "Number of cycles: ";
-    private static String coinStr = "Coins ";
-    private static String vampStr = "Remaining vampires: ";
-    private static String vampOnBoardStr = "Vampires on the board: ";
+    private static final String CYCLENUM = "Number of cycles: ";
+    private static final String COINSTR = "Coins ";
+    private static final String VAMPSTR = "Remaining vampires: ";
+    private static final String VAMPONBOARDSTR = "Vampires on the board: ";
+    private static final String OCCUERROR = "Cell occupied";
+    private static final String OUTOFBOARDMSG = "Invalid position, please try again";
+    private static final String COINERROR = "Not enough coins";
+    private static final String DEFAULTWIN = "Nobody wins";
+    private static final String PLAYERWIN = "You win!";
+    private static final String VAMPWIN = "Vampires win";
 
     // CONSTRUCTOR
     /**
@@ -60,7 +66,7 @@ public class Game implements IPrintable {
         _pl = new Player(_STARTERCOINS, _rand); // If 0 coins are given at start, it is very hard to win
         Vampire.setNumVamp(_lvl.getNumVamp());
         _board = new GameObjectBoard(_dimX, _dimY);
-        _finalMsg = "Nobody wins...";
+        _finalMsg = DEFAULTWIN;
         _exit = false;
     }
 
@@ -109,7 +115,11 @@ public class Game implements IPrintable {
      */
     public boolean addBloodBank(int x, int y, int z) {
         if (!isOnBoard(x, y, false)) {
-            System.out.println("Invalid position, pleasy try again");
+            System.out.println(OUTOFBOARDMSG);
+            return false;
+        }
+        if (_board.isIn(x, y) != -1) {
+            System.out.println(OCCUERROR);
             return false;
         }
         if (z <= _pl.getCoins()) {
@@ -117,7 +127,7 @@ public class Game implements IPrintable {
             _board.add(new BloodBank(this, x, y, _BANKHP, z));
             return true;
         } else {
-            System.out.println("Not enough coins");
+            System.out.println(COINERROR);
             return false;
         }
     }
@@ -132,21 +142,21 @@ public class Game implements IPrintable {
      */
     public boolean addVampire(int x, int y, VampType type) {
         if (!isOnBoard(x, y, true)) {
-            System.out.println("Invalid position, please try again");
+            System.out.println(OUTOFBOARDMSG);
             return false;
         }
         if (_board.isIn(x, y) != -1) {
-            System.out.println("Cell occupied");
+            System.out.println(OCCUERROR);
             return false;
         } else {
             GameObject aux = null;
             switch (type) {
                 case DRACULA:
                     if (Dracula.isOnBoard()) {
-                        System.out.println("Dracula already on board");
+                        System.out.println(Dracula.getAlreadyMsg());
                         return false;
                     }
-                    System.out.println("Dracula is alive");
+                    System.out.println(Dracula.getRevivedMsg());
                     aux = new Dracula(this, x, y, _VAMPIREHEALTH);
                     Dracula.setOnBoard(true);
                     break;
@@ -157,7 +167,7 @@ public class Game implements IPrintable {
                     aux = new Vampire(this, x, y, _VAMPIREHEALTH);
                     break;
                 default:
-                    System.out.println("Vampire class not found");
+                    System.out.println(VampType.getNotFoundMsg());
                     return false;
             }
             Vampire.addOnBoard(1);
@@ -174,11 +184,11 @@ public class Game implements IPrintable {
      */
     public boolean checkEnd() {
         if (Vampire.getNumVamp() <= 0 && Vampire.getOnBoard() <= 0) {
-            _finalMsg = "You win!";
+            _finalMsg = PLAYERWIN;
             return true;
         }
         if (_board.haveLanded()) {
-            _finalMsg = "Vampires win!";
+            _finalMsg = VAMPWIN;
             return true;
         }
         if (_exit) {
@@ -197,16 +207,16 @@ public class Game implements IPrintable {
      */
     public boolean addSlayer(int i, int j) {
         if (!_board.isComplete()) {
-            System.out.println("Cant put any more slayers");
+            System.out.println(GameObjectBoard.getFullMsg());
             return false;
         }
         if (_pl.getCoins() >= Slayer.getCost()) {
             if (_board.isIn(i, j) != -1) {
-                System.out.println("Slayer or vampire already in that coordinate, choose other");
+                System.out.println(OCCUERROR);
                 return false;
             } else {
                 if (!isOnBoard(i, j, false)) {
-                    System.out.println("Invalid position, try again");
+                    System.out.println(OUTOFBOARDMSG);
                     return false;
                 }
                 _board.add(new Slayer(this, i, j, _SLAYERHEALTH));
@@ -216,7 +226,7 @@ public class Game implements IPrintable {
         } else
 
         {
-            System.out.println("Not enough coins to hire a slayer");
+            System.out.println(COINERROR);
             return false;
         }
     }
@@ -295,10 +305,10 @@ public class Game implements IPrintable {
      */
     @Override
     public String getInfo() {
-        String aux = cycleNum + _cycle + "\n"; // Display for the number of the current game cycle
-        aux += coinStr + _pl.getCoins() + "\n"; // Display of the current coin counter
-        aux += vampStr + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
-        aux += vampOnBoardStr + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
+        String aux = CYCLENUM + _cycle + "\n"; // Display for the number of the current game cycle
+        aux += COINSTR + _pl.getCoins() + "\n"; // Display of the current coin counter
+        aux += VAMPSTR + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
+        aux += VAMPONBOARDSTR + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
         return aux;
     }
 

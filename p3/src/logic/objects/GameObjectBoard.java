@@ -17,6 +17,7 @@ public class GameObjectBoard {
 
     private ArrayList<GameObject> _board;
     private final int _maxElements;
+    private static final String completeMsg = "Board full";
 
     // CONSTRUCTOR
     /**
@@ -45,6 +46,10 @@ public class GameObjectBoard {
      */
     public boolean isComplete() {
         return _board.size() <= _maxElements;
+    }
+
+    public static String getFullMsg() {
+        return completeMsg;
     }
 
     // METHODS
