@@ -13,7 +13,7 @@ public class Vampire extends GameObject {
     private static int _DAMAGE = 1; // Damage per attack
     private static int _ONBOARD; // Number of vampires on board
     private static int numVamp; // Number of vampires to spawn
-    private int _cycle;
+    protected int _cycle;
 
     // CONSTRUCTOR
     /**
@@ -90,9 +90,16 @@ public class Vampire extends GameObject {
 
     @Override
     public boolean receiveGarlicPush() {
-        _x++;
-        _cycle = 1;
-        return true;
+        if (_game.isIn(_x - 1, _y) == -1) {
+            _x++;
+            _cycle = 1;
+            if (!_game.isOnBoard(_x, _y, true)) {
+                _hp = 0;
+                onDead();
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
