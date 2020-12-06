@@ -9,7 +9,7 @@ public class LightFlashCommand extends Command {
     private static String _name = "Light";
     private static String _shortcut = "L";
     private static String _details = "[L]ight";
-    private static String _help = "A lantern kills all the vampires for only 50 coins";
+    private static String _help = "Kills all the vampires.";
 
     /**
      * LightFlashCommand constructor

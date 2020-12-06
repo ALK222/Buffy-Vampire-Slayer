@@ -11,7 +11,7 @@ public class AddVampireCommand extends Command {
     private static final String _name = "Vampire";
     private static final String _shortcut = "V";
     private static final String _details = "[V]ampire [<type>] <x> <y>";
-    private static final String _help = "adds a vampire to the given coordinates";
+    private static final String _help = "Type = {\"\"|\"D\"|\"E\"}: add a vampire in position x, y";
 
     private int _x;
     private int _y;
@@ -65,9 +65,9 @@ public class AddVampireCommand extends Command {
             return null;
         } else if (commandWords.length == 4) {
             try {
-                int x = Integer.parseInt(commandWords[1]);
-                int y = Integer.parseInt(commandWords[2]);
-                VampType type = VampType.parse(parseVamp(commandWords[3].toUpperCase()));
+                VampType type = VampType.parse(parseVamp(commandWords[1].toUpperCase()));
+                int x = Integer.parseInt(commandWords[2]);
+                int y = Integer.parseInt(commandWords[3]);
                 if (type == null) {
                     System.out.println("Vampire type not supported");
                     return null;

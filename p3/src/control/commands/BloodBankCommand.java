@@ -9,8 +9,8 @@ public class BloodBankCommand extends Command {
 
     private static final String _name = "Bank";
     private static final String _shortcut = "B";
-    private static final String _details = "[B]ank <x> <y> <cost>";
-    private static final String _help = "adds a blood bank that gives the player a 10% of the cost";
+    private static final String _details = "[B]ank <x> <y> <z>";
+    private static final String _help = "adds a blood bank whit cost z in position x, y.";
 
     private int _x;
     private int _y;

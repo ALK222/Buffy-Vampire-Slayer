@@ -11,7 +11,7 @@ public class SuperCoinsCommand extends Command {
     private static String _name = "Coins";
     private static String _shortcut = "C";
     private static String _details = "[C]oins";
-    private static String _help = "adds " + _COINS + " coins to the player";
+    private static String _help = "adds " + _COINS + " coins.";
 
     /**
      * SuperCoinsCommand constructor

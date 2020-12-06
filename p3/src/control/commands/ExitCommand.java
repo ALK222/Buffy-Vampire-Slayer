@@ -10,7 +10,7 @@ public class ExitCommand extends Command {
     private static String _name = "Exit";
     private static String _shortcut = "E";
     private static String _details = "[E]xit";
-    private static String _help = "Exits the game";
+    private static String _help = "Exit game.";
 
     /**
      * Exitcommand constructor

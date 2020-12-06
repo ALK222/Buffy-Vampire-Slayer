@@ -10,7 +10,7 @@ public class GarlicPushCommand extends Command {
     private static String _name = "Garlic";
     private static String _shortcut = "G";
     private static String _details = "[G]arlic";
-    private static String _help = "Pushes al vampires one cell further for only 10 coins";
+    private static String _help = "Pushes back vampires.";
 
     /**
      * GarlicPushCommand constructor

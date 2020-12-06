@@ -9,7 +9,8 @@
             "name": "Debug (Launch) with Arguments Prompt",
             "request": "launch",
             "mainClass": "",
-            "args": "${command:SpecifyProgramArgs}"
+            "args": "${command:SpecifyProgramArgs}",
+            "console": "externalTerminal"
         },
         {
             "type": "java",

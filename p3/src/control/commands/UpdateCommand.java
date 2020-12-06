@@ -10,7 +10,7 @@ public class UpdateCommand extends Command {
     private static String _name = "None";
     private static String _shortcut = "N";
     private static String _details = "[N]one | []";
-    private static String _help = "Updates the game";
+    private static String _help = "Update.";
 
     /**
      * UpdateCommand constructor

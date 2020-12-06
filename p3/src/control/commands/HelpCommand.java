@@ -10,7 +10,7 @@ public class HelpCommand extends Command {
     private static String _name = "Help";
     private static String _shortcut = "H";
     private static String _details = "[H]";
-    private static String _help = "Shows the help message of all the commands";
+    private static String _help = "Shows this help.";
 
     /**
      * HelpCommand constructor

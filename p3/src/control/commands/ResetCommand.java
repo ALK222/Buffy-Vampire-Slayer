@@ -10,7 +10,7 @@ public class ResetCommand extends Command {
     private static String _name = "Reset";
     private static String _shortcut = "R";
     private static String _details = "[R]eset";
-    private static String _help = "Resets the game";
+    private static String _help = "Reset the game.";
 
     /**
      * ResetCommand Constructor
