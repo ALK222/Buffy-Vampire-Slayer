@@ -344,12 +344,12 @@ public class Game implements IPrintable {
     }
 
     /**
-     * Method to increase the damage of vampires arround the given coordinates
+     * Method to give explosive damage to the vampires arround the given coordinates
      * 
      * @param x x coordinate for the center of the "circle"
      * @param y y coordinate for the center of the "circle"
      */
-    public void increasePower(int x, int y) {
+    public void explosiveDamage(int x, int y) {
         for (int i = x - 1; i < x + 1; i++) {
             for (int j = y - 1; j < x + 1; j++) {
                 GameObject aux = _board.objectAt(i, j);

@@ -30,8 +30,14 @@ public class ExplosiveV extends Vampire {
 
     @Override
     public void onDead() {
-        _game.increasePower(_x, _y);
+        _game.explosiveDamage(_x, _y);
         Vampire.decOnBoard(1);
+    }
+
+    @Override
+    public boolean receiveLightAttack() {
+        _hp = 0;
+        return true;
     }
 
 }

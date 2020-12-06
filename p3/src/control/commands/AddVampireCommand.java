@@ -11,7 +11,7 @@ public class AddVampireCommand extends Command {
     private static final String _name = "Vampire";
     private static final String _shortcut = "V";
     private static final String _details = "[V]ampire [<type>] <x> <y>";
-    private static final String _help = "Type = {\"\"|\"D\"|\"E\"}: add a vampire in position x, y";
+    private static final String _help = "Type = {\"\"|\"D\"|\"E\"}: add a vampire in position x, y.";
 
     private int _x;
     private int _y;
