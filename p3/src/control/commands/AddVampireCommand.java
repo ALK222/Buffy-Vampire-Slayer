@@ -66,9 +66,6 @@ public class AddVampireCommand extends Command {
                 VampType type = VampType.parse(parseVamp(commandWords[1].toUpperCase()));
                 int x = Integer.parseInt(commandWords[2]);
                 int y = Integer.parseInt(commandWords[3]);
-                if (type == null) {
-                    return null;
-                }
                 return new AddVampireCommand(x, y, type);
             } catch (NumberFormatException nfe) {
                 return null;

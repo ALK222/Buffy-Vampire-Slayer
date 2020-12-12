@@ -141,6 +141,10 @@ public class Game implements IPrintable {
      * @return true if added, false if not
      */
     public boolean addVampire(int x, int y, VampType type) {
+        if (type == null) {
+            System.out.println("[ERROR]: " + VampType.getNotFoundMsg());
+            return false;
+        }
         if (!isOnBoard(x, y, true)) {
             System.out.println(OUTOFBOARDMSG);
             return false;
@@ -153,9 +157,9 @@ public class Game implements IPrintable {
             switch (type) {
                 case DRACULA:
                     if (Dracula.isOnBoard()) {
+                        System.out.println("[ERROR]:" + Dracula.getAlreadyMsg());
                         return false;
                     }
-                    System.out.println(Dracula.getRevivedMsg());
                     aux = new Dracula(this, x, y, _VAMPIREHEALTH);
                     Dracula.setOnBoard(true);
                     break;
@@ -166,7 +170,7 @@ public class Game implements IPrintable {
                     aux = new Vampire(this, x, y, _VAMPIREHEALTH);
                     break;
                 default:
-                    System.out.println(VampType.getNotFoundMsg());
+                    System.out.println("[ERROR]: " + VampType.getNotFoundMsg());
                     return false;
             }
             Vampire.addOnBoard(1);
