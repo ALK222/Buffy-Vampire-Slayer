@@ -56,7 +56,11 @@ public class Player {
      * @param d number of coins added to the player
      */
     public void addCoins(int d) {
-        _coins += d;
+        if (_coins + d >= Integer.MAX_VALUE) {
+            _coins = Integer.MAX_VALUE;
+        } else {
+            _coins += d;
+        }
     }
 
     /**

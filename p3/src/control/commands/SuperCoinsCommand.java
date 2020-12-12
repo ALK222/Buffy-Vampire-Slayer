@@ -23,7 +23,7 @@ public class SuperCoinsCommand extends Command {
     @Override
     public boolean execute(Game game) {
         game.addCoins(_COINS);
-        return false;
+        return true;
     }
 
     @Override
