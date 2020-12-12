@@ -50,7 +50,6 @@ public class BloodBankCommand extends Command {
         if (!matchCommandName(commandWords[0])) {
             return null;
         } else if (commandWords.length != 4) {
-            System.out.println(Command.incorrectNumberOfArgsMsg);
             return null;
         } else {
             try {
@@ -59,9 +58,8 @@ public class BloodBankCommand extends Command {
                 int cost = Integer.parseInt(commandWords[3]);
                 return new BloodBankCommand(x, y, cost);
             } catch (NumberFormatException nfe) {
-                System.out.println("The arguments must be numers");
+                return null;
             }
-            return null;
         }
     }
 }

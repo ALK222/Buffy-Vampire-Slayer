@@ -51,7 +51,6 @@ public class AddVampireCommand extends Command {
         if (!matchCommandName(commandWords[0])) {
             return null;
         } else if (commandWords.length <= 3 && commandWords.length >= 4) {
-            System.out.println(Command.incorrectNumberOfArgsMsg);
             return null;
         }
         if (commandWords.length == 3) {
@@ -60,23 +59,20 @@ public class AddVampireCommand extends Command {
                 int y = Integer.parseInt(commandWords[2]);
                 return new AddVampireCommand(x, y, VampType.NORMAL);
             } catch (NumberFormatException nfe) {
-                System.out.println("The arguments must be numers");
+                return null;
             }
-            return null;
         } else if (commandWords.length == 4) {
             try {
                 VampType type = VampType.parse(parseVamp(commandWords[1].toUpperCase()));
                 int x = Integer.parseInt(commandWords[2]);
                 int y = Integer.parseInt(commandWords[3]);
                 if (type == null) {
-                    System.out.println("Vampire type not supported");
                     return null;
                 }
                 return new AddVampireCommand(x, y, type);
             } catch (NumberFormatException nfe) {
-                System.out.println("The arguments must be numers");
+                return null;
             }
-            return null;
         }
         return null;
     }

@@ -57,8 +57,7 @@ public class AddCommand extends Command {
 
             return new AddCommand(x, y);
         } catch (NumberFormatException nfe) {
-            System.out.println("The arguments must be numers");
+            return null;
         }
-        return null;
     }
 }

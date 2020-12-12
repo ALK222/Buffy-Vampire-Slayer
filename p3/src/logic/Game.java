@@ -153,7 +153,6 @@ public class Game implements IPrintable {
             switch (type) {
                 case DRACULA:
                     if (Dracula.isOnBoard()) {
-                        System.out.println(Dracula.getAlreadyMsg());
                         return false;
                     }
                     System.out.println(Dracula.getRevivedMsg());
@@ -309,6 +308,9 @@ public class Game implements IPrintable {
         aux += COINSTR + _pl.getCoins() + "\n"; // Display of the current coin counter
         aux += VAMPSTR + Vampire.getNumVamp() + "\n"; // Display of the number of vampires remaining to spawn
         aux += VAMPONBOARDSTR + Vampire.getOnBoard() + "\n"; // Display of the number of vampires on the board
+        if (Dracula.isOnBoard()) {
+            aux += Dracula.getRevivedMsg();
+        }
         return aux;
     }
 
@@ -393,6 +395,7 @@ public class Game implements IPrintable {
 
         // Explosive spawn
         explosiveSpawn();
+
         _cycle++;
     }
 
