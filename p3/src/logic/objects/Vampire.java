@@ -14,6 +14,7 @@ public class Vampire extends GameObject {
     private static int _ONBOARD; // Number of vampires on board
     private static int numVamp; // Number of vampires to spawn
     protected int _cycle;
+    private static String _NOREMAININGMSG = "No more remaining vampires left";
 
     // CONSTRUCTOR
     /**
@@ -53,6 +54,10 @@ public class Vampire extends GameObject {
 
     public int getDamage() {
         return _DAMAGE;
+    }
+
+    public static String getNoRemainingMSG() {
+        return _NOREMAININGMSG;
     }
 
     // SETTERS

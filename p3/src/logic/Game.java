@@ -145,6 +145,9 @@ public class Game implements IPrintable {
             System.out.println("[ERROR]: " + VampType.getNotFoundMsg());
             return false;
         }
+        if (Vampire.getNumVamp() <= 0) {
+            System.out.println("[ERROR]:" + Vampire.getNoRemainingMSG());
+        }
         if (!isOnBoard(x, y, true)) {
             System.out.println(OUTOFBOARDMSG);
             return false;
