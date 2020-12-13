@@ -25,3 +25,7 @@ hs_err_pid*
 
 # Vs code settings
 /.vscode/
+
+#Propios de la practica
+
+ALUMNOS.txt
