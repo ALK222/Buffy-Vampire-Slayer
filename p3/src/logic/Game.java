@@ -229,9 +229,7 @@ public class Game implements IPrintable {
                 _pl.decCoins(Slayer.getCost());
                 return true;
             }
-        } else
-
-        {
+        } else {
             System.out.println(COINERROR);
             return false;
         }
@@ -262,6 +260,7 @@ public class Game implements IPrintable {
             _board.garlicPush();
             return true;
         } else {
+            System.out.println(COINERROR);
             return false;
         }
 
@@ -279,6 +278,7 @@ public class Game implements IPrintable {
             removeDead();
             return true;
         } else {
+            System.out.println(COINERROR);
             return false;
         }
     }
@@ -410,7 +410,7 @@ public class Game implements IPrintable {
      * Spawn method for normal vampires
      */
     public void normalSpawn() {
-        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+        if (Vampire.getNumVamp() > 0 && _rand.nextDouble() < _lvl.getFreq()) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             while (!addVampire(x, y, VampType.NORMAL)) {
@@ -424,7 +424,7 @@ public class Game implements IPrintable {
      * Spawn method for Dracula
      */
     public void draculaSpawn() {
-        if (_rand.nextDouble() < _lvl.getFreq() && !Dracula.isOnBoard() && Vampire.getNumVamp() > 0) {
+        if (!Dracula.isOnBoard() && Vampire.getNumVamp() > 0 && _rand.nextDouble() < _lvl.getFreq()) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             while (!addVampire(x, y, VampType.DRACULA)) {
@@ -438,7 +438,7 @@ public class Game implements IPrintable {
      * Spawn method for Explosive Vampires
      */
     public void explosiveSpawn() {
-        if (_rand.nextDouble() < _lvl.getFreq() && Vampire.getNumVamp() > 0) {
+        if (Vampire.getNumVamp() > 0 && _rand.nextDouble() < _lvl.getFreq()) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             while (!addVampire(x, y, VampType.EXPLOSIVE)) {

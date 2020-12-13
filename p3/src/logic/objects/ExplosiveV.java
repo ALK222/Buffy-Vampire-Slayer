@@ -34,19 +34,6 @@ public class ExplosiveV extends Vampire {
         return true;
     }
 
-    public boolean receiveGarlicPush() {
-        if (_game.isIn(_x - 1, _y) == -1) {
-            _x++;
-            _cycle = 1;
-            if (!_game.isOnBoard(_x, _y, true)) {
-                _hp = 0;
-                onDead();
-            }
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public void onDead() {
         _game.explosiveDamage(_x, _y);

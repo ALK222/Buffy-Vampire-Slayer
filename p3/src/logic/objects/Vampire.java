@@ -115,11 +115,14 @@ public class Vampire extends GameObject {
      */
     @Override
     public boolean receiveSlayerAttack(int damage) {
-        _hp -= damage;
-        if (_hp <= 0) {
-            onDead();
+        if (_hp > 0) {
+            _hp -= damage;
+            if (_hp <= 0) {
+                onDead();
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

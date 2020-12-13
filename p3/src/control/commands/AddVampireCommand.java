@@ -40,7 +40,6 @@ public class AddVampireCommand extends Command {
     @Override
     public boolean execute(Game game) {
         if (game.addVampire(_x, _y, _type)) {
-            game.update();
             return true;
         }
         return false;
