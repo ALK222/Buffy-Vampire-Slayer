@@ -48,7 +48,6 @@ public class AddCommand extends Command {
         if (!matchCommandName(commandWords[0])) {
             return null;
         } else if (commandWords.length != 3) {
-            System.out.println(Command.incorrectNumberOfArgsMsg);
             return null;
         }
         try {
