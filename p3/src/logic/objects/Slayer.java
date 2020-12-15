@@ -81,7 +81,7 @@ public class Slayer extends GameObject {
      */
     public void attack() {
         boolean found = false;
-        int i = 0;
+        int i = _x;
         while (!found && i < _game.getX()) {
             IAttack aux = _game.getAttackableIn(i, _y);
             if (aux != null) {

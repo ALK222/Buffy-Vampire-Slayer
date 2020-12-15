@@ -147,6 +147,7 @@ public class Game implements IPrintable {
         }
         if (Vampire.getNumVamp() <= 0) {
             System.out.println("[ERROR]:" + Vampire.getNoRemainingMSG());
+            return false;
         }
         if (!isOnBoard(x, y, true)) {
             System.out.println(OUTOFBOARDMSG);
@@ -376,7 +377,6 @@ public class Game implements IPrintable {
      */
     public void addCoins(int d) {
         _pl.addCoins(d);
-        System.out.println(d + " coins added");
     }
 
     /**
