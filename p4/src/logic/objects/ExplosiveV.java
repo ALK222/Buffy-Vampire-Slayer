@@ -29,6 +29,11 @@ public class ExplosiveV extends Vampire {
     }
 
     @Override
+    public String stringify() {
+        return String.format("EV;%;%;%;%", _x, _y, _hp, _cycle);
+    }
+
+    @Override
     public boolean receiveLightAttack() {
         _hp = 0;
         return true;

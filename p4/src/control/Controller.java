@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 import control.commands.Command;
 import control.commands.CommandGenerator;
+import control.exceptions.CommandExecuteException;
 import logic.Game;
+import view.BoardPrinter;
 import view.GamePrinter;
+import view.Stringifier;
 
 /**
  * Controller of the game, checks for commands and checks for the game over
@@ -26,7 +29,7 @@ public class Controller {
     public Controller(Game game, Scanner scanner) {
         _game = game;
         _in = scanner;
-        _printer = new GamePrinter(_game, _game.getX(), _game.getY());
+        _printer = new BoardPrinter(_game);
     }
 
     // Methods
@@ -68,6 +71,26 @@ public class Controller {
      */
     public void printGame() {
         System.out.println(_printer);
+    }
+
+    public void setPrintMode(String mode) throws CommandExecuteException {
+
+        switch (mode) {
+
+            case "stringify":
+            case "s":
+                _printer = new Stringifier(_game);
+                break;
+            case "board":
+            case "b":
+                this._printer = new BoardPrinter(_game);
+                break;
+            default:
+                throw new CommandExecuteException(
+                        "[ERROR]: Unknown print mode. Avaliable modes are < stringify (s) | board (b) >.\n");
+
+        }
+
     }
 
 }

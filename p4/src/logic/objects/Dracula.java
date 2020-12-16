@@ -80,6 +80,11 @@ public class Dracula extends Vampire {
     }
 
     @Override
+    public String stringify() {
+        return String.format("D;%;%;%,%", _x, _y, _hp, _cycle);
+    }
+
+    @Override
     public void attack() {
         IAttack aux = _game.getAttackableIn(_x - 1, _y);
         if (aux != null) {

@@ -123,6 +123,14 @@ public class GameObjectBoard {
         return (objectAt(j, i) != null) ? objectAt(j, i).toString() : " ";
     }
 
+    public String stringify() {
+        String aux = "";
+        for (GameObject o : _board) {
+            aux += o.stringify() + "%n";
+        }
+        return aux;
+    }
+
     /**
      * Adds object to the board
      * 

@@ -70,6 +70,11 @@ public class Slayer extends GameObject {
     }
 
     @Override
+    public String stringify() {
+        return String.format("S;%;%;%", _x, _y, _hp);
+    }
+
+    @Override
     public void computerAction() {
         this.attack();
     }

@@ -4,6 +4,19 @@ package logic.interfaces;
  * Interface for printing the game
  */
 public interface IPrintable {
+
+    /**
+     * 
+     * @return number of columns
+     */
+    int getX();
+
+    /**
+     * 
+     * @return number of rows
+     */
+    int getY();
+
     /**
      * String of the object in the given coordinates
      * 
@@ -19,4 +32,6 @@ public interface IPrintable {
      * @return the info of the game
      */
     String getInfo();
+
+    String stringify();
 }

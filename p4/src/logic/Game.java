@@ -322,6 +322,11 @@ public class Game implements IPrintable {
         return _board.toString(j, i);
     }
 
+    @Override
+    public String stringify() {
+        return _board.stringify();
+    }
+
     /**
      * Resets the game
      */

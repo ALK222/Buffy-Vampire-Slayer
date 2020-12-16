@@ -79,6 +79,8 @@ public abstract class GameObject implements IAttack {
      */
     public abstract String toString();
 
+    public abstract String stringify();
+
     /**
      * Attack process of a GameObject
      */

@@ -131,6 +131,11 @@ public class Vampire extends GameObject {
     }
 
     @Override
+    public String stringify() {
+        return String.format("V;%;%;%,%", _x, _y, _hp, _cycle);
+    }
+
+    @Override
     public void computerAction() {
         this.movement();
         this.attack();
@@ -143,6 +148,7 @@ public class Vampire extends GameObject {
     public void movement() {
         if (_game.isIn(_x - 1, _y) == -1) {
             if (_cycle % 2 == 0) {
+                _cycle = 1;
                 _x -= 1;
             }
             _cycle++;
