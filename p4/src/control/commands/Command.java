@@ -1,5 +1,6 @@
 package control.commands;
 
+import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
 import logic.Game;
 
@@ -31,8 +32,9 @@ public abstract class Command {
      * 
      * @param game game where the command it's executed
      * @return true if the display has to refresh, false if not
+     * @throws CommandExecuteException
      */
-    public abstract boolean execute(Game game);
+    public abstract boolean execute(Game game) throws CommandExecuteException;
 
     /**
      * Parser for the command

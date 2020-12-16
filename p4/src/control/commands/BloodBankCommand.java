@@ -1,5 +1,6 @@
 package control.commands;
 
+import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
 import logic.Game;
 
@@ -38,12 +39,12 @@ public class BloodBankCommand extends Command {
     }
 
     @Override
-    public boolean execute(Game game) {
-        if (game.addBloodBank(_x, _y, _cost)) {
-            game.update();
-            return true;
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            return game.addBloodBank(_x, _y, _cost);
+        } catch (CommandExecuteException e) {
+            throw e;
         }
-        return false;
     }
 
     @Override

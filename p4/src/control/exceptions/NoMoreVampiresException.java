@@ -1,16 +1,16 @@
 package control.exceptions;
 
-public class DraculaIsAliveException extends CommandExecuteException {
+public class NoMoreVampiresException extends CommandExecuteException {
 
     /**
      *
      */
-    private static final long serialVersionUID = 6351245839970491242L;
+    private static final long serialVersionUID = -4757449231753500370L;
 
     /**
      * Void constructor
      */
-    public DraculaIsAliveException() {
+    public NoMoreVampiresException() {
         super();
     }
 
@@ -19,7 +19,7 @@ public class DraculaIsAliveException extends CommandExecuteException {
      * 
      * @param message message string
      */
-    public DraculaIsAliveException(String message) {
+    public NoMoreVampiresException(String message) {
         super(message);
     }
 
@@ -29,7 +29,7 @@ public class DraculaIsAliveException extends CommandExecuteException {
      * @param message message of the exception
      * @param cause   cause of the exception
      */
-    public DraculaIsAliveException(String message, Throwable cause) {
+    public NoMoreVampiresException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -38,7 +38,7 @@ public class DraculaIsAliveException extends CommandExecuteException {
      * 
      * @param cause cause of the exception
      */
-    public DraculaIsAliveException(Throwable cause) {
+    public NoMoreVampiresException(Throwable cause) {
         super(cause);
     }
 
@@ -50,8 +50,7 @@ public class DraculaIsAliveException extends CommandExecuteException {
      * @param enableSuppresion   whether or not supresion is enable
      * @param writableStackTrace whether or not the stack trace should be writable
      */
-    DraculaIsAliveException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    NoMoreVampiresException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-
 }

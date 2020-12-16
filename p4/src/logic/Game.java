@@ -2,6 +2,12 @@ package logic;
 
 import java.util.Random;
 
+import control.exceptions.CommandExecuteException;
+import control.exceptions.DraculaIsAliveException;
+import control.exceptions.NoMoreVampiresException;
+import control.exceptions.NotEnoughCoinsException;
+import control.exceptions.UnvalidPositionException;
+import control.exceptions.VampTypeException;
 import logic.interfaces.IAttack;
 import logic.interfaces.IPrintable;
 import logic.objects.BloodBank;
@@ -112,23 +118,22 @@ public class Game implements IPrintable {
      * @param y y coordinate
      * @param z cost
      * @return true if can be added, false if not
+     * @throws CommandExecuteException when the coordinates are invalid or the
+     *                                 player has not enough coins
      */
-    public boolean addBloodBank(int x, int y, int z) {
+    public boolean addBloodBank(int x, int y, int z) throws CommandExecuteException {
         if (!isOnBoard(x, y, false)) {
-            System.out.println(OUTOFBOARDMSG);
-            return false;
+            throw new UnvalidPositionException(x, y);
         }
         if (_board.isIn(x, y) != -1) {
-            System.out.println(OCCUERROR);
-            return false;
+            throw new UnvalidPositionException(x, y);
         }
         if (z <= _pl.getCoins()) {
             _pl.decCoins(z);
             _board.add(new BloodBank(this, x, y, _BANKHP, z));
             return true;
         } else {
-            System.out.println(COINERROR);
-            return false;
+            throw new NotEnoughCoinsException("Blood bank", z);
         }
     }
 
@@ -140,29 +145,21 @@ public class Game implements IPrintable {
      * @param type tyoe of the vampire: <Normal>, <Explosive>, <Dracula>
      * @return true if added, false if not
      */
-    public boolean addVampire(int x, int y, VampType type) {
-        if (type == null) {
-            System.out.println("[ERROR]: " + VampType.getNotFoundMsg());
-            return false;
-        }
+    public boolean addVampire(int x, int y, VampType type) throws CommandExecuteException {
         if (Vampire.getNumVamp() <= 0) {
-            System.out.println("[ERROR]:" + Vampire.getNoRemainingMSG());
-            return false;
+            throw new NoMoreVampiresException("[ERROR]: ");
         }
         if (!isOnBoard(x, y, true)) {
-            System.out.println(OUTOFBOARDMSG);
-            return false;
+            throw new UnvalidPositionException(x, y);
         }
         if (_board.isIn(x, y) != -1) {
-            System.out.println(OCCUERROR);
-            return false;
+            throw new UnvalidPositionException(x, y);
         } else {
             GameObject aux = null;
             switch (type) {
                 case DRACULA:
                     if (Dracula.isOnBoard()) {
-                        System.out.println("[ERROR]:" + Dracula.getAlreadyMsg());
-                        return false;
+                        throw new DraculaIsAliveException("[ERROR]: " + Dracula.getAlreadyMsg());
                     }
                     aux = new Dracula(this, x, y, _VAMPIREHEALTH);
                     Dracula.setOnBoard(true);
@@ -174,8 +171,7 @@ public class Game implements IPrintable {
                     aux = new Vampire(this, x, y, _VAMPIREHEALTH);
                     break;
                 default:
-                    System.out.println("[ERROR]: " + VampType.getNotFoundMsg());
-                    return false;
+                    throw new VampTypeException("[ERROR]: " + VampType.getNotFoundMsg());
             }
             Vampire.addOnBoard(1);
             Vampire.decreaseRem(1);
@@ -212,27 +208,23 @@ public class Game implements IPrintable {
      * 
      * @return true if slayer can be added, false if not
      */
-    public boolean addSlayer(int i, int j) {
+    public boolean addSlayer(int i, int j) throws CommandExecuteException {
         if (!_board.isComplete()) {
-            System.out.println(GameObjectBoard.getFullMsg());
-            return false;
+            throw new UnvalidPositionException("[ERROR]: Board is complete");
         }
         if (_pl.getCoins() >= Slayer.getCost()) {
             if (_board.isIn(i, j) != -1) {
-                System.out.println(OCCUERROR);
-                return false;
+                throw new UnvalidPositionException(i, j);
             } else {
                 if (!isOnBoard(i, j, false)) {
-                    System.out.println(OUTOFBOARDMSG);
-                    return false;
+                    throw new UnvalidPositionException(i, j);
                 }
                 _board.add(new Slayer(this, i, j, _SLAYERHEALTH));
                 _pl.decCoins(Slayer.getCost());
                 return true;
             }
         } else {
-            System.out.println(COINERROR);
-            return false;
+            throw new NotEnoughCoinsException("Slayer", Slayer.getCost());
         }
     }
 
@@ -413,8 +405,14 @@ public class Game implements IPrintable {
         if (Vampire.getNumVamp() > 0 && _rand.nextDouble() < _lvl.getFreq()) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
-            while (!addVampire(x, y, VampType.NORMAL)) {
-                y = _rand.nextInt(_dimY);
+            boolean added = false;
+            while (added) {
+                try {
+                    addVampire(x, y, VampType.NORMAL);
+                    added = true;
+                } catch (CommandExecuteException e) {
+                    y = _rand.nextInt(_dimY);
+                }
             }
 
         }
@@ -427,10 +425,15 @@ public class Game implements IPrintable {
         if (!Dracula.isOnBoard() && Vampire.getNumVamp() > 0 && _rand.nextDouble() < _lvl.getFreq()) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
-            while (!addVampire(x, y, VampType.DRACULA)) {
-                y = _rand.nextInt(_dimY);
+            boolean added = false;
+            while (added) {
+                try {
+                    addVampire(x, y, VampType.DRACULA);
+                    added = true;
+                } catch (CommandExecuteException e) {
+                    y = _rand.nextInt(_dimY);
+                }
             }
-
         }
     }
 
@@ -441,10 +444,15 @@ public class Game implements IPrintable {
         if (Vampire.getNumVamp() > 0 && _rand.nextDouble() < _lvl.getFreq()) {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
-            while (!addVampire(x, y, VampType.EXPLOSIVE)) {
-                y = _rand.nextInt(_dimY);
+            boolean added = false;
+            while (added) {
+                try {
+                    addVampire(x, y, VampType.EXPLOSIVE);
+                    added = true;
+                } catch (CommandExecuteException e) {
+                    y = _rand.nextInt(_dimY);
+                }
             }
-
         }
     }
 }

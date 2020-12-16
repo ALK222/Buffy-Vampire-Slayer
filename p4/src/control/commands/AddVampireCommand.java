@@ -1,6 +1,8 @@
 package control.commands;
 
+import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
+import control.exceptions.VampTypeException;
 import logic.Game;
 import logic.VampType;
 
@@ -39,11 +41,12 @@ public class AddVampireCommand extends Command {
     }
 
     @Override
-    public boolean execute(Game game) {
-        if (game.addVampire(_x, _y, _type)) {
-            return true;
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            return game.addVampire(_x, _y, _type);
+        } catch (CommandExecuteException e) {
+            throw e;
         }
-        return false;
     }
 
     @Override
@@ -65,12 +68,15 @@ public class AddVampireCommand extends Command {
         } else if (commandWords.length == 4) {
             try {
                 VampType type = VampType.parse(parseVamp(commandWords[1].toUpperCase()));
+                if (type == null) {
+                    throw new VampTypeException("[ERROR]: Command" + _name + ": " + VampType.getNotFoundMsg());
+                }
                 int x = Integer.parseInt(commandWords[2]);
                 int y = Integer.parseInt(commandWords[3]);
                 return new AddVampireCommand(x, y, type);
-            } catch (NumberFormatException nfe) {
-                System.out.println("[ERROR]: Command " + _name + ": " + nfe.getMessage());
-                throw new CommandParseException("[ERROR]: Command " + _name + ": " + incorrectArgsMsg, nfe);
+            } catch (NumberFormatException | VampTypeException e) {
+                System.out.println("[ERROR]: Command " + _name + ": " + e.getMessage());
+                throw new CommandParseException("[ERROR]: Command " + _name + ": " + incorrectArgsMsg, e);
             }
         }
         return null;
