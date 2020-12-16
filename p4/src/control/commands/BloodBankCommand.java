@@ -43,7 +43,8 @@ public class BloodBankCommand extends Command {
         try {
             return game.addBloodBank(_x, _y, _cost);
         } catch (CommandExecuteException e) {
-            throw e;
+            System.out.format(e.getMessage() + "%n%n");
+            throw new CommandExecuteException("[ERROR]: Failed to add blood bank", e);
         }
     }
 

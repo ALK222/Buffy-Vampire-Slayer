@@ -1,5 +1,6 @@
 package control.commands;
 
+import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
 import logic.Game;
 
@@ -21,8 +22,14 @@ public class GarlicPushCommand extends Command {
     }
 
     @Override
-    public boolean execute(Game game) {
-        return game.garlicPush();
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            return game.garlicPush();
+        } catch (CommandExecuteException e) {
+            System.out.format(e.getMessage() + "%n%n");
+            throw new CommandExecuteException("[ERROR]: Failed execute a garlic push", e);
+        }
+
     }
 
     @Override

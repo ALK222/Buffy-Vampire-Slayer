@@ -48,9 +48,6 @@ public class Game implements IPrintable {
     private static final String COINSTR = "Coins ";
     private static final String VAMPSTR = "Remaining vampires: ";
     private static final String VAMPONBOARDSTR = "Vampires on the board: ";
-    private static final String OCCUERROR = "Cell occupied";
-    private static final String OUTOFBOARDMSG = "Invalid position, please try again";
-    private static final String COINERROR = "Not enough coins";
     private static final String DEFAULTWIN = "Nobody wins";
     private static final String PLAYERWIN = "You win!";
     private static final String VAMPWIN = "Vampires win";
@@ -247,14 +244,13 @@ public class Game implements IPrintable {
      * 
      * @return if can be executed, false if not
      */
-    public boolean garlicPush() {
+    public boolean garlicPush() throws CommandExecuteException {
         if (_pl.getCoins() >= _GARLICCOST) {
             _pl.decCoins(_GARLICCOST);
             _board.garlicPush();
             return true;
         } else {
-            System.out.println(COINERROR);
-            return false;
+            throw new NotEnoughCoinsException("Garlic push", _GARLICCOST);
         }
 
     }
@@ -264,15 +260,14 @@ public class Game implements IPrintable {
      * 
      * @return if can be executed, false if not
      */
-    public boolean lightFlash() {
+    public boolean lightFlash() throws CommandExecuteException {
         if (_pl.getCoins() >= _LIGHTCOST) {
             _pl.decCoins(_LIGHTCOST);
             _board.lightFlash();
             removeDead();
             return true;
         } else {
-            System.out.println(COINERROR);
-            return false;
+            throw new NotEnoughCoinsException("Light Flash", _GARLICCOST);
         }
     }
 
@@ -406,7 +401,7 @@ public class Game implements IPrintable {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             boolean added = false;
-            while (added) {
+            while (!added) {
                 try {
                     addVampire(x, y, VampType.NORMAL);
                     added = true;
@@ -426,7 +421,7 @@ public class Game implements IPrintable {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             boolean added = false;
-            while (added) {
+            while (!added) {
                 try {
                     addVampire(x, y, VampType.DRACULA);
                     added = true;
@@ -445,7 +440,7 @@ public class Game implements IPrintable {
             int x = _dimX - 1;
             int y = _rand.nextInt(_dimY);
             boolean added = false;
-            while (added) {
+            while (!added) {
                 try {
                     addVampire(x, y, VampType.EXPLOSIVE);
                     added = true;

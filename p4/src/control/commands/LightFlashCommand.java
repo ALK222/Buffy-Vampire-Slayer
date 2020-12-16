@@ -1,5 +1,6 @@
 package control.commands;
 
+import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
 import logic.Game;
 
@@ -20,8 +21,14 @@ public class LightFlashCommand extends Command {
     }
 
     @Override
-    public boolean execute(Game game) {
-        return game.lightFlash();
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            return game.lightFlash();
+        } catch (CommandExecuteException e) {
+            System.out.format(e.getMessage() + "%n%n");
+            throw new CommandExecuteException("[ERROR]: Failed execute a Light flash", e);
+        }
+
     }
 
     @Override

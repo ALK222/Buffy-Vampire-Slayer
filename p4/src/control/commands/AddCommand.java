@@ -1,5 +1,6 @@
 package control.commands;
 
+import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
 import logic.Game;
 
@@ -36,12 +37,15 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean execute(Game game) {
-        if (game.addSlayer(_x, _y)) {
+    public boolean execute(Game game) throws CommandExecuteException {
+        try {
+            game.addSlayer(_x, _y);
             game.update();
             return true;
+        } catch (CommandExecuteException e) {
+            System.out.format(e.getMessage() + "%n%n");
+            throw new CommandExecuteException("[ERROR]: Failed to add slayer", e);
         }
-        return false;
     }
 
     @Override

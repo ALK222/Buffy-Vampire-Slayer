@@ -1,6 +1,6 @@
 package control.exceptions;
 
-public abstract class CommandExecuteException extends GameException {
+public class CommandExecuteException extends GameException {
 
     /**
      *

@@ -45,7 +45,8 @@ public class AddVampireCommand extends Command {
         try {
             return game.addVampire(_x, _y, _type);
         } catch (CommandExecuteException e) {
-            throw e;
+            System.out.format(e.getMessage() + "%n%n");
+            throw new CommandExecuteException("[ERROR]: Failed to add vampire", e);
         }
     }
 
