@@ -1,5 +1,6 @@
 package view;
 
+import logic.Game;
 import logic.interfaces.IPrintable;
 import utils.MyStringUtils;
 
@@ -13,8 +14,18 @@ public class BoardPrinter extends GamePrinter {
 
     public BoardPrinter(IPrintable printable) {
         this.printable = printable;
-        this.numRows = printable.getX();
-        this.numCols = printable.getY();
+        this.numRows = printable.getY();
+        this.numCols = printable.getX();
+    }
+
+    public BoardPrinter() {
+
+    }
+
+    public void setGame(Game g) {
+        printable = g;
+        numRows = printable.getY();
+        numCols = printable.getX();
     }
 
     public String toString() {

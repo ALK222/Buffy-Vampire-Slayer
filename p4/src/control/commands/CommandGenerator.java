@@ -12,7 +12,7 @@ public class CommandGenerator {
      */
     private static Command[] availableCommands = { new AddCommand(), new AddVampireCommand(), new BloodBankCommand(),
             new ExitCommand(), new GarlicPushCommand(), new HelpCommand(), new LightFlashCommand(), new ResetCommand(),
-            new SuperCoinsCommand(), new UpdateCommand() };
+            new SerializeCommand(), new SuperCoinsCommand(), new UpdateCommand() };
 
     public static String commandHelp() {
         // shows al commands

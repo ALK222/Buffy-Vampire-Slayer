@@ -21,15 +21,18 @@ public enum PrinterType {
         String helpString = "";
         for (PrinterType printer : PrinterType.values())
             helpString += String.format("%s : %s%s%n", printer.printerName, printer.helpText,
-                    (printer == BOARDPRINTER ? Game.DIM_X + " x " + Game.DIM_Y : ""));
+                    (printer == BOARDPRINTER ? game.getX() + " x " + game.getY() : ""));
         return helpString;
     }
 
     // Assumes a max of one object of each printer type is needed (otherwise return
     // copy)
-    public GamePrinter getObject(Game game) {
+    public void setGame(Game game) {
         printerObject.setGame(game);
-        return printerObject;
+    }
+
+    public String printGame() {
+        return printerObject.toString();
     }
 
 }

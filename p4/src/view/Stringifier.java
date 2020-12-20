@@ -13,6 +13,14 @@ public class Stringifier extends GamePrinter {
         _game = game;
     }
 
+    public Stringifier() {
+
+    }
+
+    public void setGame(Game g) {
+        _game = g;
+    }
+
     public String toString() {
 
         String stringify = "— Buffy the Vampire Slayer v3.0 —";

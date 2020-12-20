@@ -4,11 +4,8 @@ import java.util.Scanner;
 
 import control.commands.Command;
 import control.commands.CommandGenerator;
-import control.exceptions.CommandExecuteException;
 import logic.Game;
-import view.BoardPrinter;
-import view.GamePrinter;
-import view.Stringifier;
+import view.PrinterType;
 
 /**
  * Controller of the game, checks for commands and checks for the game over
@@ -18,7 +15,7 @@ public class Controller {
     // Attributes
     private Game _game;
     private Scanner _in;
-    private GamePrinter _printer;
+    private PrinterType _printer;
 
     public static final String prompt = "Command > ";
     public static final String unknownCommandMsg = String.format("Unknown command");
@@ -29,7 +26,9 @@ public class Controller {
     public Controller(Game game, Scanner scanner) {
         _game = game;
         _in = scanner;
-        _printer = new BoardPrinter(_game);
+        _printer = PrinterType.BOARDPRINTER;
+        _printer.setGame(_game);
+        _game.setCtrl(this);
     }
 
     // Methods
@@ -70,27 +69,17 @@ public class Controller {
      * Prints the board of the game
      */
     public void printGame() {
-        System.out.println(_printer);
+        System.out.println(_printer.printGame());
     }
 
-    public void setPrintMode(String mode) throws CommandExecuteException {
+    public void serialize() {
 
-        switch (mode) {
+        if (_printer == PrinterType.BOARDPRINTER) {
+            _printer = PrinterType.STRINGIFIER;
 
-            case "stringify":
-            case "s":
-                _printer = new Stringifier(_game);
-                break;
-            case "board":
-            case "b":
-                this._printer = new BoardPrinter(_game);
-                break;
-            default:
-                throw new CommandExecuteException(
-                        "[ERROR]: Unknown print mode. Avaliable modes are < stringify (s) | board (b) >.\n");
-
+        } else {
+            _printer = PrinterType.BOARDPRINTER;
         }
-
+        _printer.setGame(_game);
     }
-
 }

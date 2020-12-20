@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Random;
 
+import control.Controller;
 import control.exceptions.CommandExecuteException;
 import control.exceptions.DraculaIsAliveException;
 import control.exceptions.NoMoreVampiresException;
@@ -26,6 +27,7 @@ public class Game implements IPrintable {
 
     // ATTRIBUTES
     private boolean _exit;
+    private Controller _ctrl; // Only used for changing the view
     private int _dimX;
     private int _dimY;
     private static final int _VAMPIREHEALTH = 5;
@@ -104,6 +106,17 @@ public class Game implements IPrintable {
      */
     public int getNumVamps() {
         return _lvl.getNumVamp();
+    }
+
+    // Setters
+
+    /**
+     * Sets the controller of the game
+     * 
+     * @param c controller to set
+     */
+    public void setCtrl(Controller c) {
+        _ctrl = c;
     }
 
     // Methods
@@ -454,5 +467,9 @@ public class Game implements IPrintable {
                 }
             }
         }
+    }
+
+    public void serialize() {
+        _ctrl.serialize();
     }
 }
