@@ -1,9 +1,10 @@
 package logic;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 
 import control.Controller;
 import control.exceptions.CommandExecuteException;
@@ -489,10 +490,32 @@ public class Game implements IPrintable {
     }
 
     public void save(String file) throws IOException {
+
+        File f = new File(file + ".dat");
         GamePrinter saver = new Stringifier(this);
         saver.setGame(this);
         String saveState = saver.toString();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file + ".dat", true));
+        PrintWriter writer = new PrintWriter(file + ".dat");
+        if (f.exists()) {
+            System.out.println("File " + file + ".dat alrready exists, do you want to rewrite it? (Y/N)");
+            String rewrite = new Scanner(System.in).nextLine();
+            switch (rewrite.toLowerCase()) {
+                case "y":
+                case "yes":
+                    writer.print("");
+                    break;
+                case "n":
+                case "no":
+                    int i = 1;
+                    while (f.exists()) {
+                        f = new File(file + i + ".dat");
+                    }
+                    file += i;
+                    writer = new PrintWriter(file + ".dat");
+                default:
+                    break;
+            }
+        }
         writer.append(saveState);
         writer.close();
     }
