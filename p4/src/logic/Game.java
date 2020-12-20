@@ -58,6 +58,9 @@ public class Game implements IPrintable {
     private static final String DEFAULTWIN = "Nobody wins";
     private static final String PLAYERWIN = "You win!";
     private static final String VAMPWIN = "Vampires win";
+    private static final String FILEEXTENSION = ".dat";
+    private static final String REWRITEMSG = " already exists, do you want to rewrite? (Y/N/cancel)";
+    private static final String SAVEDMSG = "Saved game on: ";
 
     // CONSTRUCTOR
     /**
@@ -490,20 +493,20 @@ public class Game implements IPrintable {
 
     public void save(String file) throws Exception {
 
-        File f = new File(file + ".dat");
+        File f = new File(file + FILEEXTENSION);
         GamePrinter saver = new Stringifier(this);
         saver.setGame(this);
         String saveState = saver.toString();
 
         if (f.exists()) {
-            System.out.println("File " + file + ".dat alrready exists, do you want to rewrite it? (Y/N)");
+            System.out.println("File " + file + FILEEXTENSION + REWRITEMSG);
             Scanner in = new Scanner(System.in);
             String rewrite = in.nextLine();
             in.close();
             switch (rewrite.toLowerCase()) {
                 case "y":
                 case "yes":
-                    PrintWriter writer1 = new PrintWriter(file + ".dat");
+                    PrintWriter writer1 = new PrintWriter(file + FILEEXTENSION);
                     writer1.print("");
                     writer1.close();
                     break;
@@ -511,7 +514,7 @@ public class Game implements IPrintable {
                 case "no":
                     int i = 1;
                     while (f.exists()) {
-                        f = new File(file + i + ".dat");
+                        f = new File(file + i + FILEEXTENSION);
                     }
                     file += i;
                 case "cancel":
@@ -520,9 +523,9 @@ public class Game implements IPrintable {
                     throw new CommandExecuteException("[ERROR]: input not recogniced");
             }
         }
-        PrintWriter writer = new PrintWriter(file + ".dat");
+        PrintWriter writer = new PrintWriter(file + FILEEXTENSION);
         writer.append(saveState);
         writer.close();
-        System.out.println("Saved game on: " + file + ".dat");
+        System.out.println(SAVEDMSG + file + FILEEXTENSION);
     }
 }
