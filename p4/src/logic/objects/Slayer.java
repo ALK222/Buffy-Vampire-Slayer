@@ -71,7 +71,7 @@ public class Slayer extends GameObject {
 
     @Override
     public String stringify() {
-        return String.format("S;%;%;%", _x, _y, _hp);
+        return String.format("S;%d;%d;%d", _x, _y, _hp);
     }
 
     @Override

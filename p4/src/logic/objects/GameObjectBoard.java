@@ -126,7 +126,7 @@ public class GameObjectBoard {
     public String stringify() {
         String aux = "";
         for (GameObject o : _board) {
-            aux += o.stringify() + "%n";
+            aux += o.stringify() + "\n";
         }
         return aux;
     }

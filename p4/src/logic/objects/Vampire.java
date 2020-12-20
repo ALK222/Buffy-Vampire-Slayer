@@ -132,7 +132,7 @@ public class Vampire extends GameObject {
 
     @Override
     public String stringify() {
-        return String.format("V;%;%;%,%", _x, _y, _hp, _cycle);
+        return String.format("V;%d;%d;%d,%d", _x, _y, _hp, _cycle);
     }
 
     @Override
@@ -150,8 +150,9 @@ public class Vampire extends GameObject {
             if (_cycle % 2 == 0) {
                 _cycle = 1;
                 _x -= 1;
+            } else {
+                _cycle++;
             }
-            _cycle++;
         }
     }
 

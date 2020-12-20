@@ -81,7 +81,7 @@ public class Dracula extends Vampire {
 
     @Override
     public String stringify() {
-        return String.format("D;%;%;%,%", _x, _y, _hp, _cycle);
+        return String.format("D;%d;%d;%d,%d", _x, _y, _hp, _cycle);
     }
 
     @Override

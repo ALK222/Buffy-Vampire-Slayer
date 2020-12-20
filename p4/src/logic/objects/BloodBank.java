@@ -37,7 +37,7 @@ public class BloodBank extends GameObject {
 
     @Override
     public String stringify() {
-        return String.format("B;%;%;%;%", _x, _y, _hp, _cost);
+        return String.format("B;%d;%d;%d;%d", _x, _y, _hp, _cost);
     }
 
     @Override

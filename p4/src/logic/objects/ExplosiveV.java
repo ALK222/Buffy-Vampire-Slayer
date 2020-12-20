@@ -30,7 +30,7 @@ public class ExplosiveV extends Vampire {
 
     @Override
     public String stringify() {
-        return String.format("EV;%;%;%;%", _x, _y, _hp, _cycle);
+        return String.format("EV;%d;%d;%d;%d", _x, _y, _hp, _cycle);
     }
 
     @Override
