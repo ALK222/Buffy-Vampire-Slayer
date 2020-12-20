@@ -1,7 +1,5 @@
 package control.commands;
 
-import java.io.IOException;
-
 import control.exceptions.CommandExecuteException;
 import control.exceptions.CommandParseException;
 import logic.Game;
@@ -36,7 +34,7 @@ public class SaveCommand extends Command {
     public boolean execute(Game game) throws CommandExecuteException {
         try {
             game.save(_file);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e);
             throw new CommandExecuteException("[ERROR]: failed to save the game", e);
         }

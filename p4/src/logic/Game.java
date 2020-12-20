@@ -1,7 +1,6 @@
 package logic;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
@@ -489,20 +488,24 @@ public class Game implements IPrintable {
         _ctrl.serialize();
     }
 
-    public void save(String file) throws IOException {
+    public void save(String file) throws Exception {
 
         File f = new File(file + ".dat");
         GamePrinter saver = new Stringifier(this);
         saver.setGame(this);
         String saveState = saver.toString();
-        PrintWriter writer = new PrintWriter(file + ".dat");
+
         if (f.exists()) {
             System.out.println("File " + file + ".dat alrready exists, do you want to rewrite it? (Y/N)");
-            String rewrite = new Scanner(System.in).nextLine();
+            Scanner in = new Scanner(System.in);
+            String rewrite = in.nextLine();
+            in.close();
             switch (rewrite.toLowerCase()) {
                 case "y":
                 case "yes":
-                    writer.print("");
+                    PrintWriter writer1 = new PrintWriter(file + ".dat");
+                    writer1.print("");
+                    writer1.close();
                     break;
                 case "n":
                 case "no":
@@ -511,12 +514,15 @@ public class Game implements IPrintable {
                         f = new File(file + i + ".dat");
                     }
                     file += i;
-                    writer = new PrintWriter(file + ".dat");
+                case "cancel":
+                    throw new CommandExecuteException("[ERROR]: Operation canceled");
                 default:
-                    break;
+                    throw new CommandExecuteException("[ERROR]: input not recogniced");
             }
         }
+        PrintWriter writer = new PrintWriter(file + ".dat");
         writer.append(saveState);
         writer.close();
+        System.out.println("Saved game on: " + file + ".dat");
     }
 }
