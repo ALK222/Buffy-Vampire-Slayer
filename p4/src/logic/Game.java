@@ -1,5 +1,8 @@
 package logic;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 import control.Controller;
@@ -19,6 +22,8 @@ import logic.objects.GameObjectBoard;
 import logic.objects.Player;
 import logic.objects.Slayer;
 import logic.objects.Vampire;
+import view.GamePrinter;
+import view.Stringifier;
 
 /**
  * Main logic of the game
@@ -322,6 +327,16 @@ public class Game implements IPrintable {
         return aux;
     }
 
+    public String getSerializeInfo() {
+        String aux = "Cycles: " + _cycle + "\n";
+        aux += "Coins: " + _pl.getCoins() + "\n";
+        aux += "Level: " + _lvl.toString() + "\n";
+        aux += VAMPSTR + Vampire.getNumVamp() + "\n";
+        aux += VAMPONBOARDSTR + Vampire.getOnBoard() + "\n";
+
+        return aux;
+    }
+
     /**
      * Returns a string with the character at a given point
      * 
@@ -471,5 +486,14 @@ public class Game implements IPrintable {
 
     public void serialize() {
         _ctrl.serialize();
+    }
+
+    public void save(String file) throws IOException {
+        GamePrinter saver = new Stringifier(this);
+        saver.setGame(this);
+        String saveState = saver.toString();
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file + ".dat", true));
+        writer.append(saveState);
+        writer.close();
     }
 }

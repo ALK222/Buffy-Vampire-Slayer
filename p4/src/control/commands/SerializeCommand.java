@@ -7,8 +7,8 @@ import logic.Game;
 public class SerializeCommand extends Command {
 
     private static final String _name = "Serialize";
-    private static final String _shortcut = "S";
-    private static final String _details = "[S]erialize";
+    private static final String _shortcut = "C";
+    private static final String _details = "Serialize | C";
     private static final String _help = "changes the view between serialize and board.";
 
     public SerializeCommand() {

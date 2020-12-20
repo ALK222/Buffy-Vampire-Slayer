@@ -34,4 +34,6 @@ public interface IPrintable {
     String getInfo();
 
     String stringify();
+
+    String getSerializeInfo();
 }
