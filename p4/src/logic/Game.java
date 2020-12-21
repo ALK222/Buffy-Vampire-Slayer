@@ -253,7 +253,7 @@ public class Game implements IPrintable {
             bondX--;
             bondY--;
         }
-        if (0 > i || i >= (bondX) || 0 > j || j > (bondY)) {
+        if (0 > i || i >= (bondX) || 0 > j || j >= (bondY)) {
             return false;
         } else {
             return true;
@@ -367,6 +367,7 @@ public class Game implements IPrintable {
         _pl.setCoins(_STARTERCOINS);
         Vampire.setNumVamp(_lvl.getNumVamp());
         Vampire.setOnBoard(0);
+        Dracula.setOnBoard(false);
     }
 
     /**
