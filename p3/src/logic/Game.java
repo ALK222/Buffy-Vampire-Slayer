@@ -344,6 +344,7 @@ public class Game implements IPrintable {
         _pl.setCoins(_STARTERCOINS);
         Vampire.setNumVamp(_lvl.getNumVamp());
         Vampire.setOnBoard(0);
+        Dracula.setOnBoard(false);
     }
 
     /**
