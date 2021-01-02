@@ -1,9 +1,8 @@
 package logic;
 
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Random;
-import java.util.Scanner;
 
 import control.Controller;
 import control.exceptions.CommandExecuteException;
@@ -59,8 +58,9 @@ public class Game implements IPrintable {
     private static final String PLAYERWIN = "You win!";
     private static final String VAMPWIN = "Vampires win";
     private static final String FILEEXTENSION = ".dat";
-    private static final String REWRITEMSG = " already exists, do you want to rewrite? (Y/N/cancel)";
-    private static final String SAVEDMSG = "Saved game on: ";
+    // private static final String REWRITEMSG = " already exists, do you want to
+    // rewrite? (Y/N/cancel)";
+    private static final String SAVEDMSG = "Game successfully saved in file ";
 
     // CONSTRUCTOR
     /**
@@ -246,14 +246,22 @@ public class Game implements IPrintable {
         }
     }
 
+    /**
+     * Checks if a object is on board
+     * 
+     * @param i       x coordinate
+     * @param j       y coordinate
+     * @param amplied apmlied board for vampire spawn
+     * @return true if the coordinates are on board, false if not
+     */
     public boolean isOnBoard(int i, int j, boolean amplied) {
         int bondX = _dimX;
         int bondY = _dimY;
         if (!amplied) { // if used to check the boundaries for a vampire, the board is amplied
             bondX--;
-            bondY--;
+            // bondY--;
         }
-        if (0 > i || i >= (bondX) || 0 > j || j > (bondY)) {
+        if (0 > i || i >= (bondX) || 0 > j || j >= (bondY)) {
             return false;
         } else {
             return true;
@@ -492,40 +500,52 @@ public class Game implements IPrintable {
     }
 
     public void save(String file) throws Exception {
-
-        File f = new File(file + FILEEXTENSION);
         GamePrinter saver = new Stringifier(this);
-        saver.setGame(this);
-        String saveState = saver.toString();
+        String state = saver.toString();
 
-        if (f.exists()) {
-            System.out.println("File " + file + FILEEXTENSION + REWRITEMSG);
-            Scanner in = new Scanner(System.in);
-            String rewrite = in.nextLine();
-            in.close();
-            switch (rewrite.toLowerCase()) {
-                case "y":
-                case "yes":
-                    PrintWriter writer1 = new PrintWriter(file + FILEEXTENSION);
-                    writer1.print("");
-                    writer1.close();
-                    break;
-                case "n":
-                case "no":
-                    int i = 1;
-                    while (f.exists()) {
-                        f = new File(file + i + FILEEXTENSION);
-                    }
-                    file += i;
-                case "cancel":
-                    throw new CommandExecuteException("[ERROR]: Operation canceled");
-                default:
-                    throw new CommandExecuteException("[ERROR]: input not recogniced");
-            }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file + FILEEXTENSION, true))) {
+            writer.append(state);
+            writer.close();
+            System.out.println(SAVEDMSG + file + FILEEXTENSION);
+        } catch (Exception e) {
+            throw e;
         }
-        PrintWriter writer = new PrintWriter(file + FILEEXTENSION);
-        writer.append(saveState);
-        writer.close();
-        System.out.println(SAVEDMSG + file + FILEEXTENSION);
+
+        // Save with rewrite option chooser and file creation based on same file names
+        // to avoid rewriting
+        // File f = new File(file + FILEEXTENSION);
+        // GamePrinter saver = new Stringifier(this);
+        // saver.setGame(this);
+        // String saveState = saver.toString();
+
+        // if (f.exists()) {
+        // System.out.println("File " + file + FILEEXTENSION + REWRITEMSG);
+        // Scanner in = new Scanner(System.in);
+        // String rewrite = in.nextLine();
+        // in.close();
+        // switch (rewrite.toLowerCase()) {
+        // case "y":
+        // case "yes":
+        // PrintWriter writer1 = new PrintWriter(file + FILEEXTENSION);
+        // writer1.print("");
+        // writer1.close();
+        // break;
+        // case "n":
+        // case "no":
+        // int i = 1;
+        // while (f.exists()) {
+        // f = new File(file + i + FILEEXTENSION);
+        // }
+        // file += i;
+        // case "cancel":
+        // throw new CommandExecuteException("[ERROR]: Operation canceled");
+        // default:
+        // throw new CommandExecuteException("[ERROR]: input not recogniced");
+        // }
+        // }
+        // PrintWriter writer = new PrintWriter(file + FILEEXTENSION);
+        // writer.append(saveState);
+        // writer.close();
+        // System.out.println(SAVEDMSG + file + FILEEXTENSION);
     }
 }

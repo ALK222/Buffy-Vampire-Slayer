@@ -95,6 +95,7 @@ public class Vampire extends GameObject {
 
     @Override
     public boolean receiveGarlicPush() {
+        x++;
         if (!_game.isOnBoard(_x, _y, true)) {
             _hp = 0;
             onDead();
