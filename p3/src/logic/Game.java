@@ -241,9 +241,8 @@ public class Game implements IPrintable {
         int bondY = _dimY;
         if (!amplied) { // if used to check the boundaries for a vampire, the board is amplied
             bondX--;
-            bondY--;
         }
-        if (0 > i || i >= (bondX) || 0 > j || j > (bondY)) {
+        if (0 > i || i >= (bondX) || 0 > j || j >= (bondY)) {
             return false;
         } else {
             return true;
@@ -344,6 +343,7 @@ public class Game implements IPrintable {
         _pl.setCoins(_STARTERCOINS);
         Vampire.setNumVamp(_lvl.getNumVamp());
         Vampire.setOnBoard(0);
+        Dracula.setOnBoard(false);
     }
 
     /**
