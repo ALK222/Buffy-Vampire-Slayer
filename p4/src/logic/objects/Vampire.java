@@ -95,7 +95,7 @@ public class Vampire extends GameObject {
 
     @Override
     public boolean receiveGarlicPush() {
-        x++;
+        _x++;
         if (!_game.isOnBoard(_x, _y, true)) {
             _hp = 0;
             onDead();
@@ -157,6 +157,9 @@ public class Vampire extends GameObject {
         }
     }
 
+    /**
+     * Action a vampire will make when it's killed
+     */
     public void onDead() {
         Vampire.decOnBoard(1);
     }

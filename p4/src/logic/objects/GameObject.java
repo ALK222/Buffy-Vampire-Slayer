@@ -79,6 +79,12 @@ public abstract class GameObject implements IAttack {
      */
     public abstract String toString();
 
+    /**
+     * Serialize info of an object
+     * 
+     * @return a serialized summary of the object: symbol, coordinates, health and
+     *         other important attributes
+     */
     public abstract String stringify();
 
     /**

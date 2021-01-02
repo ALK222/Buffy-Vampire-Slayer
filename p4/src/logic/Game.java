@@ -2,6 +2,7 @@ package logic;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 import control.Controller;
@@ -338,6 +339,12 @@ public class Game implements IPrintable {
         return aux;
     }
 
+    /**
+     * Serialize info for the game
+     * 
+     * @return the number of cycles, coins, levelm vampires remaining to appear and
+     *         vampires on board.
+     */
     public String getSerializeInfo() {
         String aux = "Cycles: " + _cycle + "\n";
         aux += "Coins: " + _pl.getCoins() + "\n";
@@ -361,6 +368,11 @@ public class Game implements IPrintable {
         return _board.toString(j, i);
     }
 
+    /**
+     * Serializer of the game
+     * 
+     * @return a serialize string of the game
+     */
     @Override
     public String stringify() {
         return _board.stringify();
@@ -496,29 +508,61 @@ public class Game implements IPrintable {
         }
     }
 
+    /**
+     * Tells the controller to change the display type
+     */
     public void serialize() {
         _ctrl.serialize();
     }
 
-    public void save(String file) throws Exception {
+    /**
+     * Saves the state of the game into a file
+     * 
+     * @param file name of the file
+     * @throws IOException if the named file exists but is a directory rather than a
+     *                     regular file, does not exist but cannot be created, or
+     *                     cannot be opened for any other reason
+     */
+    public void save(String file) throws IOException {
         GamePrinter saver = new Stringifier(this);
         String state = saver.toString();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file + FILEEXTENSION, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file + FILEEXTENSION, false))) {
             writer.append(state);
             writer.close();
             System.out.println(SAVEDMSG + file + FILEEXTENSION);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw e;
         }
+    }
 
-        // Save with rewrite option chooser and file creation based on same file names
-        // to avoid rewriting
+    /**
+     * <p>
+     * Unused function that implements a true save.
+     * </p>
+     * <p>
+     * Implements a warning message if the file already exists to rewrite.
+     * </p>
+     * <p>
+     * If the user selects not to rewrite the file, the funcition will create other
+     * file adding a number with the new info.
+     * </p>
+     * 
+     * @param file Name of the file to save
+     * @throws IOException             if the named file exists but is a directory
+     *                                 rather than a regular file, does not exist
+     *                                 but cannot be created, or cannot be opened
+     *                                 for any other reason
+     * @throws CommandExecuteException if the user picks an invalid option when
+     *                                 selecting if the file is going to be
+     *                                 rewritten or not or if the operation is
+     *                                 canceled
+     */
+    public void functionalSave(String file) throws IOException, CommandExecuteException {
         // File f = new File(file + FILEEXTENSION);
         // GamePrinter saver = new Stringifier(this);
         // saver.setGame(this);
         // String saveState = saver.toString();
-
         // if (f.exists()) {
         // System.out.println("File " + file + FILEEXTENSION + REWRITEMSG);
         // Scanner in = new Scanner(System.in);
