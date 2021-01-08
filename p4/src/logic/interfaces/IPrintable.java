@@ -33,7 +33,17 @@ public interface IPrintable {
      */
     String getInfo();
 
+    /**
+     * Serializer of the game
+     * 
+     * @return a serialize state of the game
+     */
     String stringify();
 
+    /**
+     * Serialized information of the game
+     * 
+     * @return a serialized version of the game
+     */
     String getSerializeInfo();
 }

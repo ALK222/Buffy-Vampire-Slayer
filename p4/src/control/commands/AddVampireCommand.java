@@ -54,42 +54,51 @@ public class AddVampireCommand extends Command {
     public Command parse(String[] commandWords) throws CommandParseException {
         if (!matchCommandName(commandWords[0])) {
             return null;
-        } else if (commandWords.length <= 3 && commandWords.length >= 4) {
+        } else if (commandWords.length < 3 && commandWords.length > 4) {
             throw new CommandParseException("[ERROR]: Command" + _name + " : " + incorrectNumberOfArgsMsg);
         }
-        if (commandWords.length == 3) {
-            try {
-                int x = Integer.parseInt(commandWords[1]);
-                int y = Integer.parseInt(commandWords[2]);
-                return new AddVampireCommand(x, y, VampType.NORMAL);
-            } catch (NumberFormatException nfe) {
-                System.out.println("[ERROR]: Command " + _name + ": " + nfe.getMessage());
-                throw new CommandParseException("[ERROR]: Command " + _name + ": " + incorrectArgsMsg, nfe);
-            }
-        } else if (commandWords.length == 4) {
-            try {
-                VampType type = VampType.parse(parseVamp(commandWords[1].toUpperCase()));
+        int pos = 0;
+        VampType type = null;
+        if (commandWords.length >= 4) {
+            pos = 1; // changes the position of the coordinate position if a vampire type is given
+            type = VampType.parse(parseVamp(commandWords[1].toUpperCase())); // changes the type of the vampire to the
+                                                                             // given one
+        }
+        try {
+            int x = Integer.parseInt(commandWords[pos + 1]);
+            int y = Integer.parseInt(commandWords[pos + 2]);
+            if (commandWords.length == 4) {
+
                 if (type == null) {
                     throw new VampTypeException("[ERROR]: Command" + _name + ": " + VampType.getNotFoundMsg());
+                } else {
+                    return new AddVampireCommand(x, y, type);
                 }
-                int x = Integer.parseInt(commandWords[2]);
-                int y = Integer.parseInt(commandWords[3]);
-                return new AddVampireCommand(x, y, type);
-            } catch (NumberFormatException | VampTypeException e) {
-                System.out.println("[ERROR]: Command " + _name + ": " + e.getMessage());
-                throw new CommandParseException("[ERROR]: Command " + _name + ": " + incorrectArgsMsg, e);
+            } else {
+                return new AddVampireCommand(x, y, VampType.NORMAL);
             }
+        } catch (NumberFormatException | VampTypeException e) {
+            System.out.println("[ERROR]: Command " + _name + ": " + e.getMessage());
+            throw new CommandParseException("[ERROR]: Command " + _name + ": " + incorrectArgsMsg, e);
         }
-        return null;
     }
 
+    /**
+     * Parses the given string into the proper one acepted by the enum VampType
+     * 
+     * @param type string given
+     * @return string accepted by the enum
+     */
     private String parseVamp(String type) {
         switch (type) {
             case "D":
+            case "DRACULA":
                 return "Dracula";
             case "E":
+            case "EXPLOSIVE":
                 return "Explosive";
             case "N":
+            case "NORMAL":
                 return "Normal";
             default:
                 return "";

@@ -8,7 +8,7 @@ import logic.Game;
 import view.PrinterType;
 
 /**
- * Controller of the game, checks for commands and checks for the game over
+ * Controller of the game, checks for commands and checks for the game state
  */
 public class Controller {
 
@@ -17,10 +17,7 @@ public class Controller {
     private Scanner _in;
     private PrinterType _printer;
 
-    public static final String prompt = "Command > ";
-    public static final String unknownCommandMsg = String.format("Unknown command");
-    public static final String invalidCommandMsg = String.format("Invalid command");
-    public static final String invalidPositionMsg = String.format("Invalid position");
+    public static final String prompt = "Command > "; // Prompt string used to ask for a command
 
     // Constructor
     public Controller(Game game, Scanner scanner) {
@@ -33,9 +30,7 @@ public class Controller {
 
     // Methods
     /**
-     * Cycles of the game
-     * 
-     * @throws Exception
+     * Runner of the game, runs cycle until the game ends
      */
     public void run() {
         boolean refreshDisplay = true;
@@ -72,6 +67,9 @@ public class Controller {
         System.out.println(_printer.printGame());
     }
 
+    /**
+     * Changes the type of printer being used
+     */
     public void serialize() {
 
         if (_printer == PrinterType.BOARDPRINTER) {
