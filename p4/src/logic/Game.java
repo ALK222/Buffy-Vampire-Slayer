@@ -297,7 +297,7 @@ public class Game implements IPrintable {
             removeDead();
             return true;
         } else {
-            throw new NotEnoughCoinsException("Light Flash", _GARLICCOST);
+            throw new NotEnoughCoinsException("Light Flash", _LIGHTCOST);
         }
     }
 
