@@ -5,7 +5,6 @@ import java.util.Scanner;
 import control.commands.Command;
 import control.commands.CommandGenerator;
 import logic.Game;
-import view.PrinterType;
 
 /**
  * Controller of the game, checks for commands and checks for the game state
@@ -15,7 +14,6 @@ public class Controller {
     // Attributes
     private Game _game;
     private Scanner _in;
-    private PrinterType _printer;
 
     public static final String prompt = "Command > "; // Prompt string used to ask for a command
 
@@ -23,9 +21,6 @@ public class Controller {
     public Controller(Game game, Scanner scanner) {
         _game = game;
         _in = scanner;
-        _printer = PrinterType.BOARDPRINTER;
-        _printer.setGame(_game);
-        _game.setCtrl(this);
     }
 
     // Methods
@@ -64,20 +59,6 @@ public class Controller {
      * Prints the board of the game
      */
     public void printGame() {
-        System.out.println(_printer.printGame());
-    }
-
-    /**
-     * Changes the type of printer being used
-     */
-    public void serialize() {
-
-        if (_printer == PrinterType.BOARDPRINTER) {
-            _printer = PrinterType.STRINGIFIER;
-
-        } else {
-            _printer = PrinterType.BOARDPRINTER;
-        }
-        _printer.setGame(_game);
+        System.out.println(_game.toString());
     }
 }

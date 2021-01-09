@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
-import control.Controller;
 import control.exceptions.CommandExecuteException;
 import control.exceptions.DraculaIsAliveException;
 import control.exceptions.NoMoreVampiresException;
@@ -23,6 +22,7 @@ import logic.objects.Player;
 import logic.objects.Slayer;
 import logic.objects.Vampire;
 import view.GamePrinter;
+import view.PrinterType;
 import view.Stringifier;
 
 /**
@@ -32,7 +32,6 @@ public class Game implements IPrintable {
 
     // ATTRIBUTES
     private boolean _exit;
-    private Controller _ctrl; // Only used for changing the view
     private int _dimX;
     private int _dimY;
     private static final int _VAMPIREHEALTH = 5;
@@ -47,6 +46,7 @@ public class Game implements IPrintable {
     private Player _pl;
     private Random _rand;
 
+    private PrinterType _printer;
     private GameObjectBoard _board;
     private String _finalMsg;
 
@@ -82,6 +82,8 @@ public class Game implements IPrintable {
         _board = new GameObjectBoard(_dimX, _dimY);
         _finalMsg = DEFAULTWIN;
         _exit = false;
+        _printer = PrinterType.BOARDPRINTER;
+        _printer.setGame(this);
     }
 
     // Getters
@@ -115,17 +117,6 @@ public class Game implements IPrintable {
      */
     public int getNumVamps() {
         return _lvl.getNumVamp();
-    }
-
-    // Setters
-
-    /**
-     * Sets the controller of the game
-     * 
-     * @param c controller to set
-     */
-    public void setCtrl(Controller c) {
-        _ctrl = c;
     }
 
     // Methods
@@ -378,6 +369,11 @@ public class Game implements IPrintable {
         return _board.stringify();
     }
 
+    @Override
+    public String toString() {
+        return _printer.printGame();
+    }
+
     /**
      * Resets the game
      */
@@ -512,7 +508,13 @@ public class Game implements IPrintable {
      * Tells the controller to change the display type
      */
     public void serialize() {
-        _ctrl.serialize();
+        if (_printer == PrinterType.BOARDPRINTER) {
+            _printer = PrinterType.STRINGIFIER;
+
+        } else {
+            _printer = PrinterType.BOARDPRINTER;
+        }
+        _printer.setGame(this);
     }
 
     /**
