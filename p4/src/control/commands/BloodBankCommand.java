@@ -41,7 +41,9 @@ public class BloodBankCommand extends Command {
     @Override
     public boolean execute(Game game) throws CommandExecuteException {
         try {
-            return game.addBloodBank(_x, _y, _cost);
+            game.addBloodBank(_x, _y, _cost);
+            game.update();
+            return true;
         } catch (CommandExecuteException e) {
             System.out.format(e.getMessage() + "%n%n");
             throw new CommandExecuteException("[ERROR]: Failed to add blood bank", e);
