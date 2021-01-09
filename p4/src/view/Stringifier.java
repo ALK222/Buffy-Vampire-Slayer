@@ -23,11 +23,10 @@ public class Stringifier extends GamePrinter {
 
     public String toString() {
 
-        String stringify = "— Buffy the Vampire Slayer v3.0 —";
+        String stringify = "Buffy the Vampire Slayer v3.0";
         stringify += "\n" + _game.getSerializeInfo();
-        stringify += "\n \n";
+        stringify += "\nGame Object List: \n";
         stringify += _game.stringify();
-        ;
         return stringify;
     }
 
