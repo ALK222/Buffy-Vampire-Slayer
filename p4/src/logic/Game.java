@@ -1,8 +1,5 @@
 package logic;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Random;
 
 import control.exceptions.CommandExecuteException;
@@ -21,9 +18,7 @@ import logic.objects.GameObjectBoard;
 import logic.objects.Player;
 import logic.objects.Slayer;
 import logic.objects.Vampire;
-import view.GamePrinter;
 import view.PrinterType;
-import view.Stringifier;
 
 /**
  * Main logic of the game
@@ -58,10 +53,7 @@ public class Game implements IPrintable {
     private static final String DEFAULTWIN = "Nobody wins";
     private static final String PLAYERWIN = "You win!";
     private static final String VAMPWIN = "Vampires win";
-    private static final String FILEEXTENSION = ".dat";
-    // private static final String REWRITEMSG = " already exists, do you want to
-    // rewrite? (Y/N/cancel)";
-    private static final String SAVEDMSG = "Game successfully saved in file ";
+    
 
     // CONSTRUCTOR
     /**
@@ -515,84 +507,5 @@ public class Game implements IPrintable {
             _printer = PrinterType.BOARDPRINTER;
         }
         _printer.setGame(this);
-    }
-
-    /**
-     * Saves the state of the game into a file
-     * 
-     * @param file name of the file
-     * @throws IOException if the named file exists but is a directory rather than a
-     *                     regular file, does not exist but cannot be created, or
-     *                     cannot be opened for any other reason
-     */
-    public void save(String file) throws IOException {
-        GamePrinter saver = new Stringifier(this);
-        String state = saver.toString();
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file + FILEEXTENSION, false))) {
-            writer.append(state);
-            writer.close();
-            System.out.println(SAVEDMSG + file + FILEEXTENSION);
-        } catch (IOException e) {
-            throw e;
-        }
-    }
-
-    /**
-     * <p>
-     * Unused function that implements a true save.
-     * </p>
-     * <p>
-     * Implements a warning message if the file already exists to rewrite.
-     * </p>
-     * <p>
-     * If the user selects not to rewrite the file, the funcition will create other
-     * file adding a number with the new info.
-     * </p>
-     * 
-     * @param file Name of the file to save
-     * @throws IOException             if the named file exists but is a directory
-     *                                 rather than a regular file, does not exist
-     *                                 but cannot be created, or cannot be opened
-     *                                 for any other reason
-     * @throws CommandExecuteException if the user picks an invalid option when
-     *                                 selecting if the file is going to be
-     *                                 rewritten or not or if the operation is
-     *                                 canceled
-     */
-    public void functionalSave(String file) throws IOException, CommandExecuteException {
-        // File f = new File(file + FILEEXTENSION);
-        // GamePrinter saver = new Stringifier(this);
-        // saver.setGame(this);
-        // String saveState = saver.toString();
-        // if (f.exists()) {
-        // System.out.println("File " + file + FILEEXTENSION + REWRITEMSG);
-        // Scanner in = new Scanner(System.in);
-        // String rewrite = in.nextLine();
-        // in.close();
-        // switch (rewrite.toLowerCase()) {
-        // case "y":
-        // case "yes":
-        // PrintWriter writer1 = new PrintWriter(file + FILEEXTENSION);
-        // writer1.print("");
-        // writer1.close();
-        // break;
-        // case "n":
-        // case "no":
-        // int i = 1;
-        // while (f.exists()) {
-        // f = new File(file + i + FILEEXTENSION);
-        // }
-        // file += i;
-        // case "cancel":
-        // throw new CommandExecuteException("[ERROR]: Operation canceled");
-        // default:
-        // throw new CommandExecuteException("[ERROR]: input not recogniced");
-        // }
-        // }
-        // PrintWriter writer = new PrintWriter(file + FILEEXTENSION);
-        // writer.append(saveState);
-        // writer.close();
-        // System.out.println(SAVEDMSG + file + FILEEXTENSION);
     }
 }
