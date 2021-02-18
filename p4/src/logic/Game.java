@@ -338,8 +338,8 @@ public class Game implements IPrintable {
      */
     public String getSerializeInfo() {
         String aux = "Cycles: " + _cycle + "\n";
-        aux += "Coins: " + _pl.getCoins() + "\n";
         aux += "Level: " + _lvl.toString() + "\n";
+        aux += "Coins: " + _pl.getCoins() + "\n";
         aux += VAMPSTR + Vampire.getNumVamp() + "\n";
         aux += VAMPONBOARDSTR + Vampire.getOnBoard() + "\n";
 
@@ -370,6 +370,9 @@ public class Game implements IPrintable {
     }
 
     @Override
+    /**
+     * @return the current state of the game given by the type of printer
+     */
     public String toString() {
         return _printer.printGame();
     }
